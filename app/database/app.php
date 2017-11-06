@@ -3,7 +3,7 @@
 use Illuminate\Database\Capsule\Manager;
 use Illuminate\Database\Schema\Blueprint;
 
-Manager::schema()->create('list', function (Blueprint $table) {
+Manager::schema()->create('giftlist', function (Blueprint $table) {
     $table->increments('id');
     $table->string('name');
     $table->string('description');
@@ -17,7 +17,7 @@ Manager::schema()->create('list', function (Blueprint $table) {
 
 Manager::schema()->create('gift', function (Blueprint $table) {
     $table->increments('id');
-    $table->unsignedInteger('list_id');
+    $table->unsignedInteger('giftlist_id');
     $table->string('name');
     $table->string('url')->nullable();
     $table->string('description')->nullable();
@@ -25,19 +25,19 @@ Manager::schema()->create('gift', function (Blueprint $table) {
     $table->string('picture')->nullable();
     $table->boolean('booked');
     $table->timestamps();
-    $table->foreign('list_id')->references('id')->on('list');
+    $table->foreign('giftlist_id')->references('id')->on('giftlist');
 });
 
-Manager::schema()->create('comment_list', function (Blueprint $table) {
+Manager::schema()->create('commentlist', function (Blueprint $table) {
     $table->increments('id');
     $table->string('author');
     $table->string('content');
-    $table->unsignedInteger('list_id');
+    $table->unsignedInteger('giftlist_id');
     $table->timestamps();
-    $table->foreign('list_id')->references('id')->on('list');
+    $table->foreign('giftlist_id')->references('id')->on('giftlist');
 });
 
-Manager::schema()->create('comment_gift', function (Blueprint $table) {
+Manager::schema()->create('commentgift', function (Blueprint $table) {
     $table->increments('id');
     $table->string('author');
     $table->string('content');
