@@ -3,6 +3,11 @@
 use Illuminate\Database\Capsule\Manager;
 
 $tables = [
+    'commentgift',
+    'commentlist',
+    'gift',
+    'giftlist',
+
     'activations',
     'persistences',
     'reminders',
