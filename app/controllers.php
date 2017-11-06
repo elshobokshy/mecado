@@ -3,6 +3,7 @@
 $controllers = [
     'admin.controller' => 'Admin\Controller\AdminController',
     'app.controller'   => 'App\Controller\AppController',
+    'test.controller'   => 'App\Controller\TestController',
     'auth.controller'  => 'Security\Controller\AuthController'
 ];
 
