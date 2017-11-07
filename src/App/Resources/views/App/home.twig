@@ -1,10 +1,9 @@
+{% extends 'layout.twig' %}
+
 {% block body %}
 
-    <div>
-        <div class="column">
-            <h2 class="ui teal header">
-                <i class="user icon"></i> Log-in to your account
-            </h2>
+<h1>Log-in to your account</h1>
+
             <form class="ui large form error" action="{{ path_for('login') }}" method="POST">
                 <div class="ui stacked segment">
                     <div class="field{% if has_error('auth') %} error{% endif %}">
