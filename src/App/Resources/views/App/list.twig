@@ -4,11 +4,26 @@
 
     Specific list page
 
+
     <h1>{{ list.name }}</h1>
+    <p> Day remaining : {{ ((list.date | date('U') - current) / (3600*24)) | round }}</p>
     <h3>{{ list.recipient }}</h3>
+    <div>{{ list.description }}</div>
+    <br>
+    <hr>
+    <br>
 
     {% for gift in gifts %}
+        <img src="{{ gift.picture }}">
         <h1>{{ gift.name }}</h1>
+        <p>{{ gift.description }}</p>
+        <p>{{ gift.price }}</p>
+        <button href="#">book</button>
+        <button href="#">delete</button>
+        <button href="#">modify</button>
+        <hr>
     {% endfor %}
 
+    <button href="#">Add new gift</button>
+    <p>sharing url : <a href="localhost:9000/dev/list/{{ list.token }}"> localhost:9000/dev/list/{{ list.token }}</a></p>
 {% endblock %}
