@@ -1,0 +1,17 @@
+{% extends 'layout.twig' %}
+
+{% block body %}
+    <h1>My Account page</h1>
+    <form>
+        <label for="email">Email :</label>
+        <input type="text" id="email" value="{{ auth.user.email }}" disabled>
+        <label for="first_name">First name :</label>
+        <input type="text" id="first_name" value="{{ auth.user.first_name }}">
+        <label for="last_name">Last name :</label>
+        <input type="text" id="last_name" value="{{ auth.user.last_name }}">
+    </form>
+    First name : {{ auth.user.first_name }}
+    <br>
+    Last name : {{ auth.user.last_name }}
+    <br>
+{% endblock %}
