@@ -61,7 +61,7 @@ Giftlist::insert([
         'name' => 'test3',
         'description' => 'test3.description',
         'token' => 'zzzi9fowTmluU4BSumodzddFHHe0RKXTeUfel7meMCaZlr2',
-        'date' => '2018-11-06',
+        'date' => '2015-11-06',
         'recipient' => 'the second recipient',
         'user_id' => 1
     ]
