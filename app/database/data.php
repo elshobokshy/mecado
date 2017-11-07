@@ -52,7 +52,7 @@ Giftlist::insert([
         'name' => 'test2',
         'description' => 'test.d2escription',
         'token' => '2i9fowTmluU4BSumzoJwWdFHHe0RKXTeUfel7meMCaZlr2',
-        'date' => '2018-11-06',
+        'date' => '2018-09-05',
         'recipient' => 'the recipient',
         'user_id' => 1
     ],
