@@ -1,11 +1,17 @@
 {% extends 'layout.twig' %}
 
 {% block body %}
-
+<hr>
     My Lists Page
 
     {% for list in lists %}
+
         <h1>{{ list.name }}</h1>
+        <p> Day remaining : {{ (list.date | date('U')- current)/(3600*24) }}</p>
+        <p>Recipient : {{ list.recipient }}</p>
+        <p>{{ list.date }}</p>
+        <a href="">See List</a>
+        <hr>
     {% endfor %}
 
     <a href="{{ path_for('addlist') }}">Add new List</a>
