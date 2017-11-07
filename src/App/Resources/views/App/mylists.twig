@@ -10,7 +10,7 @@
         <p> Day remaining : {{ (list.date | date('U')- current)/(3600*24) }}</p>
         <p>Recipient : {{ list.recipient }}</p>
         <p>{{ list.date }}</p>
-        <a href="">See List</a>
+        <a href="{{ path_for( 'list', {'token': list.token }) }}">See List</a>
         <hr>
     {% endfor %}
 

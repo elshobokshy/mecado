@@ -6,6 +6,15 @@ class Giftlist extends Model
 {
     protected $table = 'giftlist';
 
+    protected $fillable = [
+        'name',
+        'description',
+        'recipient',
+        'date',
+        'user_id',
+        'token',
+    ];
+
     public function commentlist()
     {
         return $this->hasMany('\App\Model\Commentlist');
