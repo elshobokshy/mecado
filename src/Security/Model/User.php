@@ -11,7 +11,6 @@ class User extends EloquentUser
     protected $primaryKey = 'id';
 
     protected $fillable = [
-        'username',
         'email',
         'password',
         'last_name',
@@ -19,5 +18,5 @@ class User extends EloquentUser
         'permissions',
     ];
 
-    protected $loginNames = ['username', 'email'];
+    protected $loginNames = ['email'];
 }

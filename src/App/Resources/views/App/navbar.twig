@@ -2,7 +2,7 @@
     <a href="{{ path_for('home') }}" class="header item">Slim base</a>
     <div class="right menu">
         {% if auth.check() %}
-            <div class="header item">{{ auth.user.username }}</div>
+            <div class="header item">{{ auth.user.first_name }}</div>
             <div class="item">
                 <a href="{{ path_for('logout') }}" class="ui teal circular button">Logout</a>
             </div>
