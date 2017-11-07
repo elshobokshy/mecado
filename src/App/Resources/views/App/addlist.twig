@@ -3,16 +3,26 @@
 {% block body %}
 
     <h1>Add List</h1>
-    <form method="post">
+    <form action="{{ path_for('addlist') }}" method="post">
         <label for="name">Name : </label>
-        <input id="name" type="text" value="">
+        <input id="name" name="name" type="text" value="">
         <label for="description">Description : </label>
-        <input id="description" type="text" value="">
-        <label for="recipient">Recipient : </label>
-        <input id="recipient" type="text" value="">
+        <input id="description" name="description" type="text" value="">
+        Myself<input type="radio" name="recipient" value="myself" checked>
+        Other<input type="radio" name="recipient" value="other">
         <label for="date"> Date of validity : </label>
-        <input id="date" type="date" value="">
+        <input id="date" name="date" type="text" value="">
+        {{ csrf() }}
         <input type="submit">
+        {% if has_errors() %}
+            <div class="alert alert-warning">
+                {% for paramErrors in errors() %}
+                    {% for error in paramErrors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                {% endfor %}
+            </div>
+        {% endif %}
     </form>
 
 {% endblock %}
