@@ -1,8 +1,13 @@
 <?php
 
 use \Illuminate\Database\Capsule\Manager as DB;
+use \App\Model\Gift;
+use \App\Model\Giftlist;
+use \App\Model\Commentgift;
+use \App\Model\Commentlist;
+use Security\Model\User;
 
-DB::table('activations')->insert(
+DB::table('activations')->insert([
     [
         'id' => 1,
         'user_id' => 1,
@@ -10,16 +15,16 @@ DB::table('activations')->insert(
         'completed' => 1,
         'completed_at' => '2017-11-06 17:35:37'
     ]
-);
+]);
 
-DB::table('role_users')->insert(
+DB::table('role_users')->insert([
     [
         'user_id' => 1,
         'role_id' => 2
     ]
-);
+]);
 
-DB::table('user')->insert(
+User::insert(
     [
         'id' => 1,
         'username' => 'test',
@@ -32,7 +37,7 @@ DB::table('user')->insert(
     ]
 );
 
-DB::table('giftlist')->insert(
+Giftlist::insert([
     [
         'id' => 1,
         'name' => 'test',
@@ -45,15 +50,24 @@ DB::table('giftlist')->insert(
     [
         'id' => 2,
         'name' => 'test2',
-        'description' => 'test2.description',
-        'token' => 'i9fowTmluU4BSumodzddFHHe0RKXTeUfel7meMCaZlr2',
+        'description' => 'test.d2escription',
+        'token' => '2i9fowTmluU4BSumzoJwWdFHHe0RKXTeUfel7meMCaZlr2',
+        'date' => '2018-11-06',
+        'recipient' => 'the recipient',
+        'user_id' => 1
+    ],
+    [
+        'id' => 3,
+        'name' => 'test3',
+        'description' => 'test3.description',
+        'token' => 'zzzi9fowTmluU4BSumodzddFHHe0RKXTeUfel7meMCaZlr2',
         'date' => '2018-11-06',
         'recipient' => 'the second recipient',
         'user_id' => 1
     ]
-);
+]);
 
-DB::table('gift')->insert(
+Gift::insert([
     [
         'id' => 1,
         'giftlist_id' => 1,
@@ -90,23 +104,23 @@ DB::table('gift')->insert(
         'name' => 'a gift',
         'booked' => 0
     ]
-);
+]);
 
-DB::table('commentlist')->insert(
+Commentlist::insert([
     [
         'id' => 1,
         'author' => 'the author',
         'content' => 'the content',
         'giftlist_id' => 1
     ]
-);
+]);
 
 
-DB::table('commentgift')->insert(
+Commentgift::insert([
     [
         'id' => 1,
         'author' => 'the author',
         'content' => 'the content',
         'gift_id' => 1
     ]
-);
+]);
