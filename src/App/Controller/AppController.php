@@ -22,4 +22,5 @@ class AppController extends Controller
         else
             return $this->view->render($response, 'App/myaccount.twig');
     }
+
 }
