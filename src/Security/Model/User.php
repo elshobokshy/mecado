@@ -18,5 +18,10 @@ class User extends EloquentUser
         'permissions',
     ];
 
-    protected $loginNames = ['email'];
+    protected $loginNames = ['username', 'email'];
+
+    public function giftlist()
+    {
+        return $this->hasMany('Giftlist');
+    }
 }

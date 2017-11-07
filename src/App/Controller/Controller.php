@@ -165,4 +165,12 @@ abstract class Controller
     {
         return $this->container->get($property);
     }
+
+    public function checkAuth(Request $request, Response $response, $guest, $member, $data = []){
+        if($this->auth->guest())
+            return $this->redirect($response, $guest);
+        else
+            return $this->view->render($response, $member, $data);
+    }
+
 }

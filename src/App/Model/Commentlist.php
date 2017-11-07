@@ -7,4 +7,8 @@ class Commentlist extends Model
 {
     protected $table = 'commentlist';
 
+    public function giftlist()
+    {
+        return $this->belongsTo('\App\Model\Giftlist');
+    }
 }

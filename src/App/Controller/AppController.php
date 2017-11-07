@@ -117,4 +117,8 @@ class AppController extends Controller
 
         }
     }
+    
+    public function about(Request $request, Response $response){
+        return $this->view->render($response, 'App/about.twig');
+    }
 }

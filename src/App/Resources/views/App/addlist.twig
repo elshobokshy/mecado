@@ -1,0 +1,18 @@
+{% extends 'layout.twig' %}
+
+{% block body %}
+
+    <h1>Add List</h1>
+    <form method="post">
+        <label for="name">Name : </label>
+        <input id="name" type="text" value="">
+        <label for="description">Description : </label>
+        <input id="description" type="text" value="">
+        <label for="recipient">Recipient : </label>
+        <input id="recipient" type="text" value="">
+        <label for="date"> Date of validity : </label>
+        <input id="date" type="date" value="">
+        <input type="submit">
+    </form>
+
+{% endblock %}
