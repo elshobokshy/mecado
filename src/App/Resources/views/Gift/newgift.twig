@@ -1,3 +1,5 @@
+{% import 'Macro/form.twig' as form %}
+
 {% extends 'layout.twig' %}
 
 {% block body %}
@@ -5,11 +7,8 @@
         <h1>New gift</h1>
         <div>
             <form>
-                {{ form.input('name') }}
-                {{ form.input('url') }}
-                {{ form.input('description') }}
-                {{ form.input('price') }}
-                {{ form.input('picture') }}
+                {{ form.input('name','lavalue', 'name', 'Name', 'the name','text', 1) }}
+
             </form>
         </div>
     </div>
