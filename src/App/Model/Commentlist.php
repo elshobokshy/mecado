@@ -9,6 +9,6 @@ class Commentlist extends Model
 
     public function giftlist()
     {
-        return $this->belongsTo('Giftlist');
+        return $this->belongsTo('\App\Model\Giftlist');
     }
 }

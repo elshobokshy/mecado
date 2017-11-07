@@ -9,6 +9,6 @@ class Commentgift extends Model
 
     public function gift()
     {
-        return $this->belongsTo('Gift');
+        return $this->belongsTo('\App\Model\Gift');
     }
 }
