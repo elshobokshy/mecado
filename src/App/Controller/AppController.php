@@ -23,4 +23,7 @@ class AppController extends Controller
             return $this->view->render($response, 'App/myaccount.twig');
     }
 
+    public function about(Request $request, Response $response){
+        return $this->view->render($response, 'App/about.twig');
+    }
 }

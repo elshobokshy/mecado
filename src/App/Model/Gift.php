@@ -8,11 +8,11 @@ class Gift extends Model
 
     public function commentgift()
     {
-        return $this->hasMany('App/Commentgift');
+        return $this->hasMany('\App\ModeL\Commentgift');
     }
 
     public function giftlist()
     {
-        return $this->belongsTo('App/Model/Giftlist');
+        return $this->belongsTo('\App\Model\Giftlist');
     }
 }
