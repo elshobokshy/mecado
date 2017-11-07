@@ -32,4 +32,13 @@ class ListController extends Controller
         return $this->view->render($response, 'App/addlist.twig');
     }
 
+    public function fetch(Request $request, Response $response, $token){
+        $list = Giftlist::where('token',$token)->first();
+        $gifts = $list->gift;
+        $data = [
+            'list' => $list,
+            'gifts' => $gifts
+        ];
+        return $this->view->render($response,'App/list.twig', $data);
+    }
 }
