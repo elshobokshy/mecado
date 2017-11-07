@@ -1,0 +1,96 @@
+/* Default button */
+
+.btn {
+    @include btn-struct();
+    @include btn-text($default-button-color);
+    @include btn-style($default-button-bgcolor);
+}
+
+/* Blue button */
+
+.btn-blue {
+    @include btn-struct();
+    @include btn-text($blue-button-color);
+    @include btn-style($blue-button-bgcolor, $blue-button-borderColor);
+}
+
+/* Green button */
+
+.btn-green {
+    @include btn-struct();
+    @include btn-text($green-button-color);
+    @include btn-style($green-button-bgcolor, $green-button-borderColor);
+}
+
+/* Red button */
+
+.btn-red {
+    @include btn-struct();
+    @include btn-text($red-button-color);
+    @include btn-style($red-button-bgcolor, $red-button-borderColor);
+}
+
+/* Default fancy button */
+
+.btn-fancy {
+    @extend .btn;
+    box-shadow: $fancy-default-button-boxShadow;
+}
+
+.btn-fancy:active {
+    @extend .btn-fancy;
+    box-shadow: $fancy-default-active-button-boxShadow;
+    transform: $fancy-active-button-transform;
+}
+
+/* Blue fancy button */
+
+.btn-fancy-blue {
+    @extend .btn-blue;
+    box-shadow: $fancy-blue-button-boxShadow;
+}
+
+.btn-fancy-blue:active {
+    @extend .btn-fancy-blue;
+    box-shadow: $fancy-blue-active-button-boxShadow;
+    transform: $fancy-active-button-transform;
+}
+
+/* Green fancy button */
+
+.btn-fancy-green {
+    @extend .btn-green;
+    box-shadow: $fancy-green-button-boxShadow;
+}
+
+.btn-fancy-green:active {
+    @extend .btn-fancy-green;
+    box-shadow: $fancy-green-active-button-boxShadow;
+    transform: $fancy-active-button-transform;
+}
+
+/* Red fancy button */
+
+.btn-fancy-red {
+    @extend .btn-red;
+    box-shadow: $fancy-red-button-boxShadow;
+}
+
+.btn-fancy-red:active {
+    @extend .btn-fancy-red;
+    box-shadow: $fancy-red-active-button-boxShadow;
+    transform: $fancy-active-button-transform;
+}
+
+/* Small and large buttons */
+.btn-lg {
+    @include btn-struct($button-large-padding-vertical, $button-large-padding-horizontal, $button-large-size);
+    @include btn-text($default-button-color);
+    @include btn-style($default-button-bgcolor);
+}
+
+.btn-sm {
+    @include btn-struct($button-small-padding-vertical, $button-small-padding-horizontal, $button-small-size);
+    @include btn-text($default-button-color);
+    @include btn-style($default-button-bgcolor);
+}
