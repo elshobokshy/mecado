@@ -1,0 +1,16 @@
+{% extends 'layout.twig' %}
+
+{% block body %}
+    <div>
+        <h1>New gift</h1>
+        <div>
+            <form>
+                {{ form.input('name') }}
+                {{ form.input('url') }}
+                {{ form.input('description') }}
+                {{ form.input('price') }}
+                {{ form.input('picture') }}
+            </form>
+        </div>
+    </div>
+{% endblock %}

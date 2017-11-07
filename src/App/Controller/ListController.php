@@ -18,8 +18,10 @@ class ListController extends Controller
     public function myLists(Request $request, Response $response){
         $lists = Giftlist::where('user_id', $this->auth->getUser()->id)->get();
 
+        $currentDate = strtotime(date_format(new \DateTime(), 'Y-m-d'));
         $data = [
-                'lists' => $lists
+                'lists' => $lists,
+                'current' => $currentDate
             ];
 
         return $this->view->render($response, 'App/mylists.twig', $data);
@@ -90,4 +92,13 @@ class ListController extends Controller
         return $this->view->render($response, 'App/addlist.twig');
     }
 
+    public function fetch(Request $request, Response $response, $token){
+        $list = Giftlist::where('token',$token)->first();
+        $gifts = $list->gift;
+        $data = [
+            'list' => $list,
+            'gifts' => $gifts
+        ];
+        return $this->view->render($response,'App/list.twig', $data);
+    }
 }
