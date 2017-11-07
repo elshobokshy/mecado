@@ -14,7 +14,7 @@ class AuthController extends Controller
     {
         if ($request->isPost()) {
             $credentials = [
-                'username' => $request->getParam('username'),
+                'email' => $request->getParam('email'),
                 'password' => $request->getParam('password')
             ];
             $remember = $request->getParam('remember') ? true : false;
@@ -38,13 +38,33 @@ class AuthController extends Controller
     public function register(Request $request, Response $response)
     {
         if ($request->isPost()) {
-            $username = $request->getParam('username');
+            $first_name = $request->getParam('first_name');
+            $last_name = $request->getParam('last_name');
             $email = $request->getParam('email');
             $password = $request->getParam('password');
 
             $this->validator->request($request, [
-                'username' => V::length(3, 25)->alnum('_')->noWhitespace(),
-                'email' => V::noWhitespace()->email(),
+                'first_name' => [
+                    'rules' => V::length(3, 25)->alpha()->noWhitespace(),
+                    'messages' => [
+                        'length' => 'First name should contain between 3 and 25 characters',
+                        'alpha' => 'First name should contain only letters.',
+                        'noWhitespace' => 'First name shouldn\'t contain any whitespaces'
+                    ]
+                ],
+                'last_name' => [
+                    'rules' => V::length(3, 25)->alpha(),
+                    'messages' => [
+                        'length' => 'First name should contain between 3 and 25 characters',
+                        'alpha' => 'First name should contain only letters.',
+                    ]
+                ],
+                'email' => [
+                    'rules' => V::noWhitespace()->email(),
+                    'messages' => [
+                        'email' => 'The format you\'ve entered does not correspond to an email format'
+                    ]
+                ],
                 'password' => [
                     'rules' => V::noWhitespace()->length(6, 25),
                     'messages' => [
@@ -59,19 +79,16 @@ class AuthController extends Controller
                 ]
             ]);
 
-            if ($this->auth->findByCredentials(['login' => $username])) {
-                $this->validator->addError('username', 'This username is already used.');
-            }
-
             if ($this->auth->findByCredentials(['login' => $email])) {
-                $this->validator->addError('email', 'This email is already used.');
+                $this->validator->addError('email', 'This email is already in use! Please login instead.');
             }
 
             if ($this->validator->isValid()) {
                 $role = $this->auth->findRoleByName('User');
 
                 $user = $this->auth->registerAndActivate([
-                    'username' => $username,
+                    'first_name' => $first_name,
+                    'last_name' => $last_name,
                     'email' => $email,
                     'password' => $password,
                     'permissions' => [

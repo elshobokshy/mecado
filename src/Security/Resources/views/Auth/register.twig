@@ -9,10 +9,16 @@
         </h2>
         <form class="ui large form error" action="{{ path_for('register') }}" method="POST">
             <div class="ui stacked segment">
-                <div class="field{% if has_error('username') %} error{% endif %}">
+                <div class="field{% if has_error('first_name') %} error{% endif %}">
                     <div class="ui left icon input">
                         <i class="user icon"></i>
-                        <input type="text" name="username" placeholder="Username" value="{{ val('username') }}">
+                        <input type="text" name="first_name" placeholder="First name" value="{{ val('first_name') }}">
+                    </div>
+                </div>
+                <div class="field{% if has_error('last_name') %} error{% endif %}">
+                    <div class="ui left icon input">
+                        <i class="user icon"></i>
+                        <input type="text" name="last_name" placeholder="Last name" value="{{ val('last_name') }}">
                     </div>
                 </div>
                 <div class="field{% if has_error('email') %} error{% endif %}">
