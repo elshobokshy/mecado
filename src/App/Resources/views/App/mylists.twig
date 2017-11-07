@@ -5,9 +5,14 @@
     My Lists Page
 
     {% for list in lists %}
-
         <h1>{{ list.name }}</h1>
-        <p> Day remaining : {{ (list.date | date('U')- current)/(3600*24) }}</p>
+        <p>Day remaining :
+            {% if ((list.date | date('U')- current)/(3600*24))|round <= 0 %}
+                 0
+            {% else %}
+                {{ ((list.date | date('U')- current)/(3600*24))|round }}
+            {% endif %}
+        </p>
         <p>Recipient : {{ list.recipient }}</p>
         <p>{{ list.date }}</p>
         <a href="{{ path_for( 'list', {'token': list.token }) }}">See List</a>

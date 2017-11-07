@@ -13,7 +13,7 @@ class AppController extends Controller
         if($this->auth->guest())
             return $this->view->render($response, 'App/home.twig');
         else
-            return $this->redirect($response, 'myaccount');
+            return $this->redirect($response, 'mylists');
     }
 
     public function myaccount(Request $request, Response $response)
@@ -21,7 +21,7 @@ class AppController extends Controller
         if($this->auth->guest())
             return $this->redirect($response, 'home');
         else
-            return $this->view->render($response, 'App/myaccount.twig');
+            return $this->redirect($response, 'mylists');
     }
 
     public function editProfile(Request $request, Response $response)

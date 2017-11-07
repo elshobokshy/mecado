@@ -51,7 +51,7 @@ Giftlist::insert([
         'name' => 'test2',
         'description' => 'test.d2escription',
         'token' => '2i9fowTmluU4BSumzoJwWdFHHe0RKXTeUfel7meMCaZlr2',
-        'date' => '2018-11-06',
+        'date' => '2018-09-05',
         'recipient' => 'the recipient',
         'user_id' => 1
     ],[
@@ -59,7 +59,7 @@ Giftlist::insert([
         'name' => 'test3',
         'description' => 'test3.description',
         'token' => 'zzzi9fowTmluU4BSumodzddFHHe0RKXTeUfel7meMCaZlr2',
-        'date' => '2018-11-06',
+        'date' => '2015-11-06',
         'recipient' => 'the second recipient',
         'user_id' => 1
     ]
@@ -70,30 +70,48 @@ Gift::insert([
         'id' => 1,
         'giftlist_id' => 1,
         'name' => 'a gift',
+        'url' =>'https://www.google.fr/',
+        'description' => 'ceci est un cadeau qui me plairait bien',
+        'price' => 125,
         'booked' => 0
     ],[
         'id' => 2,
         'giftlist_id' => 1,
-        'name' => 'a gift',
+        'name' => 'a second gift',
+        'url' =>'https://www.google.fr/',
+        'description' => 'ceci est un AUTRE cadeau qui me plairait bien',
+        'price' => 256,
         'booked' => 0
     ],[
         'id' => 3,
         'giftlist_id' => 1,
         'name' => 'a gift',
+        'url' => null,
+        'description' => null,
+        'price' => null,
         'booked' => 1
     ],[
         'id' => 4,
         'giftlist_id' => 2,
         'name' => 'a gift',
+        'url' => null,
+        'description' => null,
+        'price' => null,
         'booked' => 0
     ],[
         'id' => 5,
         'giftlist_id' => 2,
+        'url' => null,
+        'description' => null,
+        'price' => null,
         'name' => 'a gift',
         'booked' => 0
     ],[
         'id' => 6,
         'giftlist_id' => 2,
+        'url' => null,
+        'description' => null,
+        'price' => null,
         'name' => 'a gift',
         'booked' => 0
     ]
