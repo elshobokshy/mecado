@@ -2,9 +2,10 @@
 
 $controllers = [
     'admin.controller' => 'Admin\Controller\AdminController',
-    'app.controller'   => 'App\Controller\AppController',
-    'test.controller'   => 'App\Controller\TestController',
-    'auth.controller'  => 'Security\Controller\AuthController'
+    'app.controller' => 'App\Controller\AppController',
+    'test.controller' => 'App\Controller\TestController',
+    'gift.controller' => 'App\Controller\GiftController',
+    'auth.controller' => 'Security\Controller\AuthController'
 ];
 
 foreach ($controllers as $key => $class) {
