@@ -5,7 +5,8 @@ $controllers = [
     'app.controller' => 'App\Controller\AppController',
     'test.controller' => 'App\Controller\TestController',
     'gift.controller' => 'App\Controller\GiftController',
-    'auth.controller' => 'Security\Controller\AuthController'
+    'auth.controller' => 'Security\Controller\AuthController',
+    'list.controller'  => 'App\Controller\ListController'
 ];
 
 foreach ($controllers as $key => $class) {
