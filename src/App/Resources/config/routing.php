@@ -10,5 +10,5 @@ $app->post('/myaccount', 'app.controller:editProfile');
 
 $app->get('/mylists', 'list.controller:mylists')->setName('mylists');
 $app->get('/addlist', 'list.controller:addlist')->setName('addlist');
-$app->get('/list/{token}','list.controller:fetch')->setName('list');
+$app->get('/list/{token}','list.controller:fetch')->setName('list/{token}');
 $app->get('/about','app.controller:about')->setName('About');
