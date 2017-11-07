@@ -25,6 +25,8 @@ DB::table('user')->insert(
         'username' => 'test',
         'email' => 'test@test.com',
         'password' => '$2y$10$.0.MMydi9fowTm/luU4BSumoJwWdFHHe0RKXTeUfel.7meMCaZlr2',
+        'first_name' => 'firstestname',
+        'last_name' => 'lastestname',
         'permissions' => '{"user.delete":0}',
         'last_login' => '2017-11-06 17:31:24'
     ]
@@ -35,9 +37,18 @@ DB::table('giftlist')->insert(
         'id' => 1,
         'name' => 'test',
         'description' => 'test.description',
-        'token' => 'i9fowTm/luU4BSumoJwWdFHHe0RKXTeUfel.7meMCaZlr2',
+        'token' => 'i9fowTmluU4BSumoJwWdFHHe0RKXTeUfel7meMCaZlr2',
         'date' => '2018-11-06',
         'recipient' => 'the recipient',
+        'user_id' => 1
+    ],
+    [
+        'id' => 2,
+        'name' => 'test2',
+        'description' => 'test2.description',
+        'token' => 'i9fowTmluU4BSumodzddFHHe0RKXTeUfel7meMCaZlr2',
+        'date' => '2018-11-06',
+        'recipient' => 'the second recipient',
         'user_id' => 1
     ]
 );
@@ -46,6 +57,36 @@ DB::table('gift')->insert(
     [
         'id' => 1,
         'giftlist_id' => 1,
+        'name' => 'a gift',
+        'booked' => 0
+    ],
+    [
+        'id' => 2,
+        'giftlist_id' => 1,
+        'name' => 'a gift',
+        'booked' => 0
+    ],
+    [
+        'id' => 3,
+        'giftlist_id' => 1,
+        'name' => 'a gift',
+        'booked' => 1
+    ],
+    [
+        'id' => 4,
+        'giftlist_id' => 2,
+        'name' => 'a gift',
+        'booked' => 0
+    ],
+    [
+        'id' => 5,
+        'giftlist_id' => 2,
+        'name' => 'a gift',
+        'booked' => 0
+    ],
+    [
+        'id' => 6,
+        'giftlist_id' => 2,
         'name' => 'a gift',
         'booked' => 0
     ]
