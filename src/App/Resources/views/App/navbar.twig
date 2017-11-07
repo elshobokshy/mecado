@@ -1,10 +1,13 @@
 <nav class="ui borderless top fixed menu">
-    <a href="{{ path_for('home') }}" class="header item">Slim base</a>
+    <a href="{{ path_for('home') }}" class="header item">Home</a>
     <div class="right menu">
         {% if auth.check() %}
             <div class="header item">{{ auth.user.username }}</div>
             <div class="item">
                 <a href="{{ path_for('logout') }}" class="ui teal circular button">Logout</a>
+            </div>
+            <div class="item">
+                <a href="" class="ui teal circular button">What's MECADO ?</a>
             </div>
         {% else %}
             <div class="item">
