@@ -8,16 +8,16 @@ class Giftlist extends Model
 
     public function commentlist()
     {
-        return $this->hasMany('App/Model/Commentlist');
+        return $this->hasMany('\App\Model\Commentlist');
     }
 
     public function gift()
     {
-        return $this->hasMany('App/Model/Gift');
+        return $this->hasMany('\App\Model\Gift');
     }
 
     public function user()
     {
-        return $this->belongsTo('Security/Model/User');
+        return $this->belongsTo('\Security\Model\User');
     }
 }
