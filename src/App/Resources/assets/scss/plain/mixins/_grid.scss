@@ -1,0 +1,146 @@
+@mixin span {
+    box-sizing: border-box;
+    margin-left: 1%;
+    margin-right: 1%;
+    margin-bottom: 1%;
+    float: left;
+}
+
+@mixin container($grid: $grid-width) {
+    max-width: 100%;
+    width: 100%;
+    padding: 0 1em;
+    box-sizing: border-box;
+    margin-bottom: 1px;
+    overflow: hidden;
+    @include clearfix;
+}
+
+@mixin make-row($grid: $grid-width) {
+    margin: 3vh 3vw;
+    @include clearfix;
+}
+
+@mixin make-grid-columns($sizeS, $sizeM, $sizeL) {
+    @include span;
+
+    @media only screen and (max-width: $media-md) {
+        @include make-width($sizeS);
+    }
+
+    @media only screen and (min-width: $media-md) and (max-width: $mediaLarge) {
+        @include make-width($sizeM);
+    }
+
+    @media only screen and (min-width: $media-lg) {
+        @include make-width($sizeL);
+    }
+}
+
+@mixin make-grid-offset($sizeS, $sizeM, $sizeL) {
+
+    @include span;
+
+    @media only screen and (max-width: $media-md) {
+        @include make-width-margin($sizeS);
+    }
+
+    @media only screen and (min-width: $media-md) and (max-width: $mediaLarge) {
+        @include make-width-margin($sizeM);
+    }
+
+    @media only screen and (min-width: $media-lg) {
+        @include make-width-margin($sizeL);
+    }
+
+}
+
+@mixin make-width($i) {
+    width: $i * 99px / 12px - 2 * 1%;
+}
+@mixin make-width-margin($i) {
+    margin-left: $i * 100px / 12px + 1%;
+}
+
+@mixin make-grid($marginBottomSize) {
+    margin: 0 auto;
+    overflow: hidden;
+
+    @media only screen {
+        [class*="sm-"] {
+            @include span;
+        }
+
+        @for $i from 1 through $grid-columns {
+            .sm-#{$i} { 
+                @include make-width($i); 
+            }
+        }
+
+        @for $i from 1 through ($grid-columns - 1) {
+            .sm-offset-#{$i} { 
+                @include make-width-margin($i); 
+            }
+        }
+    }
+
+    @media only screen and (min-width: $media-md) {
+        [class*="md-"] {
+            @include span;
+        }
+        @for $i from 1 through $grid-columns {
+            .md-#{$i} { 
+                @include make-width($i); 
+            }
+        }
+
+        @for $i from 1 through ($grid-columns - 1) {
+            .md-offset-#{$i} { 
+                @include make-width-margin($i); 
+            }
+        }
+    }
+
+    @media only screen and (min-width: $media-lg) {
+
+        [class*="lg-"] {
+            @include span;
+        }
+        @for $i from 1 through $grid-columns {
+            .lg-#{$i} { 
+                @include make-width($i); 
+            }
+        }
+
+        @for $i from 1 through ($grid-columns - 1) {
+            .lg-offset-#{$i} { 
+                @include make-width-margin($i); 
+            }
+        }
+    }
+
+    .grid-row {
+        width: 100%;
+        overflow: hidden;
+        padding-bottom: 0.5rem;
+        padding-top: 0.5rem;
+    }
+}
+
+@media only screen and (max-width: $media-md) {
+    .sm-hidden {
+        display: none;
+    }
+}
+
+@media only screen and (min-width: $media-md) and (max-width: $media-lg) {
+    .md-hidden {
+        display: none;
+    }
+}
+
+@media only screen and (min-width: $media-lg) {
+    .lg-hidden {
+        display: none;
+    }
+}

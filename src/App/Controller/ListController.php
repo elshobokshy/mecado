@@ -25,11 +25,9 @@ class ListController extends Controller
             ];
 
         return $this->view->render($response, 'App/mylists.twig', $data);
-
     }
 
     public function addList(Request $request, Response $response){
-
         if ($request->isPost()) {
             $name = $request->getParam('name');
             $description = $request->getParam('description');

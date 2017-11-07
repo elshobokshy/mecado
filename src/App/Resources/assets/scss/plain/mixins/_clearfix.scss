@@ -1,0 +1,13 @@
+// Source: http://nicolasgallagher.com/micro-clearfix-hack/
+
+@mixin clearfix() {
+    &:before,
+    &:after {
+      content: " "; 
+      display: table; // The use of 'table' rather than `block` is only necessary if using
+    }                 // `:before' to contain the top-margins of child elements.
+    
+    &:after {
+      clear: both;
+    }
+  }
