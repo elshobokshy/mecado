@@ -1,0 +1,12 @@
+{% extends 'layout.twig' %}
+
+{% block body %}
+
+    My Lists Page
+
+    {% for list in lists %}
+        <h1>{{ list.name }}</h1>
+    {% endfor %}
+
+    <a href="{{ path_for('addlist') }}">Add new List</a>
+{% endblock %}
