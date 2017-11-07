@@ -1,11 +1,10 @@
+
+{% if auth.check() %}
 <div class="row"><ul class="navbar">
         <li><a href="{{ path_for('home') }}">Home</a></li>
-        {% if auth.check() %}<li><a href="{{ path_for('mylists') }}">My Lists</a></li>
-            <li><a href="{{ path_for('logout') }}">Logout</a></li>
-            <li><a href="">What is MECADO ?</a></li>
-        {% else %}
-            <li><a href="{{ path_for('login') }}">Login</a></li>
-            <li><a href="{{ path_for('register') }}" >Register</a></li>
-        {% endif %}
+        <li><a href="{{ path_for('mylists') }}">My Lists</a></li>
+        <li><a href="{{ path_for('logout') }}">Logout</a></li>
+        <li><a href="">What is MECADO ?</a></li>
     </ul>
 </div>
+{% endif %}
