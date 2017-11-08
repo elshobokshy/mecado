@@ -1,11 +1,13 @@
-<div class="row"><ul class="navbar">
-        <li><a href="{{ path_for('home') }}">Home</a></li>
-        {% if auth.check() %}<li><a href="{{ path_for('mylists') }}">My Lists</a></li>
-            <li><a href="{{ path_for('logout') }}">Logout</a></li>
-            <li><a href="">What is MECADO ?</a></li>
-        {% else %}
-            <li><a href="{{ path_for('login') }}">Login</a></li>
-            <li><a href="{{ path_for('register') }}" >Register</a></li>
-        {% endif %}
+
+{% if auth.check() %}
+<div class="row">
+    <label for="navbar-menu" class="show-menu">☰</label>
+    <input type="checkbox" id="navbar-menu" role="button">
+    <ul class="mecadoNav">
+        <li><a href="{{ path_for('mylists') }}">My Lists</a></li>
+        <li><a href="{{ path_for('myaccount') }}">{{ auth.user.first_name ~ " " ~ auth.user.last_name}}</a></li>
+        <li><a href="{{ path_for('logout') }}">Logout</a></li>
+        <li><a href="{{ path_for('about') }}">About MECADO.NET</a></li>
     </ul>
 </div>
+{% endif %}

@@ -21,7 +21,7 @@ class AppController extends Controller
         if($this->auth->guest())
             return $this->redirect($response, 'home');
         else
-            return $this->redirect($response, 'mylists');
+            return $this->view->render($response, 'App/myaccount.twig');
     }
 
     public function editProfile(Request $request, Response $response)
