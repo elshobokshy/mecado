@@ -10,6 +10,7 @@ namespace App\Controller;
 
 use Respect\Validation\Validator as V;
 use App\Model\Giftlist;
+use Security\Middleware\AuthMiddleware;
 use Slim\Http\Request;
 use Slim\Http\Response;
 

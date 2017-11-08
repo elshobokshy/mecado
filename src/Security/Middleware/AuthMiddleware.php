@@ -54,7 +54,7 @@ class AuthMiddleware implements MiddlewareInterface
     public function __invoke(Request $request, Response $response, callable $next)
     {
         if (!$this->sentinel->check()) {
-            $this->flash->addMessage('error', 'You must be logged in to access this page!');
+            $this->flash->addMessage('danger', 'You must be logged in to access this page!');
 
             return $response->withRedirect($this->router->pathFor('login'));
         } elseif ($this->role && !$this->sentinel->inRole($this->role)) {
