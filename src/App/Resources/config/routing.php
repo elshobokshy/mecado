@@ -15,5 +15,5 @@ $app->get('/list/{token}','list.controller:fetch')->setName('list')->add($contai
 $app->get('/about','app.controller:about')->setName('about');
 
 
-$app->get('/book/{token}/{id}','gift.controller:book')->setName('book');
+$app->post('/book/{token}/{id}','gift.controller:book')->setName('book');
 
