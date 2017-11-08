@@ -3,7 +3,7 @@
 .btn {
     @include btn-struct();
     @include btn-text($default-button-color);
-    @include btn-style($default-button-bgcolor);
+    @include btn-style($default-button-bgcolor,$default-button-bgcolor,$default-button-bgcolor,$default-button-bgcolor);
 }
 
 /* Blue button */
@@ -11,7 +11,7 @@
 .btn-blue {
     @include btn-struct();
     @include btn-text($blue-button-color);
-    @include btn-style($blue-button-bgcolor, $blue-button-borderColor);
+    @include btn-style($blue-button-bgcolor, $blue-button-borderColor, $blue-button-bgcolor,$blue-button-bgcolor);
 }
 
 /* Green button */
@@ -19,7 +19,7 @@
 .btn-green {
     @include btn-struct();
     @include btn-text($green-button-color);
-    @include btn-style($green-button-bgcolor, $green-button-borderColor);
+    @include btn-style($green-button-bgcolor, $green-button-borderColor,$green-button-bgcolor,$green-button-bgcolor);
 }
 
 /* Red button */
@@ -27,7 +27,7 @@
 .btn-red {
     @include btn-struct();
     @include btn-text($red-button-color);
-    @include btn-style($red-button-bgcolor, $red-button-borderColor);
+    @include btn-style($red-button-bgcolor, $red-button-borderColor,$red-button-bgcolor,$red-button-bgcolor);
 }
 
 /* Default fancy button */
@@ -86,11 +86,11 @@
 .btn-lg {
     @include btn-struct($button-large-padding-vertical, $button-large-padding-horizontal, $button-large-size);
     @include btn-text($default-button-color);
-    @include btn-style($default-button-bgcolor);
+    @include btn-style($default-button-bgcolor,$default-button-bgcolor,$default-button-bgcolor,$default-button-bgcolor);
 }
 
 .btn-sm {
     @include btn-struct($button-small-padding-vertical, $button-small-padding-horizontal, $button-small-size);
     @include btn-text($default-button-color);
-    @include btn-style($default-button-bgcolor);
+    @include btn-style($default-button-bgcolor,$default-button-bgcolor,$default-button-bgcolor,$default-button-bgcolor);
 }
