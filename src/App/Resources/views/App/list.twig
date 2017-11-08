@@ -1,5 +1,8 @@
 {% extends 'layout.twig' %}
 
+
+{% set url = base_url() ~ path_for( 'list', {'token': list.token }) %}
+
 {% block body %}
 
     Specific list page
@@ -18,12 +21,19 @@
         <h1>{{ gift.name }}</h1>
         <p>{{ gift.description }}</p>
         <p>{{ gift.price }}</p>
-        <button href="#">book</button>
+
+
+        {% if gift.booked %}
+            <p> booked </p>
+        {% else %}
+            <a href="{{ path_for('book',{'token':list.token,'id':gift.id}) }}">book</a>
+        {% endif %}
+
         <button href="#">delete</button>
         <button href="#">modify</button>
         <hr>
     {% endfor %}
 
     <button href="#">Add new gift</button>
-    <p>sharing url : <a href="{{ path_for( 'list', {'token': list.token }) }}"> {{base_url() ~ path_for( 'list', {'token': list.token }) }}</a></p>
+    <p>sharing url : {{ url }}</a></p>
 {% endblock %}
