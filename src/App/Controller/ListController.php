@@ -9,7 +9,10 @@
 namespace App\Controller;
 
 use Respect\Validation\Validator as V;
+use Dflydev\FigCookies\FigResponseCookies;
+use Dflydev\FigCookies\SetCookie;
 use App\Model\Giftlist;
+use App\Model\Commentlist;
 use Security\Middleware\AuthMiddleware;
 use Slim\Http\Request;
 use Slim\Http\Response;
@@ -32,26 +35,34 @@ class ListController extends Controller
         if ($request->isPost()) {
             $name = $request->getParam('name');
             $description = $request->getParam('description');
-            $recipient = $request->getParam('recipient');
+            $recipient = $request->getParam('recipient');   
             $date = $request->getParam('date');
 
             $user_id = $this->auth->getUser()->id;
             $token = bin2hex(random_bytes(32));
 
+            $expiry_date = new \DateTime($date);
+            $expiry = $expiry_date->modify('+2 day');
+
+            if($recipient == 'myself') {
+                $recipient = $this->auth->getUser()->first_name;
+                $response = FigResponseCookies::set($response, SetCookie::create($token)->withValue($recipient)->withExpires($expiry)->withPath('/'));
+            }
+
             $this->validator->request($request, [
                 'name' => [
-                    'rules' => V::notEmpty()->alpha()->length(3, 25),
+                    'rules' => V::notEmpty()->alnum('\' : !')->length(3, 25),
                     'messages' => [
                         'notEmpty' => 'Name shouldn\'t be empty.',
-                        'alpha' => 'Name needs to contains alpha characters only.',
+                        'alnum' => 'Name must not contain any special characters..',
                         'length' => 'Name should be 3 to 25 characters long.'
                     ]
                 ],
                 'description' => [
-                    'rules' => V::notEmpty()->alnum('\'')->length(5, 1000),
+                    'rules' => V::notEmpty()->alnum('\' : !')->length(5, 1000),
                     'messages' => [
                         'notEmpty' => 'Description shouldn\'t be empty.',
-                        'alnum' => 'Description must contain only letters (a-z), digits (0-9) and "_".',
+                        'alnum' => 'Description must not contain any special characters.',
                         'length' => 'Description should be 5 to 1000 characters long.'
                     ]
                 ],
@@ -88,18 +99,83 @@ class ListController extends Controller
             }
         }
 
-        return $this->view->render($response, 'App/addlist.twig');
+        $data = [
+            'user' => $this->auth->getUser(),
+        ];
+
+        return $this->view->render($response, 'App/addlist.twig', $data);
     }
 
-    public function fetch(Request $request, Response $response, $token){
+    public function editList(Request $request, Response $response, $token){
         $list = Giftlist::where('token',$token)->first();
-        $gifts = $list->gift;
+
+        if ($request->isPost()) {
+            $name = $request->getParam('name');
+            $description = $request->getParam('description');
+
+            $this->validator->request($request, [
+                'name' => [
+                    'rules' => V::notEmpty()->alnum('\' : !')->length(3, 25),
+                    'messages' => [
+                        'notEmpty' => 'Name shouldn\'t be empty.',
+                        'alnum' => 'Name must not contain any special characters..',
+                        'length' => 'Name should be 3 to 25 characters long.'
+                    ]
+                ],
+                'description' => [
+                    'rules' => V::notEmpty()->alnum('\' : !')->length(5, 1000),
+                    'messages' => [
+                        'notEmpty' => 'Description shouldn\'t be empty.',
+                        'alnum' => 'Description must not contain any special characters.',
+                        'length' => 'Description should be 5 to 1000 characters long.'
+                    ]
+                ],
+            ]);
+
+            if ($this->validator->isValid()) {
+                $list->name = $name;
+                $list->description = $description;
+                $list->save();
+
+                $this->flash('success', 'Your list has been updated successfully.');
+
+                return $this->redirect($response, 'mylists');
+            }
+        }
+
+        $data = [
+            'list' => $list,
+        ];
+
+        return $this->view->render($response, 'App/editmylist.twig', $data);
+    }
+
+
+    public function fetch(Request $request, Response $response, $token){
+//        $list = Giftlist::where('token',$token)->get();
+        $list = Giftlist::where('token',$token)->with('commentlist','gift','commentgift')->first();
         $currentDate = strtotime(date_format(new \DateTime(), 'Y-m-d'));
         $data = [
             'list' => $list,
-            'gifts' => $gifts,
             'current' => $currentDate
         ];
         return $this->view->render($response,'App/list.twig', $data);
+    }
+
+    public function commentList(Request $request, Response $response, $token){
+        $list = Giftlist::where('token',$token)->first();
+        $listId = $list->id;
+        $author = $request->getParam('author');
+        $content = $request->getParam('content');
+        $this->newComment($listId, $author, $content);
+        return $this->redirect($response,'list', ['token'=>$token]);
+    }
+
+    public function newComment($list, $author, $content){
+        $comment = new Commentlist();
+        $comment->giftlist_id = $list;
+        $comment->author = $author;
+        $comment->content = $content;
+        $comment->save();
     }
 }

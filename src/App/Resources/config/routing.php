@@ -22,3 +22,12 @@ $app->get('/list/{token}', 'list.controller:fetch')->setName('list');
 $app->map(['GET', 'POST'], '/list/{token}/newgift', 'gift.controller:newgift')
     ->setName('newgift')
     ->add($container['auth.middleware']());
+
+
+$app->post('/book/{token}/{id}', 'gift.controller:book')->setName('book');
+
+$app->post('/list/{token}/addcomment', 'list.controller:commentList')->setName('commentList');
+
+$app->get('/editmylist/{token}', 'list.controller:editList')->setName('editmylist')->add($container['auth.middleware']());
+$app->post('/editmylist/{token}', 'list.controller:editList')->add($container['auth.middleware']());
+
