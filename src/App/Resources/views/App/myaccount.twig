@@ -1,113 +1,78 @@
 {% extends 'layout.twig' %}
 
 {% block body %}
-    <div class="col-md-9">
-        <div class="box">
-            <h1>My account</h1>
-            <p>Check your personal details here.</p>
+    <div class="mecadoTitle">
+        <h1>My account</h1>
+        <p>Check your personal details here.</p>
+    </div>
 
-            <h3>Change password</h3>
 
-            <form action="{{ path_for('myaccount') }}" method="POST">
-                <div class="row">
-                    <div class="col-sm-6">
-                        <div class="form-group">
-                            <label for="password_old">Old password</label>
-                            <input type="password" name="password_old" class="form-control">
-                        </div>
-                    </div>
-                </div>
-                    <div class="col-sm-6">
-                <div class="row">
-                        <div class="form-group">
-                            <label for="password">New password</label>
-                            <input type="password" name="password" class="form-control">
-                        </div>
-                    </div>
-                    <div class="col-sm-6">
-                        <div class="form-group">
-                            <label for="password_confirm">Retype new password</label>
-                            <input type="password" name="password_confirm" class="form-control">
-                        </div>
-                    </div>
-                </div>
-                <!-- /.row -->
+    <h3>Change password</h3>
 
-                <div class="col-sm-12 text-center">
-                    {{ csrf() }}
-                    <button type="submit" name="change_pw" class="btn btn-primary"><i class="fa fa-save"></i> Save new password</button>
-                </div>
-            </form>
-
-            <hr>
-
-            <h3>Personal details</h3>
-            <form action="{{ path_for('myaccount') }}" method="POST" >
-                <div class="row">
-                    <div class="col-sm-6">
-                        <div class="form-group">
-                            <label for="firstname">First name</label>
-                            <input type="text" class="form-control editInputs" name="first_name" id="firstname" value="{{ auth.user.first_name }}">
-                        </div>
-                    </div>
-                    <div class="col-sm-6">
-                        <div class="form-group">
-                            <label for="lastname">Last name</label>
-                            <input type="text" class="form-control editInputs" name="last_name" id="lastname" value="{{ auth.user.last_name }}">
-                        </div>
-                    </div>
-                </div>
-                <!-- /.row -->
-
-                <div class="row">
-                    <div class="col-sm-6">
-                        <div class="form-group">
-                            <label for="email">Email</label>
-                            <input type="email" class="form-control editInputs" name="email" id="email" value="{{ auth.user.email }}" disabled>
-                        </div>
-                    </div>
-                </div>
-                <!-- /.row -->
-                <div class="row">
-                    <div class="col-sm-offset-4 col-sm-4">
-                        <div class="text-center">
-                            {{ csrf() }}
-                            <button type="submit" name="change_details" class="btn btn-primary editInputs" value="Submit">Submit <i class="fa fa-user-md"></i></button>
-                        </div>
-                    </div>
-                </div>
-                {% if has_errors() %}
-                    <div class="alert alert-warning">
-                        {% for paramErrors in errors() %}
-                            {% for error in paramErrors %}
-                                <p>{{ error }}</p>
-                            {% endfor %}
-                        {% endfor %}
-                    </div>
-                {% endif %}
-            </form>
-
-            <h3>Delete account</h3>
-            <form action="{{ path_for('myaccount') }}" method="POST" >
-                <div class="row">
-                    <div class="col-sm-offset-4 col-sm-4">
-                        <div class="text-center">
-                            {{ csrf() }}
-                            <button type="submit" name="delete_account" value="Delete">Delete account</button>
-                        </div>
-                    </div>
-                </div>
-                <!-- /.row -->
-                {% if has_errors() %}
-                    <div class="alert alert-warning">
-                        {% for paramErrors in errors() %}
-                            {% for error in paramErrors %}
-                                <p>{{ error }}</p>
-                            {% endfor %}
-                        {% endfor %}
-                    </div>
-                {% endif %}
-            </form>
+    <form action="{{ path_for('myaccount') }}" method="POST">
+        <div>
+            <label for="password_old">Old password</label>
+            <input class="mecadoInput" type="password" name="password_old">
         </div>
+        <div>
+            <label for="password">New password</label>
+            <input class="mecadoInput" type="password" name="password">
+        </div>
+        <div>
+            <label for="password_confirm">Retype new password</label>
+            <input class="mecadoInput" type="password" name="password_confirm">
+        </div>
+        <!-- /.row -->
+        {{ csrf() }}
+        <button type="submit" name="change_pw" class="mecadoBtn"><i class="fa fa-save"></i> Save new password</button>
+    </form>
+
+    <hr>
+
+    <h3>Personal details</h3>
+    <form action="{{ path_for('myaccount') }}" method="POST" >
+        <div>
+            <label for="firstname">First name</label>
+            <input type="text" class="mecadoInput" name="first_name" id="firstname" value="{{ auth.user.first_name }}">
+        </div>
+        <div>
+            <label for="lastname">Last name</label>
+            <input type="text" class="mecadoInput" name="last_name" id="lastname" value="{{ auth.user.last_name }}">
+        </div>
+        <!-- /.row -->
+
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" class="mecadoInput" name="email" id="email" value="{{ auth.user.email }}" disabled>
+        </div>
+        {{ csrf() }}
+        <button type="submit" name="change_details" class="mecadoBtn" value="Submit">Submit <i class="fa fa-user-md"></i></button>
+        {% if has_errors() %}
+            <div class="alert alert-warning">
+                {% for paramErrors in errors() %}
+                    {% for error in paramErrors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                {% endfor %}
+            </div>
+        {% endif %}
+    </form>
+
+    <h3>Delete account</h3>
+    <form action="{{ path_for('myaccount') }}" method="POST" >
+               {{ csrf() }}
+                    <button class="mecadoBtn" type="submit" name="delete_account" value="Delete">Delete my account</button>
+         <!-- /.row -->
+        {% if has_errors() %}
+            <div class="alert alert-warning">
+                {% for paramErrors in errors() %}
+                    {% for error in paramErrors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                {% endfor %}
+            </div>
+        {% endif %}
+    </form>
+    </div>
     </div>
 {% endblock %}
