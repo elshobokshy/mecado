@@ -21,3 +21,4 @@ $app->get('/about','app.controller:about')->setName('about');
 
 $app->post('/book/{token}/{id}','gift.controller:book')->setName('book');
 
+$app->post('/list/{token}/addcomment','list.controller:commentList')->setName('commentList');

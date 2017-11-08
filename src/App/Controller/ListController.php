@@ -12,6 +12,7 @@ use Respect\Validation\Validator as V;
 use Dflydev\FigCookies\FigResponseCookies;
 use Dflydev\FigCookies\SetCookie;
 use App\Model\Giftlist;
+use App\Model\Commentlist;
 use Security\Middleware\AuthMiddleware;
 use Slim\Http\Request;
 use Slim\Http\Response;
@@ -152,12 +153,29 @@ class ListController extends Controller
 
     public function fetch(Request $request, Response $response, $token){
 //        $list = Giftlist::where('token',$token)->get();
-        $list = Giftlist::where('token',$token)->with('gift','commentgift')->first();
+        $list = Giftlist::where('token',$token)->with('commentlist','gift','commentgift')->first();
         $currentDate = strtotime(date_format(new \DateTime(), 'Y-m-d'));
         $data = [
             'list' => $list,
             'current' => $currentDate
         ];
         return $this->view->render($response,'App/list.twig', $data);
+    }
+
+    public function commentList(Request $request, Response $response, $token){
+        $list = Giftlist::where('token',$token)->first();
+        $listId = $list->id;
+        $author = $request->getParam('author');
+        $content = $request->getParam('content');
+        $this->newComment($listId, $author, $content);
+        return $this->redirect($response,'list', ['token'=>$token]);
+    }
+
+    public function newComment($list, $author, $content){
+        $comment = new Commentlist();
+        $comment->giftlist_id = $list;
+        $comment->author = $author;
+        $comment->content = $content;
+        $comment->save();
     }
 }
