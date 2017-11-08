@@ -25,8 +25,8 @@
         {% if gift.booked %}
             <p> booked </p>
             {% for comment in gift.commentgift %}
-                <p>comment.author</p>
-                <p>comment.content</p>
+                <p>{{ comment.author }}</p>
+                <p>{{ comment.content }}</p>
             {% endfor %}
         {% else %}
             <form action="{{ path_for('book',{token:list.token,'id':gift.id}) }}" method="POST">
@@ -48,4 +48,20 @@
 
     <button href="#">Add new gift</button>
     <p>sharing url : {{ url }}</a></p>
+
+    {% for comment in list.commentlist %}
+        <p>{{comment.author }}</p>
+        <p>{{ comment.content }}</p>
+    {% endfor %}
+
+    <form action="{{ path_for('commentList',{token:list.token}) }}" method="POST">
+        <div>
+            <input class ="mecadoInput" type="text" name="author" placeholder="Your name">
+        </div>
+        <div>
+            <input class ="mecadoInput" type="text" name="content" placeholder="Your message">
+        </div>
+        {{ csrf() }}
+        <input class="mecadoBtn" type="submit" value="Add Comment">
+    </form>
 {% endblock %}
