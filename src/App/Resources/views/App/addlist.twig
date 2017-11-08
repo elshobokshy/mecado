@@ -5,13 +5,22 @@
     <h1>Add List</h1>
     <form action="{{ path_for('addlist') }}" method="post">
         <label for="name">Name : </label>
-        <input id="name" name="name" type="text" value="">
+        <input id="name" name="name" type="text" value="{{ val('name') }}">
         <label for="description">Description : </label>
-        <input id="description" name="description" type="text" value="">
-        Myself<input type="radio" name="recipient" value="myself" checked>
-        Other<input type="radio" name="recipient" value="other">
+        <input id="description" name="description" type="text" value="{{ val('description') }}">
+
+        Myself <input type="radio" name="choice" value="myself" checked>
+        Other <input type="radio" name="choice" value="other">
+
+        <div id="myself" class="recipient">
+            <input type="text" name="recipient" value="{{ user.first_name }}" disabled>
+        </div>
+        <div id="other" class="recipient" style="display: none;">
+            <input type="text" name="recipient" placeholder="Birthday boy/girl first name" value="{{ user.first_name }}">
+        </div>
+
         <label for="date"> Date of validity : </label>
-        <input id="date" name="date" type="text" value="">
+        <input id="date" name="date" type="text" value="{{ val('date') }}">
         {{ csrf() }}
         <input type="submit">
         {% if has_errors() %}
