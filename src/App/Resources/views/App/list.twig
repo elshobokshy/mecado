@@ -4,7 +4,6 @@
 {% set url = base_url() ~ path_for( 'list', {'token': list.token }) %}
 
 {% block body %}
-
     Specific list page
 
 
@@ -16,7 +15,7 @@
     <hr>
     <br>
 
-    {% for gift in gifts %}
+    {% for gift in list.gift %}
         <img src="{{ gift.picture }}">
         <h1>{{ gift.name }}</h1>
         <p>{{ gift.description }}</p>
@@ -25,8 +24,21 @@
 
         {% if gift.booked %}
             <p> booked </p>
+            {% for comment in gift.commentgift %}
+                <p>comment.author</p>
+                <p>comment.content</p>
+            {% endfor %}
         {% else %}
-            <a href="{{ path_for('book',{'token':list.token,'id':gift.id}) }}">book</a>
+            <form action="{{ path_for('book',{token:list.token,'id':gift.id}) }}" method="POST">
+                <div>
+                    <input class ="mecadoInput" type="text" name="author" placeholder="Your name">
+                </div>
+                <div>
+                    <input class ="mecadoInput" type="text" name="content" placeholder="Your message for {{ list.recipient }}">
+                </div>
+                {{ csrf() }}
+                <input class="mecadoBtn" type="submit" value="Book">
+            </form>
         {% endif %}
 
         <button href="#">delete</button>
