@@ -1,9 +1,45 @@
-body {
-  padding-top: 70px;
-}
+@import 'plain/plain';
+@import 'fa/css/font-awesome.css';
 
-.ui.container.flash {
+
+.flash {
   position: relative;
   z-index: 1;
-  margin-bottom: 30px;
 }
+
+div.navContainer{
+  @extend .align-center;
+  width : 100%;
+  margin-top: 50vh;
+  transform: translateY(-80%);
+}
+
+ul.mecadoNav{
+  @extend .navbar;
+  background-color : lightblue;
+  border: none;
+}
+
+input.mecadoInput{
+  font-size : 1em;
+  border : 1px solid black;
+  border-radius : 3px;
+  height : 25px;
+  padding : 2px 5px;
+  margin : 10px 0;
+}
+
+.mecadoBtn{
+  @extend .btn-blue;
+}
+
+div.mecadoTitle{
+  @extend .align-center;
+  width : 100%;
+}
+
+h1,h2,h3,h4,h5,h6{
+  font-family : 'Titillium Web', BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  color : #5bc0de;
+}
+

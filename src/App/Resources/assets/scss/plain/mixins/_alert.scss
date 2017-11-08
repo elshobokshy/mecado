@@ -1,0 +1,12 @@
+@mixin alert-struct($padding, $margin-bottom, $border, $border-radius) {
+    padding: $padding;
+    margin-bottom: $margin-bottom;
+    border: $border;
+    border-radius: $border-radius;
+}
+
+@mixin alert-style($background, $border, $text-color) {
+    background-color: $background;
+    border-color: $border;
+    color: $text-color;
+}

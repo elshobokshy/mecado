@@ -1,0 +1,30 @@
+.alert {
+    @include alert-struct($alert-padding,
+                          $alert-margin-bottom,
+                          $alert-border,
+                          $alert-border-radius)
+}
+
+.alert-success {
+    @include alert-style($alert-success-bgcolor,
+                         $alert-success-borderColor,
+                         $alert-success-color);
+}
+
+.alert-info {
+    @include alert-style($alert-info-bgcolor,
+                         $alert-info-borderColor,
+                         $alert-info-color);
+}
+
+.alert-warning {
+    @include alert-style($alert-warning-bgcolor,
+                         $alert-warning-borderColor,
+                         $alert-warning-color);
+}
+
+.alert-danger {
+    @include alert-style($alert-danger-bgcolor,
+                         $alert-danger-borderColor,
+                         $alert-danger-color);
+}

@@ -12,6 +12,7 @@ use Respect\Validation\Validator as V;
 use Dflydev\FigCookies\FigResponseCookies;
 use Dflydev\FigCookies\SetCookie;
 use App\Model\Giftlist;
+use Security\Middleware\AuthMiddleware;
 use Slim\Http\Request;
 use Slim\Http\Response;
 
@@ -27,11 +28,9 @@ class ListController extends Controller
             ];
 
         return $this->view->render($response, 'App/mylists.twig', $data);
-
     }
 
     public function addList(Request $request, Response $response){
-
         if ($request->isPost()) {
             $name = $request->getParam('name');
             $description = $request->getParam('description');
@@ -109,9 +108,11 @@ class ListController extends Controller
     public function fetch(Request $request, Response $response, $token){
         $list = Giftlist::where('token',$token)->first();
         $gifts = $list->gift;
+        $currentDate = strtotime(date_format(new \DateTime(), 'Y-m-d'));
         $data = [
             'list' => $list,
-            'gifts' => $gifts
+            'gifts' => $gifts,
+            'current' => $currentDate
         ];
         return $this->view->render($response,'App/list.twig', $data);
     }

@@ -1,25 +1,13 @@
-<nav class="ui borderless top fixed menu">
-    <a href="{{ path_for('home') }}" class="header item">Home</a>
-    <div class="right menu">
-        {% if auth.check() %}
-            <div class="item">
-                <a href="{{ path_for('mylists') }}" class="ui teal circular button">My Lists</a>
-            </div>
-            <div class="header item">{{ auth.user.first_name }}</div>
-            <div class="item">
-                <a href="{{ path_for('logout') }}" class="ui teal circular button">Logout</a>
-            </div>
 
-            <div class="item">
-                <a href="" class="ui teal circular button">What's MECADO ?</a>
-            </div>
-        {% else %}
-            <div class="item">
-                <a href="{{ path_for('login') }}" class="ui circular button">Login</a>
-            </div>
-            <div class="item">
-                <a href="{{ path_for('register') }}" class="ui teal circular button">Register</a>
-            </div>
-        {% endif %}
-    </div>
-</nav>
+{% if auth.check() %}
+<div class="row">
+    <label for="navbar-menu" class="show-menu">☰</label>
+    <input type="checkbox" id="navbar-menu" role="button">
+    <ul class="mecadoNav">
+        <li><a href="{{ path_for('mylists') }}">My Lists</a></li>
+        <li><a href="{{ path_for('myaccount') }}">{{ auth.user.first_name ~ " " ~ auth.user.last_name}}</a></li>
+        <li><a href="{{ path_for('logout') }}">Logout</a></li>
+        <li><a href="{{ path_for('about') }}">About MECADO.NET</a></li>
+    </ul>
+</div>
+{% endif %}
