@@ -5,3 +5,10 @@
   z-index: 1;
   margin-bottom: 30px;
 }
+
+ul.mecadoNav{
+  @extend .navbar;
+  background-color : lightblue;
+  border: none;
+}
+
