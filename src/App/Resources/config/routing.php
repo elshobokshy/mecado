@@ -17,3 +17,7 @@ $app->post('/addlist', 'list.controller:addlist')->add($container['auth.middlewa
 
 $app->get('/list/{token}','list.controller:fetch')->setName('list')->add($container['auth.middleware']());
 $app->get('/about','app.controller:about')->setName('about');
+
+
+$app->post('/book/{token}/{id}','gift.controller:book')->setName('book');
+

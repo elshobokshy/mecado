@@ -151,12 +151,11 @@ class ListController extends Controller
 
 
     public function fetch(Request $request, Response $response, $token){
-        $list = Giftlist::where('token',$token)->first();
-        $gifts = $list->gift;
+//        $list = Giftlist::where('token',$token)->get();
+        $list = Giftlist::where('token',$token)->with('gift','commentgift')->first();
         $currentDate = strtotime(date_format(new \DateTime(), 'Y-m-d'));
         $data = [
             'list' => $list,
-            'gifts' => $gifts,
             'current' => $currentDate
         ];
         return $this->view->render($response,'App/list.twig', $data);
