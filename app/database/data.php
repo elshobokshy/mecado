@@ -46,8 +46,7 @@ Giftlist::insert([
         'date' => '2018-11-06',
         'recipient' => 'the recipient',
         'user_id' => 1
-    ],
-    [
+    ],[
         'id' => 2,
         'name' => 'test2',
         'description' => 'test.d2escription',
@@ -55,8 +54,7 @@ Giftlist::insert([
         'date' => '2018-09-05',
         'recipient' => 'the recipient',
         'user_id' => 1
-    ],
-    [
+    ],[
         'id' => 3,
         'name' => 'test3',
         'description' => 'test3.description',
@@ -76,8 +74,7 @@ Gift::insert([
         'description' => 'ceci est un cadeau qui me plairait bien',
         'price' => 125,
         'booked' => 0
-    ],
-    [
+    ],[
         'id' => 2,
         'giftlist_id' => 1,
         'name' => 'a second gift',
@@ -85,8 +82,7 @@ Gift::insert([
         'description' => 'ceci est un AUTRE cadeau qui me plairait bien',
         'price' => 256,
         'booked' => 0
-    ],
-    [
+    ],[
         'id' => 3,
         'giftlist_id' => 1,
         'name' => 'a gift',
@@ -94,8 +90,7 @@ Gift::insert([
         'description' => null,
         'price' => null,
         'booked' => 1
-    ],
-    [
+    ],[
         'id' => 4,
         'giftlist_id' => 2,
         'name' => 'a gift',
@@ -103,8 +98,7 @@ Gift::insert([
         'description' => null,
         'price' => null,
         'booked' => 0
-    ],
-    [
+    ],[
         'id' => 5,
         'giftlist_id' => 2,
         'url' => null,
@@ -112,8 +106,7 @@ Gift::insert([
         'price' => null,
         'name' => 'a gift',
         'booked' => 0
-    ],
-    [
+    ],[
         'id' => 6,
         'giftlist_id' => 2,
         'url' => null,

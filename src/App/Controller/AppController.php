@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Controller;
+
 use Respect\Validation\Validator as V;
 
 use Slim\Http\Request;
@@ -10,23 +11,17 @@ class AppController extends Controller
 {
     public function home(Request $request, Response $response)
     {
-        if($this->auth->guest())
-            return $this->view->render($response, 'App/home.twig');
-        else
-            return $this->redirect($response, 'mylists');
+        return $this->redirect($response, 'mylists');
     }
 
     public function myaccount(Request $request, Response $response)
     {
-        if($this->auth->guest())
-            return $this->redirect($response, 'home');
-        else
-            return $this->view->render($response, 'App/myaccount.twig');
+        return $this->view->render($response, 'App/myaccount.twig');
     }
 
     public function editProfile(Request $request, Response $response)
     {
-        if (isset($_POST["change_details"])) {
+        if (isset($_POST['change_details'])) {
             if ($request->isPost()) {
                 $first_name = $request->getParam('first_name');
                 $last_name = $request->getParam('last_name');
@@ -40,7 +35,7 @@ class AppController extends Controller
                             'length' => 'First name should be 1 to 25 characters long.'
                         ]
                     ],
-                    'last_name'=> [
+                    'last_name' => [
                         'rules' => V::length(1, 25)->alpha(),
                         'messages' => [
                             'alpha' => 'Last name needs to contains alpha characters only.',
@@ -114,11 +109,11 @@ class AppController extends Controller
                 $user->delete();
                 return $this->redirect($response, 'home');
             }
-
         }
     }
-    
-    public function about(Request $request, Response $response){
+
+    public function about(Request $request, Response $response)
+    {
         return $this->view->render($response, 'App/about.twig');
     }
 }
