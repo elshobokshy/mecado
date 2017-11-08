@@ -82,15 +82,15 @@
     
     box-shadow: $box-shadow;
 
-    &:focus {
+    :focus {
       background-color: darken($background, 10%);
           border-color: darken($border, 25%);
     }
-    &:hover {
+    :hover {
       background-color: darken($background, 10%);
           border-color: darken($border, 12%);
     }
-    &:active {
+    :active {
       background-color: darken($background, 10%);
           border-color: darken($border, 12%);
     }
