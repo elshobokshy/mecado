@@ -6,9 +6,30 @@
     <div class="row">
         <h1>New gift</h1>
         <div>
-            <form>
-                {{ form.input('name','lavalue', 'name', 'Name', 'the name','text', 1) }}
+            <form action="{{ path_for('newgift', {'token':token }) }}" method="post">
 
+
+                {{ form.input('giftlist_id', giftlist_id, 'giftlist_id', '', '','the id','hidden', 1) }}
+                {{ form.input('token', token, 'token', '', '','the token','hidden', 1) }}
+                {{ form.input('booked', 0, 'booked', '', '','booked','hidden', 1) }}
+
+                {{ form.input('name','', 'name', 'Name','', 'the name','text', 1) }}
+                {{ form.textarea('description','', 'description', 'Description','', 5, 100) }}
+                {{ form.input('price','', 'price', 'Price','', 'the price','number', 0) }}
+                {{ form.input('url','', 'url', 'Link','', 'the url','text', 0) }}
+                {#{{ form.input('picture','', 'picture', 'Picture','', 'the picture','text', 1) }}#}
+                {{ csrf() }}
+                <button  class="btn btn-blue" type="submit">Add to the list</button>
+
+                {% if has_errors() %}
+                    <div class="alert alert-warning">
+                        {% for paramErrors in errors() %}
+                            {% for error in paramErrors %}
+                                <p>{{ error }}</p>
+                            {% endfor %}
+                        {% endfor %}
+                    </div>
+                {% endif %}
             </form>
         </div>
     </div>

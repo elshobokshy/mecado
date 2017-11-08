@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use Cartalyst\Sentinel\Sentinel;
 use Respect\Validation\Validator as V;
 
 use Slim\Http\Request;
@@ -11,9 +12,7 @@ class AppController extends Controller
 {
     public function home(Request $request, Response $response)
     {
-        if ($this->auth->getUser())
-            return $this->redirect($response, 'mylists');
-        return $this->view->render($response, 'App/home.twig');
+        return $this->auth->check() ? $this->redirect($response, 'mylists') : $this->view->render($response, 'App/home.twig');
     }
 
     public function myaccount(Request $request, Response $response)

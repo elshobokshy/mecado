@@ -17,10 +17,8 @@ $app->map(['GET', 'POST'], '/addlist', 'list.controller:addlist')
     ->setName('addlist')
     ->add($container['auth.middleware']());
 
-$app->get('/list/{token}', 'list.controller:fetch')
-    ->setName('list')
-    ->add($container['auth.middleware']());
+$app->get('/list/{token}', 'list.controller:fetch')->setName('list');
 
-$app->get('/list/{token}/newgift', 'gift.controller:newgift')
+$app->map(['GET', 'POST'], '/list/{token}/newgift', 'gift.controller:newgift')
     ->setName('newgift')
     ->add($container['auth.middleware']());
