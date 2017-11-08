@@ -25,5 +25,5 @@
     {% endfor %}
 
     <button href="#">Add new gift</button>
-    <p>sharing url : <a href="localhost:9000/dev/list/{{ list.token }}"> localhost:9000/dev/list/{{ list.token }}</a></p>
+    <p>sharing url : <a href="{{ path_for( 'list', {'token': list.token }) }}"> {{base_url() ~ path_for( 'list', {'token': list.token }) }}</a></p>
 {% endblock %}
