@@ -15,7 +15,8 @@
         </p>
         <p>Recipient : {{ list.recipient }}</p>
         <p>{{ list.date }}</p>
-        <a href="{{ path_for( 'list', {'token': list.token }) }}">See List</a>
+        <a href="{{ path_for( 'list', {'token': list.token }) }}">See List</a> | 
+        <a href="{{ path_for( 'editmylist', {'token': list.token }) }}">Edit list</a>
         <hr>
     {% endfor %}
 

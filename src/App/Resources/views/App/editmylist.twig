@@ -1,0 +1,25 @@
+{% extends 'layout.twig' %}
+
+{% block body %}
+
+    <h1>Add List</h1>
+    <form action="{{ path_for('editmylist', {'token': list.token }) }}" method="post">
+        <label for="name">Name : </label>
+        <input id="name" name="name" type="text" value="{{ list.name }}">
+        <label for="description">Description : </label>
+        <input id="description" name="description" type="text" value="{{ list.description }}">
+
+        {{ csrf() }}
+        <input type="submit" value="Update">
+        {% if has_errors() %}
+            <div class="alert alert-warning">
+                {% for paramErrors in errors() %}
+                    {% for error in paramErrors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                {% endfor %}
+            </div>
+        {% endif %}
+    </form>
+
+{% endblock %}

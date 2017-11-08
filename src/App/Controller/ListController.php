@@ -105,6 +105,51 @@ class ListController extends Controller
         return $this->view->render($response, 'App/addlist.twig', $data);
     }
 
+    public function editList(Request $request, Response $response, $token){
+        $list = Giftlist::where('token',$token)->first();
+
+        if ($request->isPost()) {
+            $name = $request->getParam('name');
+            $description = $request->getParam('description');
+
+            $this->validator->request($request, [
+                'name' => [
+                    'rules' => V::notEmpty()->alnum('\' : !')->length(3, 25),
+                    'messages' => [
+                        'notEmpty' => 'Name shouldn\'t be empty.',
+                        'alnum' => 'Name must not contain any special characters..',
+                        'length' => 'Name should be 3 to 25 characters long.'
+                    ]
+                ],
+                'description' => [
+                    'rules' => V::notEmpty()->alnum('\' : !')->length(5, 1000),
+                    'messages' => [
+                        'notEmpty' => 'Description shouldn\'t be empty.',
+                        'alnum' => 'Description must not contain any special characters.',
+                        'length' => 'Description should be 5 to 1000 characters long.'
+                    ]
+                ],
+            ]);
+
+            if ($this->validator->isValid()) {
+                $list->name = $name;
+                $list->description = $description;
+                $list->save();
+
+                $this->flash('success', 'Your list has been updated successfully.');
+
+                return $this->redirect($response, 'mylists');
+            }
+        }
+
+        $data = [
+            'list' => $list,
+        ];
+
+        return $this->view->render($response, 'App/editmylist.twig', $data);
+    }
+
+
     public function fetch(Request $request, Response $response, $token){
         $list = Giftlist::where('token',$token)->first();
         $gifts = $list->gift;
