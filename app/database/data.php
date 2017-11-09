@@ -27,7 +27,6 @@ DB::table('role_users')->insert([
 User::insert(
     [
         'id' => 1,
-        'username' => 'test',
         'email' => 'test@test.com',
         'password' => '$2y$10$.0.MMydi9fowTm/luU4BSumoJwWdFHHe0RKXTeUfel.7meMCaZlr2',
         'first_name' => 'firstestname',
