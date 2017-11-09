@@ -23,7 +23,7 @@
                     <input type="text" class="mecadoInput" name="last_name" id="lastname" value="{{ auth.user.last_name }}">
                 </div>
                 {{ csrf() }}
-                <button type="submit" name="change_details" class="mecadoBtn" value="Submit">Update my profile <i class="fa fa-user-md"></i></button>
+                <button type="submit" name="change_details" class="mecadoBtn" value="Submit">Update my profile</button>
                 {% if has_errors() %}
                     <div class="alert alert-warning">
                         {% for paramErrors in errors() %}
@@ -50,7 +50,7 @@
                     <label for="password_confirm">Retype new password</label><br>
                     <input class="mecadoInput" type="password" name="password_confirm" id="password_confirm">
                 </div>       {{ csrf() }}
-                <button type="submit" name="change_pw" class="mecadoBtn"><i class="fa fa-save"></i> Save new password</button>
+                <button type="submit" name="change_pw" class="mecadoBtn">Save new password</button>
             </form>
 
         </div>

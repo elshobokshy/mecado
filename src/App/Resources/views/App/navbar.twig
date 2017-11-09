@@ -1,12 +1,15 @@
 {% if auth.check() %}
-<div>
-    <label for="navbar-menu" class="show-menu">☰</label>
-    <input type="checkbox" id="navbar-menu" role="button">
-    <ul class="mecadoNav">
-        <li><a href="{{ path_for('mylists') }}">My Lists</a></li>
-        <li><a href="{{ path_for('myaccount') }}">{{ auth.user.first_name ~ " " ~ auth.user.last_name}}</a></li>
-        <li><a href="{{ path_for('logout') }}">Logout</a></li>
-        <li><a href="{{ path_for('about') }}">About MECADO.NET</a></li>
-    </ul>
-</div>
+    <div>
+        <label for="navbar-menu" class="show-menu">☰</label>
+        <input type="checkbox" id="navbar-menu" role="button">
+        <ul class="mecadoNav">
+            <li id="mecadoLogo">
+                <img id="mecadoNavLogo" src="https://www.google.com/doodle4google/images/splashes/featured.png">
+            </li>
+            <li><a href="{{ path_for('mylists') }}">My Lists</a></li>
+            <li><a href="{{ path_for('myaccount') }}">{{ auth.user.first_name ~ " " ~ auth.user.last_name}}</a></li>
+            <li><a href="{{ path_for('logout') }}">Logout</a></li>
+            <li><a href="{{ path_for('about') }}">About MECADO.NET</a></li>
+        </ul>
+    </div>
 {% endif %}
