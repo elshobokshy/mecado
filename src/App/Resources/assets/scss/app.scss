@@ -3,6 +3,7 @@
 
 
 body{
+  position : relative;
 }
 
 .flash {
@@ -33,11 +34,21 @@ ul.mecadoNav{
   margin-right : 0;
   align-items: center;
   justify-content: center;
-  border-bottom : 2px solid lightblue;
+  border-bottom : 2px solid deeppink;
+  text-transform: uppercase;
 }
 
 ul.mecadoNav li {
-  border-left : 2px solid dodgerblue;
+  border-left : 2px solid deeppink;
+}
+
+ul.mecadoNav li a:hover {
+  background-color : $navbar-active-link-active-bg;
+}
+
+.active {
+  @extend .active;
+  font-weight: bold;
 }
 
 ul.mecadoNav > #mecadoLogo{
@@ -45,9 +56,6 @@ ul.mecadoNav > #mecadoLogo{
   border : none;
 }
 
-ul.mecadoNav li a:hover{
-  background-color: darken(#5bc0de,1);
-}
 
 
 #mecadoNavLogo{
@@ -123,16 +131,21 @@ div.mecadoNav{
   bottom : 0;
 }
 
+.mecadoFooter{
+  position: absolute;
+  width: 100%; height: 50px;
+  bottom: 0; left: 0; right: 0;
+}
+
 @media only screen and (max-width: 850px){
 
   ul.mecadoNav li {
     width : 100%;
     border-left-style: none;
-    border-top : 1px solid dodgerblue;
+    border-top : 1px solid deeppink;
   }
 
   ul.mecadoNav > #mecadoLogo{
     margin-right : 0;
   }
 }
-

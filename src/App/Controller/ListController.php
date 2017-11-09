@@ -22,12 +22,13 @@ class ListController extends Controller
 {
     public function myLists(Request $request, Response $response){
         $lists = Giftlist::where('user_id', $this->auth->getUser()->id)->get();
-
+        $URI = $this->getUriForActive($request);
         $currentDate = strtotime(date_format(new \DateTime(), 'Y-m-d'));
         $data = [
-                'lists' => $lists,
-                'current' => $currentDate
-            ];
+            'lists' => $lists,
+            'current' => $currentDate,
+            'uri' => $URI
+        ];
 
         return $this->view->render($response, 'App/mylists.twig', $data);
     }
@@ -36,7 +37,7 @@ class ListController extends Controller
         if ($request->isPost()) {
             $name = $request->getParam('name');
             $description = $request->getParam('description');
-            $recipient = $request->getParam('recipient');   
+            $recipient = $request->getParam('recipient');
             $date = $request->getParam('date');
 
             $user_id = $this->auth->getUser()->id;
@@ -99,9 +100,10 @@ class ListController extends Controller
                 return $this->redirect($response, 'addlist');
             }
         }
-
+        $URI = $this->getUriForActive($request);
         $data = [
             'user' => $this->auth->getUser(),
+            'uri' => $URI
         ];
 
         return $this->view->render($response, 'App/addlist.twig', $data);
@@ -143,9 +145,10 @@ class ListController extends Controller
                 return $this->redirect($response, 'mylists');
             }
         }
-
+        $URI = $this->getUriForActive($request);
         $data = [
             'list' => $list,
+            'uri' => $URI
         ];
 
         return $this->view->render($response, 'App/editmylist.twig', $data);
