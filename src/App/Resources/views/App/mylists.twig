@@ -1,29 +1,51 @@
 {% extends 'layout.twig' %}
 
 {% block body %}
-    <hr>
-    My Lists Page
+    <div class="mecadoContainer">
+    <div class="mecadoTitle">
+        <h1>My lists</h1>
+        <p>Check your lists here</p>
+        <a class="btn-blue" href="{{ path_for('addlist') }}">Add new List</a>
+    </div>
+    {% set i = 0 %}
     {% for list in lists %}
-        <h1>{{ list.name }}</h1>
-        <p>Day remaining :
-            {% if ((list.date | date('U')- current)/(3600*24))|round <= 0 %}
-                0
-            {% else %}
-                {{ ((list.date | date('U')- current)/(3600*24))|round }}
+    {% if i%2 == 0 %}
+    <div class="mecadoList pink">
+        {% else %}
+        <div class="mecadoList">
             {% endif %}
-        </p>
-        <p>Recipient : {{ list.recipient }}</p>
-        <p>{{ list.date }}</p>
-        <a href="{{ path_for( 'list', {'token': list.token }) }}">See List</a> |
-        <a href="{{ path_for( 'editmylist', {'token': list.token }) }}">Edit list</a>
+            {%  set i = i+1  %}
+            <div class="mecadoListData">
+                {% if  (((list.date | date('U')- current)/(3600*24))|round <= 7) %}
+                <h1 class="mecadoFiveDay">
+                    {% elseif (((list.date | date('U')- current)/(3600*24))|round > 7) and(((list.date | date('U')- current)/(3600*24))|round <= 14) %}
+                    <h1 class="mecadoFourteenDay">
+                        {% else %}
+                        <h1 class="mecadoOtherDay">
+                            {% endif %}
+                            {% if ((list.date | date('U')- current)/(3600*24))|round <= 0 %}
+                                0
+                            {% else %}
+                                {{ ((list.date | date('U')- current)/(3600*24))|round }}
+                            {% endif %}
+                            days remaining
+                        </h1>
+            </div>
+            <div class="mecadoListData">
+                <h4>{{ list.name }}</h4>
+            </div>
+            <div class="mecadoListData">
+                <h4>{{ list.recipient }}</h4>
+            </div>
 
-        <form action="{{ path_for('deletelist',{'id':list.id}) }}" method="POST">
-            {{ csrf() }}
-            <input class="mecadoBtn" type="submit" value="Delete">
-        </form>
 
-        <hr>
-    {% endfor %}
+                <a class="mecadoBtn" href="{{ path_for( 'list', {'token': list.token }) }}">See it</a>
+               <a class="mecadoBtn" href="{{ path_for( 'editmylist', {'token': list.token }) }}">Edit list</a>
+                <form action="{{ path_for('deletelist',{'id':list.id}) }}" method="POST">
+                    {{ csrf() }}
+                    <input class="mecadoBtn" type="submit" value="Delete">
+        </div>
 
-    <a href="{{ path_for('addlist') }}">Add new List</a>
+        {% endfor %}
+    </div>
 {% endblock %}
