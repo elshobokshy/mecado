@@ -4,15 +4,15 @@ namespace App\Controller;
 
 use Cartalyst\Sentinel\Sentinel;
 use Respect\Validation\Validator as V;
+use App\Model\Commentgift;
+use App\Model\Commentlist;
+use App\Model\Gift;
+use App\Model\Giftlist;
 
 use Slim\Http\Request;
 use Slim\Http\Response;
 
 use Security\Model\User;
-use App\Model\Giftlist;
-use App\Model\Gift;
-use App\Model\Commentlist;
-use App\Model\Commentgift;
 
 class AppController extends Controller
 {
@@ -23,7 +23,11 @@ class AppController extends Controller
 
     public function myaccount(Request $request, Response $response)
     {
-        return $this->view->render($response, 'App/myaccount.twig');
+        $URI = $this->getUriForActive($request);
+        $data = [
+            'uri' => $URI
+        ];
+        return $this->view->render($response, 'App/myaccount.twig', $data);
     }
 
     public function editProfile(Request $request, Response $response)
@@ -136,7 +140,11 @@ class AppController extends Controller
 
     public function about(Request $request, Response $response)
     {
-        return $this->view->render($response, 'App/about.twig');
+        $URI = $this->getUriForActive($request);
+        $data = [
+            'uri' => $URI
+        ];
+        return $this->view->render($response, 'App/about.twig', $data);
     }
 
 }

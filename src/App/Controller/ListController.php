@@ -10,6 +10,7 @@ namespace App\Controller;
 
 use Respect\Validation\Validator as V;
 use Dflydev\FigCookies\FigResponseCookies;
+use Dflydev\FigCookies\FigRequestCookies;
 use Dflydev\FigCookies\SetCookie;
 use App\Model\Giftlist;
 use App\Model\Gift;
@@ -23,11 +24,12 @@ class ListController extends Controller
     public function myLists(Request $request, Response $response)
     {
         $lists = Giftlist::where('user_id', $this->auth->getUser()->id)->get();
-
+        $URI = $this->getUriForActive($request);
         $currentDate = strtotime(date_format(new \DateTime(), 'Y-m-d'));
         $data = [
             'lists' => $lists,
-            'current' => $currentDate
+            'current' => $currentDate,
+            'uri' => $URI
         ];
 
         return $this->view->render($response, 'App/mylists.twig', $data);
@@ -47,8 +49,7 @@ class ListController extends Controller
             $expiry_date = new \DateTime($date);
             $expiry = $expiry_date->modify('+2 day');
 
-            if ($recipient == 'myself') {
-                $recipient = $this->auth->getUser()->first_name;
+            if ($recipient == $this->auth->getUser()->first_name) {
                 $response = FigResponseCookies::set($response, SetCookie::create($token)->withValue($recipient)->withExpires($expiry)->withPath('/'));
             }
 
@@ -101,9 +102,10 @@ class ListController extends Controller
                 return $this->redirect($response, 'addlist');
             }
         }
-
+        $URI = $this->getUriForActive($request);
         $data = [
             'user' => $this->auth->getUser(),
+            'uri' => $URI
         ];
 
         return $this->view->render($response, 'App/addlist.twig', $data);
@@ -146,9 +148,10 @@ class ListController extends Controller
                 return $this->redirect($response, 'mylists');
             }
         }
-
+        $URI = $this->getUriForActive($request);
         $data = [
             'list' => $list,
+            'uri' => $URI
         ];
 
         return $this->view->render($response, 'App/editmylist.twig', $data);
@@ -159,9 +162,11 @@ class ListController extends Controller
     {
         $list = Giftlist::where('token', $token)->with('commentlist', 'gift', 'commentgift')->first();
         $currentDate = strtotime(date_format(new \DateTime(), 'Y-m-d'));
+        $cookie = FigRequestCookies::get($request, $token);
         $data = [
             'list' => $list,
-            'current' => $currentDate
+            'current' => $currentDate,
+            'cookie_name' => $cookie->getValue() === null ? 'notexists' : 'exists'
         ];
         return $this->view->render($response, 'App/list.twig', $data);
     }
@@ -172,8 +177,39 @@ class ListController extends Controller
         $listId = $list->id;
         $author = $request->getParam('author');
         $content = $request->getParam('content');
-        $this->newComment($listId, $author, $content);
-        return $this->redirect($response, 'list', ['token' => $token]);
+        $this->validator->request($request, [
+            'author' => [
+                'rules' => V::notEmpty()->alpha()->length(3, 25),
+                'messages' => [
+                    'notEmpty' => 'Name shouldn\'t be empty.',
+                    'alpha' => 'Author should only contain alphabetic characters.',
+                    'length' => 'Name should be 3 to 25 characters long.'
+                ]
+            ],
+            'content' => [
+                'rules' => V::notEmpty()->alnum('\' : !')->length(5, 1000),
+                'messages' => [
+                    'notEmpty' => 'Description shouldn\'t be empty.',
+                    'alnum' => 'Description must not contain any special characters.',
+                    'length' => 'Description should be 5 to 1000 characters long.'
+                ]
+            ],
+        ]);
+
+        $data = [
+            'token' => $token
+        ];
+
+        if ($this->validator->isValid()) {
+
+            $this->newComment($listId, $author, $content);
+
+            $this->flash('success', 'Your comment has been created.');
+            return $this->redirect($response,'list',$data);
+        }
+
+
+        return $this->view->render($response, 'App/list.twig', $data);
     }
 
     public function newComment($list, $author, $content)

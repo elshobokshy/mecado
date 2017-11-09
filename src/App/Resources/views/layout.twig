@@ -20,8 +20,13 @@
         {% include 'App/flash.twig' %}
     {% endblock %}
 
-    {% block body %}{% endblock %}
-{% block javascript %}
+    {% block body %}
+    {% endblock %}
+
+
+
+
+    {% block javascript %}
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="{{ asset('assets/js/app.js') }}"></script>
 {% endblock %}

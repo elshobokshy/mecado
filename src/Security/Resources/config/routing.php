@@ -1,7 +1,8 @@
 <?php
 
 $app->group('', function () {
-    $this->map(['GET', 'POST'], '/login', 'auth.controller:login')->setName('login');
+    $this->post('/login', 'auth.controller:login')->setName('login');
+    $this->get('/login', 'app.controller:home')->setName('home');
     $this->map(['GET', 'POST'], '/register', 'auth.controller:register')->setName('register');
 })->add($container['guest.middleware']);
 
