@@ -40,6 +40,22 @@ input.mecadoInput{
   margin : 10px 0;
 }
 
+input.mecadoInputLine{
+  font-size : 1em;
+  border : 1px solid black;
+  border-radius : 3px;
+  height : 25px;
+  padding : 2px 20px;
+  margin : 0;
+}
+
+textarea.mecadoTextareaLine{
+  font-size : 1em;
+  border : 1px solid black;
+  border-radius : 3px;
+  padding : 2px 20px;
+}
+
 
 div.mecadoAccountPersonal, div.mecadoAccountPassword{
   @include make-grid-columns(12,6,4);
