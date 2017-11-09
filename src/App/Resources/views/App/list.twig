@@ -19,7 +19,6 @@
         </div>
 
         <div class="row">
-            <hr>
             <h1 class="align-center">Welcome to {{ list.recipient }} gift event page.</h1>
             <hr>
 
@@ -27,18 +26,21 @@
                 <thead>
                     <th>List name</th>
                     <th>Day remaining</th>
-                    <th>For price</th>
-                    <th>Description</th>
+                    <th>For </th>
                 </thead>
                 <tbody>
                     <tr>
                         <td>{{ list.name }}</td>
                         <td>{{ ((list.date | date('U') - current) / (3600*24)) | round }}</td>
                         <td>{{ list.recipient }}</td>
-                        <td>{{ list.description }}</td>
                     </tr>
                 </tbody>
+
             </table>
+            <div>
+                <h2>Description</h2>
+                <p>{{ list.description }}</p>
+            </div>
             
             <p>Share with your friends : {{ url }}</p>
 
@@ -106,10 +108,14 @@
                         {% endif %}
                     {% endif %}
 
-                <button href="#">delete</button>
+                <div class="align-right">
+                    <form action="{{ path_for('deletegift',{token:list.token,'id':gift.id}) }}" method="POST">
+                        {{ csrf() }}
+                        <input class="mecado-red-button" type="submit" value=" Delete Gift">
+                    </form>
+                </div>
                 <button href="#">modify</button>
             {% endfor %}
-            <hr>
         
         </div>
 
@@ -126,9 +132,8 @@
                         <p class="alert alert-message">
                             Author : {{comment.author }} <br>
                             Content : {{ comment.content }}
-                        </p class="code">
-                        
-                        <hr>
+                        </p>
+
                     {% endfor %}
                     
                     <form action="{{ path_for('commentList',{token:list.token}) }}" method="POST">
@@ -152,12 +157,7 @@
 
         </div>
 
-        <div class="align-right">
-            <form action="{{ path_for('deletegift',{token:list.token,'id':gift.id}) }}" method="POST">
-                {{ csrf() }}
-                <input class="mecado-red-button" type="submit" value="- Delete list">
-            </form> 
-        </div>
+
 
     </div>
 {% endblock %}

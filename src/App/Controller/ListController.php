@@ -15,6 +15,7 @@ use Dflydev\FigCookies\SetCookie;
 use App\Model\Giftlist;
 use App\Model\Gift;
 use App\Model\Commentlist;
+use App\Model\Commentgift;
 use Security\Middleware\AuthMiddleware;
 use Slim\Http\Request;
 use Slim\Http\Response;
