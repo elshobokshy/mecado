@@ -192,17 +192,18 @@ class ListController extends Controller
             ],
         ]);
 
+        $data = [
+            'token' => $token
+        ];
+
         if ($this->validator->isValid()) {
 
             $this->newComment($listId, $author, $content);
 
             $this->flash('success', 'Your comment has been created.');
-            return $this->redirect($response,'list');
+            return $this->redirect($response,'list',$data);
         }
 
-        $data = [
-            'token' => $token
-        ];
 
         return $this->view->render($response, 'App/list.twig', $data);
     }

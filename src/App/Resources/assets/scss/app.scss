@@ -10,6 +10,16 @@ table {
     }
 }
 
+.mecado-red-button {
+  @extend .btn-red;
+}
+
+.alert-message {
+  @include alert-style(#d3d3d3, #8a8a8a, #292b2c);
+  margin: 1rem -15px;
+  padding: 1.5rem;
+}
+
 body{
   position : relative;
 }

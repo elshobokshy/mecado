@@ -6,142 +6,158 @@
 {% block body %}
     <div class="container">
 
-        {% if has_errors() %}
-            <div class="alert alert-warning">
-                {% for paramErrors in errors() %}
-                    {% for error in paramErrors %}
-                        <p>{{ error }}</p>
+        <div class="row">
+            {% if has_errors() %}
+                <div class="alert alert-warning">
+                    {% for paramErrors in errors() %}
+                        {% for error in paramErrors %}
+                            <p>{{ error }}</p>
+                        {% endfor %}
                     {% endfor %}
-                {% endfor %}
-            </div>
-        {% endif %}
+                </div>
+            {% endif %}
+        </div>
 
-        <hr>
-        <h1 class="align-center">Welcome to {{ list.recipient }} gift event page.</h1>
-        <hr>
-
-        <table>
-            <thead>
-                <th>List name</th>
-                <th>Day remaining</th>
-                <th>For price</th>
-                <th>Description</th>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>{{ list.name }}</td>
-                    <td>{{ ((list.date | date('U') - current) / (3600*24)) | round }}</td>
-                    <td>{{ list.recipient }}</td>
-                    <td>{{ list.description }}</td>
-                </tr>
-            </tbody>
-        </table>
-        
-        <hr>
-
-        <h1 class="align-center">Let's see the gifts...</h1>
-
-
-        {% for gift in list.gift %}
+        <div class="row">
             <hr>
-            <img src="{{ gift.picture }}">
+            <h1 class="align-center">Welcome to {{ list.recipient }} gift event page.</h1>
+            <hr>
+
             <table>
                 <thead>
-                    <th>Name</th>
+                    <th>List name</th>
+                    <th>Day remaining</th>
+                    <th>For price</th>
                     <th>Description</th>
-                    <th>Indicative price</th>
                 </thead>
                 <tbody>
                     <tr>
-                        <td>{{ gift.name }}</td>
-                        <td>{{ gift.description }}</td>
-                        <td>{{ gift.price }}</td>
+                        <td>{{ list.name }}</td>
+                        <td>{{ ((list.date | date('U') - current) / (3600*24)) | round }}</td>
+                        <td>{{ list.recipient }}</td>
+                        <td>{{ list.description }}</td>
                     </tr>
                 </tbody>
             </table>
+            
+            <p>Share with your friends : {{ url }}</p>
 
-            {% if gift.booked %}
+            <hr>
+        </div>
+
+        <h1 class="align-center">Let's see the gifts...</h1>
+
+        <div class="align-right">
+            <a href="{{ path_for('newgift', {'token': list.token }) }}">
+                <button class="btn btn-blue"> + Add new gift</button>
+            </a>
+        </div>
+
+        <div class="row">
+
+            {% for gift in list.gift %}
+                <hr>
+                <img src="{{ gift.picture }}">
+                <table>
+                    <thead>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>Indicative price</th>
+                        {% if gift.booked %}
+                            {% if cookie_name == 'notexists' %}
+                                <th>Status</th>
+                                <th>Booked by</th>
+                                <th>Message</th>
+                            {% endif %}
+                        {% endif %}
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>{{ gift.name }}</td>
+                            <td>{{ gift.description }}</td>
+                            <td>{{ gift.price }}</td>
+                            {% if gift.booked %}
+                                {% if cookie_name == 'notexists' %}
+                                    <td>Booked !</td>
+                                    {% for comment in gift.commentgift %}
+                                        <td>{{ comment.author }}</td>
+                                        <td>{{ comment.content }}</td>
+                                    {% endfor %}
+                                {% endif %}
+                            {% endif %}
+                        </tr>
+                    </tbody>
+                </table>
+
+                    {% if not gift.booked %}
+                        {% if cookie_name == 'notexists' %}
+                            <form action="{{ path_for('book',{token:list.token,'id':gift.id}) }}" method="POST">
+                                <div>
+                                    <label for="author" class="sm-3">Booking name : </label>
+                                    <input class ="sm-9 mecadoInputLine" type="text" name="author" placeholder="Name">
+                                </div>
+                                <div>
+                                    <label for="content" class="sm-3">Message : </label>
+                                    <input class ="sm-9 mecadoInputLine" type="text" name="content" placeholder="Message">
+                                </div>
+                                {{ csrf() }}
+                                <input class="mecadoBtn" type="submit" value="Book">
+                            </form>
+                        {% endif %}
+                    {% endif %}
+
+                <button href="#">delete</button>
+                <button href="#">modify</button>
+            {% endfor %}
+            <hr>
+        
+        </div>
+
+        <div class="row">
+            
+            <hr>
+            <h1 class="align-center">Comments</h1>
+            <hr>
+
+            <div class="sm-12">
+
                 {% if cookie_name == 'notexists' %}
-                    <p> Booked ! </p>
-                    {% for comment in gift.commentgift %}
-                        <p>Booked by : {{ comment.author }}</p>
-                        <p>Message : {{ comment.content }}</p>
+                    {% for comment in list.commentlist %}
+                        <p class="alert alert-message">
+                            Author : {{comment.author }} <br>
+                            Content : {{ comment.content }}
+                        </p class="code">
+                        
+                        <hr>
                     {% endfor %}
-                {% endif %}
-            {% else %}
-                {% if cookie_name == 'notexists' %}
-                    <form action="{{ path_for('book',{token:list.token,'id':gift.id}) }}" method="POST">
+                    
+                    <form action="{{ path_for('commentList',{token:list.token}) }}" method="POST">
                         <div>
-                            <label for="author">Booking name : </label>
-                            <input class ="mecadoInput" type="text" name="author" placeholder="Name">
+                            <label for="author" class="sm-3">Name</label>
+                            <input class ="sm-9 mecadoInputLine" type="text" name="author" placeholder="Name">
                         </div>
                         <div>
-                            <label for="content">Message : </label>
-                            <input class ="mecadoInput" type="text" name="content" placeholder="Message">
+                            <label for="content" class="sm-3">Message</label>
+                            <input class ="sm-9 mecadoInputLine" type="text" name="content" placeholder="Message">
                         </div>
                         {{ csrf() }}
-                        <input class="mecadoBtn" type="submit" value="Book">
+                        <input class="mecadoBtn" type="submit" value="Add Comment">
                     </form>
                 {% endif %}
-            {% endif %}
 
-            <button href="#">delete</button>
-            <button href="#">modify</button>
-        {% endfor %}
-        <hr>
-        <a href="{{ path_for('newgift', {'token': list.token }) }}">
-            <button class="btn btn-blue">Add new gift</button>
-        </a>
-        
-        <p>Share : {{ url }}</p>
 
-        {% if cookie_name == 'notexists' %}
-            {% for comment in list.commentlist %}
-                <p>{{comment.author }}</p>
-                <p>{{ comment.content }}</p>
-            {% endfor %}
-
+                <hr>
             
-            <form action="{{ path_for('commentList',{token:list.token}) }}" method="POST">
-                <div>
-                    <input class ="mecadoInput" type="text" name="author" placeholder="Your name">
-                </div>
-                <div>
-                    <input class ="mecadoInput" type="text" name="content" placeholder="Your message">
-                </div>
+            </div>
+
+        </div>
+
+        <div class="align-right">
+            <form action="{{ path_for('deletegift',{token:list.token,'id':gift.id}) }}" method="POST">
                 {{ csrf() }}
-                <input class="mecadoBtn" type="submit" value="Add Comment">
-            </form>
-        {% endif %}
+                <input class="mecado-red-button" type="submit" value="- Delete list">
+            </form> 
+        </div>
 
-        <form action="{{ path_for('deletegift',{token:list.token,'id':gift.id}) }}" method="POST">
-            {{ csrf() }}
-            <input class="mecadoBtn" type="submit" value="Delete">
-        </form>
-
-            <button href="#">modify</button>
-            <hr>
-            
-        <a href="{{ path_for('newgift', {'token': list.token }) }}">
-            <button class="btn btn-blue">Add new gift</button>
-        </a>
-
-        <p>sharing url : {{ url }}</a></p>
-
-        {% for comment in list.commentlist %}
-            <p>{{comment.author }}</p>
-            <p>{{ comment.content }}</p>
-        {% endfor %}
-
-        <form action="{{ path_for('commentList',{token:list.token}) }}" method="POST">
-            <div>
-                <input class ="mecadoInput" type="text" name="author" placeholder="Your name">
-            </div>
-            <div>
-                <input class ="mecadoInput" type="text" name="content" placeholder="Your message">
-            </div>
-            {{ csrf() }}
-            <input class="mecadoBtn" type="submit" value="Add Comment">
-        </form>
     </div>
 {% endblock %}
