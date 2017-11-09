@@ -5,71 +5,79 @@
 
 {% block body %}
     <div class="container">
-    Specific list page
+        <div class="row">
+            Specific list page
 
 
-    <h1>{{ list.name }}</h1>
-    <p> Day remaining : {{ ((list.date | date('U') - current) / (3600*24)) | round }}</p>
-    <h3>{{ list.recipient }}</h3>
-    <div>{{ list.description }}</div>
-    <br>
-    <hr>
-    <br>
+            <h1>{{ list.name }}</h1>
+            <p> Day remaining : {{ ((list.date | date('U') - current) / (3600*24)) | round }}</p>
+            <h3>{{ list.recipient }}</h3>
+            <div>{{ list.description }}</div>
+            <br>
+            <hr>
+            <br>
+        </div>
+            {% for gift in list.gift %}
+                <div class="row">
+                    <h1>{{ gift.name }}</h1>
+                    <p>{{ gift.description }}</p>
+                    <p>{{ gift.price }}</p>
 
-    {% for gift in list.gift %}
-        <img src="{{ gift.picture }}">
-        <h1>{{ gift.name }}</h1>
-        <p>{{ gift.description }}</p>
-        <p>{{ gift.price }}</p>
+                    {% if gift.picture %}
+                        <img class="align-right" src="{{ asset('assets/img/gift_picture') }}/{{ gift.picture }}"
+                             alt="The picture">
+                    {% endif %}
+                    {% if gift.booked %}
+                        <p> booked </p>
+                        {% for comment in gift.commentgift %}
+                            <p>{{ comment.author }}</p>
+                            <p>{{ comment.content }}</p>
+                        {% endfor %}
+                    {% else %}
+                        <form action="{{ path_for('book',{token:list.token,'id':gift.id}) }}" method="POST">
+                            <div>
+                                <input class="mecadoInput" type="text" name="author" placeholder="Your name">
+                            </div>
+                            <div>
+                                <input class="mecadoInput" type="text" name="content"
+                                       placeholder="Your message for {{ list.recipient }}">
+                            </div>
+                            {{ csrf() }}
+                            <input class="mecadoBtn" type="submit" value="Book">
+                        </form>
+                    {% endif %}
 
+                    <form action="{{ path_for('deletegift',{token:list.token,'id':gift.id}) }}" method="POST">
+                        {{ csrf() }}
+                        <input class="mecadoBtn" type="submit" value="Delete">
+                    </form>
 
-        {% if gift.booked %}
-            <p> booked </p>
-            {% for comment in gift.commentgift %}
+                    <button href="#">modify</button>
+                    <hr>
+                </div>
+            {% endfor %}
+            <div class="row">
+            <a href="{{ path_for('newgift', {'token': list.token }) }}">
+                <button class="btn btn-blue">Add new gift</button>
+            </a>
+
+            <p>sharing url : {{ url }}</a></p>
+
+            {% for comment in list.commentlist %}
                 <p>{{ comment.author }}</p>
                 <p>{{ comment.content }}</p>
             {% endfor %}
-        {% else %}
-            <form action="{{ path_for('book',{token:list.token,'id':gift.id}) }}" method="POST">
+
+            <form action="{{ path_for('commentList',{token:list.token}) }}" method="POST">
                 <div>
-                    <input class ="mecadoInput" type="text" name="author" placeholder="Your name">
+                    <input class="mecadoInput" type="text" name="author" placeholder="Your name">
                 </div>
                 <div>
-                    <input class ="mecadoInput" type="text" name="content" placeholder="Your message for {{ list.recipient }}">
+                    <input class="mecadoInput" type="text" name="content" placeholder="Your message">
                 </div>
                 {{ csrf() }}
-                <input class="mecadoBtn" type="submit" value="Book">
+                <input class="mecadoBtn" type="submit" value="Add Comment">
             </form>
-        {% endif %}
-
-        <form action="{{ path_for('deletegift',{token:list.token,'id':gift.id}) }}" method="POST">
-            {{ csrf() }}
-            <input class="mecadoBtn" type="submit" value="Delete">
-        </form>
-
-        <button href="#">modify</button>
-        <hr>
-    {% endfor %}
-    <a href="{{ path_for('newgift', {'token': list.token }) }}">
-        <button class="btn btn-blue">Add new gift</button>
-    </a>
-
-    <p>sharing url : {{ url }}</a></p>
-
-    {% for comment in list.commentlist %}
-        <p>{{comment.author }}</p>
-        <p>{{ comment.content }}</p>
-    {% endfor %}
-
-    <form action="{{ path_for('commentList',{token:list.token}) }}" method="POST">
-        <div>
-            <input class ="mecadoInput" type="text" name="author" placeholder="Your name">
-        </div>
-        <div>
-            <input class ="mecadoInput" type="text" name="content" placeholder="Your message">
-        </div>
-        {{ csrf() }}
-        <input class="mecadoBtn" type="submit" value="Add Comment">
-    </form>
+            </div>
     </div>
 {% endblock %}

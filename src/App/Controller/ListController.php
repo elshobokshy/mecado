@@ -20,23 +20,25 @@ use Slim\Http\Response;
 
 class ListController extends Controller
 {
-    public function myLists(Request $request, Response $response){
+    public function myLists(Request $request, Response $response)
+    {
         $lists = Giftlist::where('user_id', $this->auth->getUser()->id)->get();
 
         $currentDate = strtotime(date_format(new \DateTime(), 'Y-m-d'));
         $data = [
-                'lists' => $lists,
-                'current' => $currentDate
-            ];
+            'lists' => $lists,
+            'current' => $currentDate
+        ];
 
         return $this->view->render($response, 'App/mylists.twig', $data);
     }
 
-    public function addList(Request $request, Response $response){
+    public function addList(Request $request, Response $response)
+    {
         if ($request->isPost()) {
             $name = $request->getParam('name');
             $description = $request->getParam('description');
-            $recipient = $request->getParam('recipient');   
+            $recipient = $request->getParam('recipient');
             $date = $request->getParam('date');
 
             $user_id = $this->auth->getUser()->id;
@@ -45,7 +47,7 @@ class ListController extends Controller
             $expiry_date = new \DateTime($date);
             $expiry = $expiry_date->modify('+2 day');
 
-            if($recipient == 'myself') {
+            if ($recipient == 'myself') {
                 $recipient = $this->auth->getUser()->first_name;
                 $response = FigResponseCookies::set($response, SetCookie::create($token)->withValue($recipient)->withExpires($expiry)->withPath('/'));
             }
@@ -107,8 +109,9 @@ class ListController extends Controller
         return $this->view->render($response, 'App/addlist.twig', $data);
     }
 
-    public function editList(Request $request, Response $response, $token){
-        $list = Giftlist::where('token',$token)->first();
+    public function editList(Request $request, Response $response, $token)
+    {
+        $list = Giftlist::where('token', $token)->first();
 
         if ($request->isPost()) {
             $name = $request->getParam('name');
@@ -152,26 +155,29 @@ class ListController extends Controller
     }
 
 
-    public function fetch(Request $request, Response $response, $token){
-        $list = Giftlist::where('token',$token)->with('commentlist','gift','commentgift')->first();
+    public function fetch(Request $request, Response $response, $token)
+    {
+        $list = Giftlist::where('token', $token)->with('commentlist', 'gift', 'commentgift')->first();
         $currentDate = strtotime(date_format(new \DateTime(), 'Y-m-d'));
         $data = [
             'list' => $list,
             'current' => $currentDate
         ];
-        return $this->view->render($response,'App/list.twig', $data);
+        return $this->view->render($response, 'App/list.twig', $data);
     }
 
-    public function commentList(Request $request, Response $response, $token){
-        $list = Giftlist::where('token',$token)->first();
+    public function commentList(Request $request, Response $response, $token)
+    {
+        $list = Giftlist::where('token', $token)->first();
         $listId = $list->id;
         $author = $request->getParam('author');
         $content = $request->getParam('content');
         $this->newComment($listId, $author, $content);
-        return $this->redirect($response,'list', ['token'=>$token]);
+        return $this->redirect($response, 'list', ['token' => $token]);
     }
 
-    public function newComment($list, $author, $content){
+    public function newComment($list, $author, $content)
+    {
         $comment = new Commentlist();
         $comment->giftlist_id = $list;
         $comment->author = $author;
@@ -179,23 +185,24 @@ class ListController extends Controller
         $comment->save();
     }
 
-    public function delete(Request $request, Response $response, $id){
+    public function delete(Request $request, Response $response, $id)
+    {
         $list = Giftlist::find($id);
         $gifts = $list->gift;
-        foreach ($gifts as $gift){
+        foreach ($gifts as $gift) {
             $comments = $gift->commentgift;
-            foreach ($comments as $comment){
+            foreach ($comments as $comment) {
                 Commentgift::destroy($comment->id);
             }
             Gift::destroy($gift->id);
         }
         $comments = $list->commentlist;
-        foreach ($comments as $comment){
+        foreach ($comments as $comment) {
             Commentlist::destroy($comment->id);
         }
         Giftlist::destroy($id);
 
         $this->flash('success', 'The list has been deleted.');
-        return $this->redirect($response,'mylists');
+        return $this->redirect($response, 'mylists');
     }
 }
