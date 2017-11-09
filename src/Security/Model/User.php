@@ -3,7 +3,11 @@
 namespace Security\Model;
 
 use Cartalyst\Sentinel\Users\EloquentUser;
+use Cartalyst\Sentinel\Sentinel;
 
+/**
+ * @property Sentinel  auth
+*/
 class User extends EloquentUser
 {
     protected $table = 'user';
@@ -18,7 +22,7 @@ class User extends EloquentUser
         'permissions',
     ];
 
-    protected $loginNames = ['username', 'email'];
+    protected $loginNames = ['email'];
 
     public function giftlist()
     {

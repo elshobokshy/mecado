@@ -32,7 +32,7 @@ class AuthController extends Controller
             }
         }
 
-        return $this->view->render($response, 'Auth/login.twig');
+        return $this->view->render($response, 'App/home.twig');
     }
 
     public function register(Request $request, Response $response)
@@ -100,7 +100,7 @@ class AuthController extends Controller
 
                 $this->flash('success', 'Your account has been created.');
 
-                return $this->redirect($response, 'login');
+                return $this->redirect($response, 'home');
             }
         }
 
