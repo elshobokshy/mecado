@@ -2,6 +2,9 @@
 @import 'fa/scss/font-awesome';
 
 
+body{
+}
+
 .flash {
   position: relative;
   z-index: 1;
@@ -11,11 +14,7 @@
 div.mecadoHomeBackground{
   height : 100vh;
   width : 100%;
-  background-image: url("http://ngn-mag.com/image/wallpaper/christmas-gift-wallpaper-9.jpg");
-  background-position: center center;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  background-color:white;
+  background: white url("http://ngn-mag.com/image/wallpaper/christmas-gift-wallpaper-9.jpg") no-repeat fixed center center;
   background-size: cover;
 }
 
@@ -28,12 +27,13 @@ div.homeContainer{
 
 ul.mecadoNav{
   @extend .navbar;
-  background-color : lightblue;
+  background-color : white;
   border: none;
   height : 100px;
   margin-right : 0;
   align-items: center;
   justify-content: center;
+  border-bottom : 2px solid lightblue;
 }
 
 ul.mecadoNav li {
@@ -96,5 +96,23 @@ div.mecadoContainer{
 h1,h2,h3,h4,h5,h6{
   font-family : 'Titillium Web', BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   color : #5bc0de;
+}
+
+div.mecadoNav{
+  position : fixed;
+  bottom : 0;
+}
+
+@media only screen and (max-width: 850px){
+
+  ul.mecadoNav li {
+    width : 100%;
+    border-left-style: none;
+    border-top : 1px solid dodgerblue;
+  }
+
+  ul.mecadoNav > #mecadoLogo{
+    margin-right : 0;
+  }
 }
 
