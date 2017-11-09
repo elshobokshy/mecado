@@ -28,7 +28,7 @@
         @include make-width($sizeS);
     }
 
-    @media only screen and (min-width: $media-md) and (max-width: $mediaLarge) {
+    @media only screen and (min-width: $media-md) and (max-width: $media-lg) {
         @include make-width($sizeM);
     }
 
@@ -45,7 +45,7 @@
         @include make-width-margin($sizeS);
     }
 
-    @media only screen and (min-width: $media-md) and (max-width: $mediaLarge) {
+    @media only screen and (min-width: $media-md) and (max-width: $media-lg) {
         @include make-width-margin($sizeM);
     }
 
