@@ -4,7 +4,6 @@ namespace App\Controller;
 
 use App\Model\Commentgift;
 use App\Model\Giftlist;
-use App\Model\Commentgift;
 use Respect\Validation\Validator as V;
 use App\Model\Gift;
 use Slim\Http\Request;
@@ -40,24 +39,26 @@ class GiftController extends Controller
                 ],
             ]);
 
-            $uploads_dir = '/img/gift_picture';
-            foreach ($_FILES["picture"]["error"] as $key => $error) {
-                if ($error == UPLOAD_ERR_OK) {
-                    $tmp_name = $_FILES["picture"]["tmp_name"][$key];
-                    $name = $_FILES["picture"]["name"][$key];
-                    move_uploaded_file($tmp_name, "$uploads_dir/$name");
-                }
-            }
             if ($_FILES['picture']['error'] > 0) {
                 $this->flash('danger', 'Erreur lors du transfert');
-            } /*else {
-                if ($this->validator->isValid()) {
-                    $resultat = move_uploaded_file($_FILES['picture']['tmp_name'],$nom);
-                    (new Gift($request->getParams()))->save();
-                    $this->flash('success', 'The gift has been added.');
-                    return $this->redirect($response, 'list', ['token' => $token]);
+            }
+
+            if ($this->validator->isValid()) {
+                $gift = new Gift($request->getParams());
+                $extension = strtolower(substr(strrchr($_FILES['picture']['name'], '.'), 1));
+                if (in_array($extension, ['jpg', 'jpeg', 'png', 'gif'])) {
+                    $nname = bin2hex(random_bytes(8)) . '.' . $extension;
+                    $name = "../assets/img/gift_picture/$nname"; //TODO URL in public
+                    move_uploaded_file($_FILES['picture']['tmp_name'], $name);
+                    $gift->picture = $nname;
+                } else {
+                    $this->flash('File is not valid. Please try again');
                 }
-            }*/
+
+                $gift->save();
+                $this->flash('success', 'The gift has been added.');
+                return $this->redirect($response, 'list', ['token' => $token]);
+            }
         }
         $data['token'] = $token;
         $data['giftlist_id'] = Giftlist::where('token', $token)->first()->id;
@@ -84,15 +85,16 @@ class GiftController extends Controller
         return $this->redirect($response, 'list', ['token' => $token]);
     }
 
-    public function delete(Request $request, Response $response, $token, $id){
+    public function delete(Request $request, Response $response, $token, $id)
+    {
         $gift = Gift::find($id);
         $comments = $gift->commentgift;
-        foreach ($comments as $comment){
+        foreach ($comments as $comment) {
             Commentgift::destroy($comment->id);
         }
         Gift::destroy($id);
 
         $this->flash('success', 'The gift has been deleted.');
-        return $this->redirect($response,'list', ['token'=>$token]);
+        return $this->redirect($response, 'list', ['token' => $token]);
     }
 }
