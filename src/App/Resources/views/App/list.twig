@@ -5,7 +5,6 @@
 
 {% block body %}
     <div class="container">
-
         <div class="row">
             {% if has_errors() %}
                 <div class="alert alert-warning">
@@ -17,29 +16,27 @@
                 </div>
             {% endif %}
         </div>
-
         <div class="row">
             <hr>
             <h1 class="align-center">Welcome to {{ list.recipient }} gift event page.</h1>
             <hr>
-
             <table>
                 <thead>
-                    <th>List name</th>
-                    <th>Day remaining</th>
-                    <th>For price</th>
-                    <th>Description</th>
+                <th>List name</th>
+                <th>Day remaining</th>
+                <th>For price</th>
+                <th>Description</th>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>{{ list.name }}</td>
-                        <td>{{ ((list.date | date('U') - current) / (3600*24)) | round }}</td>
-                        <td>{{ list.recipient }}</td>
-                        <td>{{ list.description }}</td>
-                    </tr>
+                <tr>
+                    <td>{{ list.name }}</td>
+                    <td>{{ ((list.date | date('U') - current) / (3600*24)) | round }}</td>
+                    <td>{{ list.recipient }}</td>
+                    <td>{{ list.description }}</td>
+                </tr>
                 </tbody>
             </table>
-            
+
             <p>Share with your friends : {{ url }}</p>
 
             <hr>
@@ -60,61 +57,61 @@
                 <img src="{{ gift.picture }}">
                 <table>
                     <thead>
-                        <th>Name</th>
-                        <th>Description</th>
-                        <th>Indicative price</th>
-                        {% if gift.booked %}
-                            {% if cookie_name == 'notexists' %}
-                                <th>Status</th>
-                                <th>Booked by</th>
-                                <th>Message</th>
-                            {% endif %}
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Indicative price</th>
+                    {% if gift.booked %}
+                        {% if cookie_name == 'notexists' %}
+                            <th>Status</th>
+                            <th>Booked by</th>
+                            <th>Message</th>
                         {% endif %}
+                    {% endif %}
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>{{ gift.name }}</td>
-                            <td>{{ gift.description }}</td>
-                            <td>{{ gift.price }}</td>
-                            {% if gift.booked %}
-                                {% if cookie_name == 'notexists' %}
-                                    <td>Booked !</td>
-                                    {% for comment in gift.commentgift %}
-                                        <td>{{ comment.author }}</td>
-                                        <td>{{ comment.content }}</td>
-                                    {% endfor %}
-                                {% endif %}
+                    <tr>
+                        <td>{{ gift.name }}</td>
+                        <td>{{ gift.description }}</td>
+                        <td>{{ gift.price }}</td>
+                        {% if gift.booked %}
+                            {% if cookie_name == 'notexists' %}
+                                <td>Booked !</td>
+                                {% for comment in gift.commentgift %}
+                                    <td>{{ comment.author }}</td>
+                                    <td>{{ comment.content }}</td>
+                                {% endfor %}
                             {% endif %}
-                        </tr>
+                        {% endif %}
+                    </tr>
                     </tbody>
                 </table>
 
-                    {% if not gift.booked %}
-                        {% if cookie_name == 'notexists' %}
-                            <form action="{{ path_for('book',{token:list.token,'id':gift.id}) }}" method="POST">
-                                <div>
-                                    <label for="author" class="sm-3">Booking name : </label>
-                                    <input class ="sm-9 mecadoInputLine" type="text" name="author" placeholder="Name">
-                                </div>
-                                <div>
-                                    <label for="content" class="sm-3">Message : </label>
-                                    <input class ="sm-9 mecadoInputLine" type="text" name="content" placeholder="Message">
-                                </div>
-                                {{ csrf() }}
-                                <input class="mecadoBtn" type="submit" value="Book">
-                            </form>
-                        {% endif %}
+                {% if not gift.booked %}
+                    {% if cookie_name == 'notexists' %}
+                        <form action="{{ path_for('book',{token:list.token,'id':gift.id}) }}" method="POST">
+                            <div>
+                                <label for="author" class="sm-3">Booking name : </label>
+                                <input class="sm-9 mecadoInputLine" type="text" name="author" placeholder="Name">
+                            </div>
+                            <div>
+                                <label for="content" class="sm-3">Message : </label>
+                                <input class="sm-9 mecadoInputLine" type="text" name="content" placeholder="Message">
+                            </div>
+                            {{ csrf() }}
+                            <input class="mecadoBtn" type="submit" value="Book">
+                        </form>
                     {% endif %}
+                {% endif %}
 
                 <button href="#">delete</button>
                 <button href="#">modify</button>
             {% endfor %}
             <hr>
-        
+
         </div>
 
         <div class="row">
-            
+
             <hr>
             <h1 class="align-center">Comments</h1>
             <hr>
@@ -124,21 +121,21 @@
                 {% if cookie_name == 'notexists' %}
                     {% for comment in list.commentlist %}
                         <p class="alert alert-message">
-                            Author : {{comment.author }} <br>
+                            Author : {{ comment.author }} <br>
                             Content : {{ comment.content }}
                         </p class="code">
-                        
+
                         <hr>
                     {% endfor %}
-                    
+
                     <form action="{{ path_for('commentList',{token:list.token}) }}" method="POST">
                         <div>
                             <label for="author" class="sm-3">Name</label>
-                            <input class ="sm-9 mecadoInputLine" type="text" name="author" placeholder="Name">
+                            <input class="sm-9 mecadoInputLine" type="text" name="author" placeholder="Name">
                         </div>
                         <div>
                             <label for="content" class="sm-3">Message</label>
-                            <input class ="sm-9 mecadoInputLine" type="text" name="content" placeholder="Message">
+                            <input class="sm-9 mecadoInputLine" type="text" name="content" placeholder="Message">
                         </div>
                         {{ csrf() }}
                         <input class="mecadoBtn" type="submit" value="Add Comment">
@@ -147,7 +144,7 @@
 
 
                 <hr>
-            
+
             </div>
 
         </div>
@@ -156,7 +153,7 @@
             <form action="{{ path_for('deletegift',{token:list.token,'id':gift.id}) }}" method="POST">
                 {{ csrf() }}
                 <input class="mecado-red-button" type="submit" value="- Delete list">
-            </form> 
+            </form>
         </div>
 
     </div>

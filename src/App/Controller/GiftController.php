@@ -39,9 +39,23 @@ class GiftController extends Controller
                 ],
             ]);
 
+            if ($_FILES['picture']['error'] > 0) {
+                $this->flash('danger', 'Erreur lors du transfert');
+            }
+
             if ($this->validator->isValid()) {
-                $resultat = move_uploaded_file($_FILES['picture']['tmp_name'],$nom);
-                (new Gift($request->getParams()))->save();
+                $gift = new Gift($request->getParams());
+                $extension = strtolower(substr(strrchr($_FILES['picture']['name'], '.'), 1));
+                if (in_array($extension, ['jpg', 'jpeg', 'png', 'gif'])) {
+                    $nname = bin2hex(random_bytes(8)) . '.' . $extension;
+                    $name = "../assets/img/gift_picture/$nname"; //TODO URL in public
+                    move_uploaded_file($_FILES['picture']['tmp_name'], $name);
+                    $gift->picture = $nname;
+                } else {
+                    $this->flash('File is not valid. Please try again');
+                }
+
+                $gift->save();
                 $this->flash('success', 'The gift has been added.');
                 return $this->redirect($response, 'list', ['token' => $token]);
             }
@@ -71,15 +85,16 @@ class GiftController extends Controller
         return $this->redirect($response, 'list', ['token' => $token]);
     }
 
-    public function delete(Request $request, Response $response, $token, $id){
+    public function delete(Request $request, Response $response, $token, $id)
+    {
         $gift = Gift::find($id);
         $comments = $gift->commentgift;
-        foreach ($comments as $comment){
+        foreach ($comments as $comment) {
             Commentgift::destroy($comment->id);
         }
         Gift::destroy($id);
 
         $this->flash('success', 'The gift has been deleted.');
-        return $this->redirect($response,'list', ['token'=>$token]);
+        return $this->redirect($response, 'list', ['token' => $token]);
     }
 }

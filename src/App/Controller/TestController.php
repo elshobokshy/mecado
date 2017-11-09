@@ -10,7 +10,7 @@ class TestController extends Controller
 {
     public function test(Request $request, Response $response)
     {
-        $data['test'] = 'bleu';
+        $data['test'] = $this->container;
 
         return $this->view->render($response, 'Test/test.twig', $data);
     }
