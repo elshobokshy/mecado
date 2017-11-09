@@ -8,6 +8,12 @@ use Respect\Validation\Validator as V;
 use Slim\Http\Request;
 use Slim\Http\Response;
 
+use Security\Model\User;
+use App\Model\Giftlist;
+use App\Model\Gift;
+use App\Model\Commentlist;
+use App\Model\Commentgift;
+
 class AppController extends Controller
 {
     public function home(Request $request, Response $response)
@@ -105,8 +111,24 @@ class AppController extends Controller
 
         } else if (isset($_POST["delete_account"])) {
             if ($request->isPost()) {
-                $user = $this->auth->getUser();
-                $user->delete();
+                $user = User::find($this->auth->getUser()->id);
+                $lists = $user->giftlist;
+                foreach ($lists as $list){
+                    $gifts = $list->gift;
+                    foreach ($gifts as $gift){
+                        $comments = $gift->commentgift;
+                        foreach ($comments as $comment){
+                            Commentgift::destroy($comment->id);
+                        }
+                        Gift::destroy($gift->id);
+                    }
+                    $comments = $list->commentlist;
+                    foreach ($comments as $comment){
+                        Commentlist::destroy($comment->id);
+                    }
+                    Giftlist::destroy($list->id);
+                }
+                User::destroy($user->id);
                 return $this->redirect($response, 'home');
             }
         }
@@ -116,4 +138,5 @@ class AppController extends Controller
     {
         return $this->view->render($response, 'App/about.twig');
     }
+
 }
