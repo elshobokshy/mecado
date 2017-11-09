@@ -23,7 +23,11 @@ class AppController extends Controller
 
     public function myaccount(Request $request, Response $response)
     {
-        return $this->view->render($response, 'App/myaccount.twig');
+        $URI = $this->getUriForActive($request);
+        $data = [
+            'uri' => $URI
+        ];
+        return $this->view->render($response, 'App/myaccount.twig', $data);
     }
 
     public function editProfile(Request $request, Response $response)
@@ -136,7 +140,11 @@ class AppController extends Controller
 
     public function about(Request $request, Response $response)
     {
-        return $this->view->render($response, 'App/about.twig');
+        $URI = $this->getUriForActive($request);
+        $data = [
+            'uri' => $URI
+        ];
+        return $this->view->render($response, 'App/about.twig', $data);
     }
 
 }
