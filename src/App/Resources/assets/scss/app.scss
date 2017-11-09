@@ -1,11 +1,12 @@
 @import 'plain/plain';
-@import 'fa/css/font-awesome.css';
+@import 'fa/scss/font-awesome';
 
 
 .flash {
   position: relative;
   z-index: 1;
 }
+
 
 div.mecadoHomeBackground{
   height : 100vh;
@@ -29,6 +30,28 @@ ul.mecadoNav{
   @extend .navbar;
   background-color : lightblue;
   border: none;
+  height : 100px;
+  margin-right : 0;
+  align-items: center;
+  justify-content: center;
+}
+
+ul.mecadoNav li {
+  border-left : 2px solid dodgerblue;
+}
+
+ul.mecadoNav > #mecadoLogo{
+  margin-right : auto;
+  border : none;
+}
+
+ul.mecadoNav li a:hover{
+  background-color: darken(#5bc0de,1);
+}
+
+
+#mecadoNavLogo{
+  max-height : 100px;
 }
 
 input.mecadoInput{
