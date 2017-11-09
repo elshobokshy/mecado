@@ -41,16 +41,17 @@
             </form>
         {% endif %}
 
-        <button href="#">delete</button>
+        <form action="{{ path_for('deletegift',{token:list.token,'id':gift.id}) }}" method="POST">
+            {{ csrf() }}
+            <input class="mecadoBtn" type="submit" value="Delete">
+        </form>
+
         <button href="#">modify</button>
         <hr>
     {% endfor %}
     <a href="{{ path_for('newgift', {'token': list.token }) }}">
         <button class="btn btn-blue">Add new gift</button>
     </a>
-    <p>sharing url : <a
-                href="{{ path_for( 'list', {'token': list.token }) }}"> {{ base_url() ~ path_for( 'list', {'token': list.token }) }}</a>
-    </p>
 
     <p>sharing url : {{ url }}</a></p>
 
