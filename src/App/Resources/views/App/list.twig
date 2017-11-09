@@ -1,7 +1,9 @@
 {% extends 'layout.twig' %}
 
-{% block body %}
 
+{% set url = base_url() ~ path_for( 'list', {'token': list.token }) %}
+
+{% block body %}
     Specific list page
 
 
@@ -13,17 +15,58 @@
     <hr>
     <br>
 
-    {% for gift in gifts %}
+    {% for gift in list.gift %}
         <img src="{{ gift.picture }}">
         <h1>{{ gift.name }}</h1>
         <p>{{ gift.description }}</p>
         <p>{{ gift.price }}</p>
-        <button href="#">book</button>
+
+
+        {% if gift.booked %}
+            <p> booked </p>
+            {% for comment in gift.commentgift %}
+                <p>{{ comment.author }}</p>
+                <p>{{ comment.content }}</p>
+            {% endfor %}
+        {% else %}
+            <form action="{{ path_for('book',{token:list.token,'id':gift.id}) }}" method="POST">
+                <div>
+                    <input class ="mecadoInput" type="text" name="author" placeholder="Your name">
+                </div>
+                <div>
+                    <input class ="mecadoInput" type="text" name="content" placeholder="Your message for {{ list.recipient }}">
+                </div>
+                {{ csrf() }}
+                <input class="mecadoBtn" type="submit" value="Book">
+            </form>
+        {% endif %}
+
         <button href="#">delete</button>
         <button href="#">modify</button>
         <hr>
     {% endfor %}
+    <a href="{{ path_for('newgift', {'token': list.token }) }}">
+        <button class="btn btn-blue">Add new gift</button>
+    </a>
+    <p>sharing url : <a
+                href="{{ path_for( 'list', {'token': list.token }) }}"> {{ base_url() ~ path_for( 'list', {'token': list.token }) }}</a>
+    </p>
 
-    <button href="#">Add new gift</button>
-    <p>sharing url : <a href="{{ path_for( 'list', {'token': list.token }) }}"> {{base_url() ~ path_for( 'list', {'token': list.token }) }}</a></p>
+    <p>sharing url : {{ url }}</a></p>
+
+    {% for comment in list.commentlist %}
+        <p>{{comment.author }}</p>
+        <p>{{ comment.content }}</p>
+    {% endfor %}
+
+    <form action="{{ path_for('commentList',{token:list.token}) }}" method="POST">
+        <div>
+            <input class ="mecadoInput" type="text" name="author" placeholder="Your name">
+        </div>
+        <div>
+            <input class ="mecadoInput" type="text" name="content" placeholder="Your message">
+        </div>
+        {{ csrf() }}
+        <input class="mecadoBtn" type="submit" value="Add Comment">
+    </form>
 {% endblock %}
