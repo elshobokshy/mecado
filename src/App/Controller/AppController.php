@@ -4,6 +4,10 @@ namespace App\Controller;
 
 use Cartalyst\Sentinel\Sentinel;
 use Respect\Validation\Validator as V;
+use App\Model\Commentgift;
+use App\Model\Commentlist;
+use App\Model\Gift;
+use App\Model\Giftlist;
 
 use Slim\Http\Request;
 use Slim\Http\Response;

@@ -1,7 +1,11 @@
 <?php
 
 namespace App\Model;
+use Cartalyst\Sentinel\Sentinel;
 
+/**
+ * @property Sentinel  auth
+*/
 class Giftlist extends Model
 {
     protected $table = 'giftlist';
@@ -28,8 +32,17 @@ class Giftlist extends Model
     public function commentgift(){
         return $this->hasManyThrough('\App\Model\Commentgift', '\App\Model\Gift','giftlist_id', 'gift_id', 'id', 'id');
     }
+
     public function user()
     {
         return $this->belongsTo('\Security\Model\User');
+    }
+
+    public function delete()
+    {   
+        $this->auth->giftlist->commentlist->delete();
+        $this->auth->giftlist->gift->delete();
+        
+        return parent::delete();
     }
 }
