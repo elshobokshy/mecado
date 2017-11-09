@@ -22,6 +22,6 @@ class User extends EloquentUser
 
     public function giftlist()
     {
-        return $this->hasMany('Giftlist');
+        return $this->hasMany('\App\Model\Giftlist');
     }
 }

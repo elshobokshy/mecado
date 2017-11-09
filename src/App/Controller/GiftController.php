@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Model\Commentgift;
 use App\Model\Giftlist;
 use Respect\Validation\Validator as V;
 use App\Model\Gift;
@@ -58,6 +59,18 @@ class GiftController extends Controller
         $this->newComment($id, $author, $content);
         $gift->booked = 1;
         $gift->save();
+        return $this->redirect($response,'list', ['token'=>$token]);
+    }
+
+    public function delete(Request $request, Response $response, $token, $id){
+        $gift = Gift::find($id);
+        $comments = $gift->commentgift;
+        foreach ($comments as $comment){
+            Commentgift::destroy($comment->id);
+        }
+        Gift::destroy($id);
+
+        $this->flash('success', 'The gift has been deleted.');
         return $this->redirect($response,'list', ['token'=>$token]);
     }
 }

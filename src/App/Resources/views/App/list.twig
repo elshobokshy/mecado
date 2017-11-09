@@ -41,7 +41,11 @@
             </form>
         {% endif %}
 
-        <button href="#">delete</button>
+        <form action="{{ path_for('deletegift',{token:list.token,'id':gift.id}) }}" method="POST">
+            {{ csrf() }}
+            <input class="mecadoBtn" type="submit" value="Delete">
+        </form>
+
         <button href="#">modify</button>
         <hr>
     {% endfor %}
