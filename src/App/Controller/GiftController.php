@@ -38,11 +38,24 @@ class GiftController extends Controller
                 ],
             ]);
 
-            if ($this->validator->isValid()) {
-                (new Gift($request->getParams()))->save();
-                $this->flash('success', 'The gift has been added.');
-                return $this->redirect($response, 'list', ['token' => $token]);
+            $uploads_dir = '/img/gift_picture';
+            foreach ($_FILES["picture"]["error"] as $key => $error) {
+                if ($error == UPLOAD_ERR_OK) {
+                    $tmp_name = $_FILES["picture"]["tmp_name"][$key];
+                    $name = $_FILES["picture"]["name"][$key];
+                    move_uploaded_file($tmp_name, "$uploads_dir/$name");
+                }
             }
+            if ($_FILES['picture']['error'] > 0) {
+                $this->flash('danger', 'Erreur lors du transfert');
+            } /*else {
+                if ($this->validator->isValid()) {
+                    $resultat = move_uploaded_file($_FILES['picture']['tmp_name'],$nom);
+                    (new Gift($request->getParams()))->save();
+                    $this->flash('success', 'The gift has been added.');
+                    return $this->redirect($response, 'list', ['token' => $token]);
+                }
+            }*/
         }
         $data['token'] = $token;
         $data['giftlist_id'] = Giftlist::where('token', $token)->first()->id;
