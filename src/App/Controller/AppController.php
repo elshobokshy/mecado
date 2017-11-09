@@ -138,5 +138,5 @@ class AppController extends Controller
     {
         return $this->view->render($response, 'App/about.twig');
     }
-    
+
 }

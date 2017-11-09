@@ -52,9 +52,6 @@
     <a href="{{ path_for('newgift', {'token': list.token }) }}">
         <button class="btn btn-blue">Add new gift</button>
     </a>
-    <p>sharing url : <a
-                href="{{ path_for( 'list', {'token': list.token }) }}"> {{ base_url() ~ path_for( 'list', {'token': list.token }) }}</a>
-    </p>
 
     <p>sharing url : {{ url }}</a></p>
 
