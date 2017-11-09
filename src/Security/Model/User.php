@@ -28,11 +28,4 @@ class User extends EloquentUser
     {
         return $this->hasMany('\App\Model\Giftlist');
     }
-
-    public function delete()
-    {   
-        $this->auth->giftlist->delete();
-        
-        return parent::delete();
-    }
 }

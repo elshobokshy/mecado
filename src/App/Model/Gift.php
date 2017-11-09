@@ -30,11 +30,4 @@ class Gift extends Model
     {
         return $this->belongsTo('\App\Model\Giftlist');
     }
-
-    public function delete()
-    {   
-        $this->auth->giftlist->commentgift->delete();
-        
-        return parent::delete();
-    }
 }

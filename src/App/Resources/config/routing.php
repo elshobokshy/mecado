@@ -31,3 +31,5 @@ $app->post('/list/{token}/addcomment', 'list.controller:commentList')->setName('
 $app->get('/editmylist/{token}', 'list.controller:editList')->setName('editmylist')->add($container['auth.middleware']());
 $app->post('/editmylist/{token}', 'list.controller:editList')->add($container['auth.middleware']());
 
+$app->post('/list/{token}/{id}/delete','gift.controller:delete')->setName('deletegift');
+$app->post('/mylists/{id}/delete','list.controller:delete')->setName('deletelist');

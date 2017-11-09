@@ -17,6 +17,12 @@
         <p>{{ list.date }}</p>
         <a href="{{ path_for( 'list', {'token': list.token }) }}">See List</a> | 
         <a href="{{ path_for( 'editmylist', {'token': list.token }) }}">Edit list</a>
+
+        <form action="{{ path_for('deletelist',{'id':list.id}) }}" method="POST">
+            {{ csrf() }}
+            <input class="mecadoBtn" type="submit" value="Delete">
+        </form>
+
         <hr>
     {% endfor %}
 

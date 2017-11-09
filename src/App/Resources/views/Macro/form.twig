@@ -43,3 +43,28 @@
         </div>
     {% endif %}
 {% endmacro %}
+
+
+{% macro input_line(name, value, label, type, class_label, class, required) %}
+    <div class="{% if required %}required {% endif %} row {% if has_error(name) %} alert-danger{% endif %}">
+        <label class="{{ class_label }}" for="{{ name }}">{{ label }}</label>
+        <input type="{{ type|default('text') }}" name="{{ name }}" value="{{ value }}" id="{{ name }}" class="{{ class }} mecadoInputLine" {% if required %}required{% endif %}>
+    </div>
+    {% if has_error(name) %}
+        <div class="alert-danger message">
+            <p>{{ error(name) }}</p>
+        </div>
+    {% endif %}
+{% endmacro %}
+
+{% macro textarea_line(name, value, label, class_label, class, rows, cols) %}
+<div class="row {% if has_error(name) %} alert-danger{% endif %}">
+    <label class="{{ class_label }}" for="{{ name }}">{{ label }}</label>
+    <textarea class="{{ class }} mecadoTextareaLine" name="{{ name }}" id="{{ name }}" rows="{{ rows }}">{{ value }}</textarea>
+</div>
+{% if has_error(name) %}
+    <div class="alert-danger message">
+        <p>{{ error(name) }}</p>
+    </div>
+{% endif %}
+{% endmacro %}

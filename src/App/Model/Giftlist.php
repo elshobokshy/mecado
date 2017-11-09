@@ -29,8 +29,9 @@ class Giftlist extends Model
         return $this->hasMany('\App\Model\Gift');
     }
 
-    public function commentgift(){
-        return $this->hasManyThrough('\App\Model\Commentgift', '\App\Model\Gift','giftlist_id', 'gift_id', 'id', 'id');
+    public function commentgift()
+    {
+        return $this->hasManyThrough('\App\Model\Commentgift', '\App\Model\Gift', 'giftlist_id', 'gift_id', 'id', 'id');
     }
 
     public function user()

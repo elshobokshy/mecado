@@ -13,6 +13,7 @@ use Dflydev\FigCookies\FigResponseCookies;
 use Dflydev\FigCookies\FigRequestCookies;
 use Dflydev\FigCookies\SetCookie;
 use App\Model\Giftlist;
+use App\Model\Gift;
 use App\Model\Commentlist;
 use Security\Middleware\AuthMiddleware;
 use Slim\Http\Request;
@@ -151,7 +152,6 @@ class ListController extends Controller
 
 
     public function fetch(Request $request, Response $response, $token){
-//        $list = Giftlist::where('token',$token)->get();
         $list = Giftlist::where('token',$token)->with('commentlist','gift','commentgift')->first();
         $currentDate = strtotime(date_format(new \DateTime(), 'Y-m-d'));
         $cookie = FigRequestCookies::get($request, $token);
@@ -179,5 +179,25 @@ class ListController extends Controller
         $comment->author = $author;
         $comment->content = $content;
         $comment->save();
+    }
+
+    public function delete(Request $request, Response $response, $id){
+        $list = Giftlist::find($id);
+        $gifts = $list->gift;
+        foreach ($gifts as $gift){
+            $comments = $gift->commentgift;
+            foreach ($comments as $comment){
+                Commentgift::destroy($comment->id);
+            }
+            Gift::destroy($gift->id);
+        }
+        $comments = $list->commentlist;
+        foreach ($comments as $comment){
+            Commentlist::destroy($comment->id);
+        }
+        Giftlist::destroy($id);
+
+        $this->flash('success', 'The list has been deleted.');
+        return $this->redirect($response,'mylists');
     }
 }

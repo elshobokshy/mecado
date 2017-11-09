@@ -113,4 +113,6 @@ class AuthController extends Controller
 
         return $this->redirect($response, 'home');
     }
+
+
 }

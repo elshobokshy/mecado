@@ -4,7 +4,6 @@
 {% set url = base_url() ~ path_for( 'list', {'token': list.token }) %}
 
 {% block body %}
-
     <div class="container">
 
         <hr>
@@ -105,6 +104,34 @@
             </form>
         {% endif %}
 
+        <form action="{{ path_for('deletegift',{token:list.token,'id':gift.id}) }}" method="POST">
+            {{ csrf() }}
+            <input class="mecadoBtn" type="submit" value="Delete">
+        </form>
+
+            <button href="#">modify</button>
+            <hr>
+        {% endfor %}
+        <a href="{{ path_for('newgift', {'token': list.token }) }}">
+            <button class="btn btn-blue">Add new gift</button>
+        </a>
+
+        <p>sharing url : {{ url }}</a></p>
+
+        {% for comment in list.commentlist %}
+            <p>{{comment.author }}</p>
+            <p>{{ comment.content }}</p>
+        {% endfor %}
+
+        <form action="{{ path_for('commentList',{token:list.token}) }}" method="POST">
+            <div>
+                <input class ="mecadoInput" type="text" name="author" placeholder="Your name">
+            </div>
+            <div>
+                <input class ="mecadoInput" type="text" name="content" placeholder="Your message">
+            </div>
+            {{ csrf() }}
+            <input class="mecadoBtn" type="submit" value="Add Comment">
+        </form>
     </div>
-    
 {% endblock %}
