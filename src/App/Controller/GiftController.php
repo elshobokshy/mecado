@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Model\Commentgift;
 use App\Model\Giftlist;
+use App\Model\Commentgift;
 use Respect\Validation\Validator as V;
 use App\Model\Gift;
 use Slim\Http\Request;

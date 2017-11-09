@@ -1,6 +1,14 @@
 @import 'plain/plain';
 @import 'fa/scss/font-awesome';
 
+table {
+  margin-top: 26px;
+  margin-bottom: 26px;
+
+  th {
+    font-weight: bold
+    }
+}
 
 .flash {
   position: relative;
