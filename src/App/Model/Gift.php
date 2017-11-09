@@ -25,5 +25,4 @@ class Gift extends Model
     {
         return $this->belongsTo('\App\Model\Giftlist');
     }
-
 }

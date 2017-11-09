@@ -4,6 +4,7 @@
 {% set url = base_url() ~ path_for( 'list', {'token': list.token }) %}
 
 {% block body %}
+    <div class="container">
     Specific list page
 
 
@@ -70,4 +71,5 @@
         {{ csrf() }}
         <input class="mecadoBtn" type="submit" value="Add Comment">
     </form>
+    </div>
 {% endblock %}
