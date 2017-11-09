@@ -32,7 +32,7 @@ class AuthController extends Controller
             }
         }
 
-        return $this->view->render($response, 'Auth/home.twig');
+        return $this->view->render($response, 'App/home.twig');
     }
 
     public function register(Request $request, Response $response)
