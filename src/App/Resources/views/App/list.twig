@@ -6,6 +6,16 @@
 {% block body %}
     <div class="container">
 
+        {% if has_errors() %}
+            <div class="alert alert-warning">
+                {% for paramErrors in errors() %}
+                    {% for error in paramErrors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                {% endfor %}
+            </div>
+        {% endif %}
+
         <hr>
         <h1 class="align-center">Welcome to {{ list.recipient }} gift event page.</h1>
         <hr>
@@ -111,7 +121,7 @@
 
             <button href="#">modify</button>
             <hr>
-        {% endfor %}
+            
         <a href="{{ path_for('newgift', {'token': list.token }) }}">
             <button class="btn btn-blue">Add new gift</button>
         </a>

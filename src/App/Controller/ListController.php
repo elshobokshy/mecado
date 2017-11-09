@@ -169,8 +169,39 @@ class ListController extends Controller
         $listId = $list->id;
         $author = $request->getParam('author');
         $content = $request->getParam('content');
-        $this->newComment($listId, $author, $content);
-        return $this->redirect($response,'list', ['token'=>$token]);
+
+        $this->validator->request($request, [
+            'author' => [
+                'rules' => V::notEmpty()->alpha()->length(3, 25),
+                'messages' => [
+                    'notEmpty' => 'Name shouldn\'t be empty.',
+                    'alpha' => 'Author should only contain alphabetic characters.',
+                    'length' => 'Name should be 3 to 25 characters long.'
+                ]
+            ],
+            'content' => [
+                'rules' => V::notEmpty()->alnum('\' : !')->length(5, 1000),
+                'messages' => [
+                    'notEmpty' => 'Description shouldn\'t be empty.',
+                    'alnum' => 'Description must not contain any special characters.',
+                    'length' => 'Description should be 5 to 1000 characters long.'
+                ]
+            ],
+        ]);
+
+        if ($this->validator->isValid()) {
+
+            $this->newComment($listId, $author, $content);
+
+            $this->flash('success', 'Your comment has been created.');
+            return $this->redirect($response,'list');
+        }
+
+        $data = [
+            'token' => $token
+        ];
+
+        return $this->view->render($response, 'App/list.twig', $data);
     }
 
     public function newComment($list, $author, $content){

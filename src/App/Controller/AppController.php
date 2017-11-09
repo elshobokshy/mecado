@@ -13,10 +13,6 @@ use Slim\Http\Request;
 use Slim\Http\Response;
 
 use Security\Model\User;
-use App\Model\Giftlist;
-use App\Model\Gift;
-use App\Model\Commentlist;
-use App\Model\Commentgift;
 
 class AppController extends Controller
 {
