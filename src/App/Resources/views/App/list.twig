@@ -4,6 +4,7 @@
 {% set url = base_url() ~ path_for( 'list', {'token': list.token }) %}
 
 {% block body %}
+
     Specific list page
 
 
@@ -23,22 +24,26 @@
 
 
         {% if gift.booked %}
-            <p> booked </p>
-            {% for comment in gift.commentgift %}
-                <p>{{ comment.author }}</p>
-                <p>{{ comment.content }}</p>
-            {% endfor %}
+            {% if cookie_name == 'notexists' %}
+                <p> booked </p>
+                {% for comment in gift.commentgift %}
+                    <p>{{ comment.author }}</p>
+                    <p>{{ comment.content }}</p>
+                {% endfor %}
+            {% endif %}
         {% else %}
-            <form action="{{ path_for('book',{token:list.token,'id':gift.id}) }}" method="POST">
-                <div>
-                    <input class ="mecadoInput" type="text" name="author" placeholder="Your name">
-                </div>
-                <div>
-                    <input class ="mecadoInput" type="text" name="content" placeholder="Your message for {{ list.recipient }}">
-                </div>
-                {{ csrf() }}
-                <input class="mecadoBtn" type="submit" value="Book">
-            </form>
+            {% if cookie_name == 'notexists' %}
+                <form action="{{ path_for('book',{token:list.token,'id':gift.id}) }}" method="POST">
+                    <div>
+                        <input class ="mecadoInput" type="text" name="author" placeholder="Your name">
+                    </div>
+                    <div>
+                        <input class ="mecadoInput" type="text" name="content" placeholder="Your message for {{ list.recipient }}">
+                    </div>
+                    {{ csrf() }}
+                    <input class="mecadoBtn" type="submit" value="Book">
+                </form>
+            {% endif %}
         {% endif %}
 
         <button href="#">delete</button>
@@ -54,19 +59,21 @@
 
     <p>sharing url : {{ url }}</a></p>
 
-    {% for comment in list.commentlist %}
-        <p>{{comment.author }}</p>
-        <p>{{ comment.content }}</p>
-    {% endfor %}
+    {% if cookie_name == 'notexists' %}
+        {% for comment in list.commentlist %}
+            <p>{{comment.author }}</p>
+            <p>{{ comment.content }}</p>
+        {% endfor %}=
 
-    <form action="{{ path_for('commentList',{token:list.token}) }}" method="POST">
-        <div>
-            <input class ="mecadoInput" type="text" name="author" placeholder="Your name">
-        </div>
-        <div>
-            <input class ="mecadoInput" type="text" name="content" placeholder="Your message">
-        </div>
-        {{ csrf() }}
-        <input class="mecadoBtn" type="submit" value="Add Comment">
-    </form>
+        <form action="{{ path_for('commentList',{token:list.token}) }}" method="POST">
+            <div>
+                <input class ="mecadoInput" type="text" name="author" placeholder="Your name">
+            </div>
+            <div>
+                <input class ="mecadoInput" type="text" name="content" placeholder="Your message">
+            </div>
+            {{ csrf() }}
+            <input class="mecadoBtn" type="submit" value="Add Comment">
+        </form>
+    {% endif %}
 {% endblock %}

@@ -10,6 +10,7 @@ namespace App\Controller;
 
 use Respect\Validation\Validator as V;
 use Dflydev\FigCookies\FigResponseCookies;
+use Dflydev\FigCookies\FigRequestCookies;
 use Dflydev\FigCookies\SetCookie;
 use App\Model\Giftlist;
 use App\Model\Commentlist;
@@ -43,9 +44,7 @@ class ListController extends Controller
 
             $expiry_date = new \DateTime($date);
             $expiry = $expiry_date->modify('+2 day');
-
-            if($recipient == 'myself') {
-                $recipient = $this->auth->getUser()->first_name;
+            if($recipient == $this->auth->getUser()->first_name) {
                 $response = FigResponseCookies::set($response, SetCookie::create($token)->withValue($recipient)->withExpires($expiry)->withPath('/'));
             }
 
@@ -155,10 +154,13 @@ class ListController extends Controller
 //        $list = Giftlist::where('token',$token)->get();
         $list = Giftlist::where('token',$token)->with('commentlist','gift','commentgift')->first();
         $currentDate = strtotime(date_format(new \DateTime(), 'Y-m-d'));
+        $cookie = FigRequestCookies::get($request, $token);
         $data = [
             'list' => $list,
-            'current' => $currentDate
+            'current' => $currentDate,
+            'cookie_name' => $cookie->getValue() === null ? 'notexists' : 'exists'
         ];
+
         return $this->view->render($response,'App/list.twig', $data);
     }
 
