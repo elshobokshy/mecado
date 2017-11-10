@@ -5,7 +5,7 @@
     <div class="mecadoTitle">
         <h1>My lists</h1>
         <p>Check your lists here</p>
-        <a class="btn-blue" href="{{ path_for('addlist') }}">Add new List</a>
+        <p><a class="mecadoBtn" href="{{ path_for('addlist') }}">+ Add new List</a></p>
     </div>
     {% set i = 0 %}
     {% for list in lists %}
@@ -38,12 +38,15 @@
                 <h4>{{ list.recipient }}</h4>
             </div>
 
-
+            <div id="mecadoListEdit">
                 <a class="mecadoBtn" href="{{ path_for( 'list', {'token': list.token }) }}">See it</a>
-               <a class="mecadoBtn" href="{{ path_for( 'editmylist', {'token': list.token }) }}">Edit list</a>
+                <a class="mecadoBtn" href="{{ path_for( 'editmylist', {'token': list.token }) }}">Edit list</a>
                 <form action="{{ path_for('deletelist',{'id':list.id}) }}" method="POST">
                     {{ csrf() }}
-                    <input class="mecadoBtn" type="submit" value="Delete">
+                    <input class="mecado-red-button" type="submit" value="Delete">
+                </form>
+            </div>
+
         </div>
 
         {% endfor %}
