@@ -21,7 +21,7 @@ Manager::schema()->create('gift', function (Blueprint $table) {
     $table->string('name');
     $table->string('url')->nullable();
     $table->string('description')->nullable();
-    $table->integer('price')->nullable();
+    $table->float('price');
     $table->string('picture')->nullable();
     $table->boolean('booked');
     $table->timestamps();

@@ -45,7 +45,7 @@ Giftlist::insert([
         'date' => '2018-11-06',
         'recipient' => 'the recipient',
         'user_id' => 1
-    ],[
+    ], [
         'id' => 2,
         'name' => 'test2',
         'description' => 'test.d2escription',
@@ -53,7 +53,7 @@ Giftlist::insert([
         'date' => '2018-09-05',
         'recipient' => 'the recipient',
         'user_id' => 1
-    ],[
+    ], [
         'id' => 3,
         'name' => 'test3',
         'description' => 'test3.description',
@@ -69,48 +69,48 @@ Gift::insert([
         'id' => 1,
         'giftlist_id' => 1,
         'name' => 'a gift',
-        'url' =>'https://www.google.fr/',
+        'url' => 'https://www.google.fr/',
         'description' => 'ceci est un cadeau qui me plairait bien',
         'price' => 125,
         'booked' => 0
-    ],[
+    ], [
         'id' => 2,
         'giftlist_id' => 1,
         'name' => 'a second gift',
-        'url' =>'https://www.google.fr/',
+        'url' => 'https://www.google.fr/',
         'description' => 'ceci est un AUTRE cadeau qui me plairait bien',
         'price' => 256,
         'booked' => 0
-    ],[
+    ], [
         'id' => 3,
         'giftlist_id' => 1,
         'name' => 'a gift',
         'url' => null,
         'description' => null,
-        'price' => null,
+        'price' => 5.50,
         'booked' => 1
-    ],[
+    ], [
         'id' => 4,
         'giftlist_id' => 2,
         'name' => 'a gift',
         'url' => null,
         'description' => null,
-        'price' => null,
+        'price' => 12,
         'booked' => 0
-    ],[
+    ], [
         'id' => 5,
         'giftlist_id' => 2,
         'url' => null,
         'description' => null,
-        'price' => null,
+        'price' => 87,
         'name' => 'a gift',
         'booked' => 0
-    ],[
+    ], [
         'id' => 6,
         'giftlist_id' => 2,
         'url' => null,
         'description' => null,
-        'price' => null,
+        'price' => 99.99,
         'name' => 'a gift',
         'booked' => 0
     ]
@@ -124,7 +124,6 @@ Commentlist::insert([
         'giftlist_id' => 1
     ]
 ]);
-
 
 Commentgift::insert([
     [

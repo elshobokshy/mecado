@@ -48,7 +48,7 @@
 
  {% macro input_line(name, value, label, type, class_label, class, required, att) %}
      <div class="{% if required %}required {% endif %} row {% if has_error(name) %} alert-danger{% endif %}">
-         <label class=" {{ class_label }} " for="{{ name }}">{{ label }}</label>
+         <label class=" {{ class_label }} " for="{{ name }}">{{ label }} {% if required %}<span style="color: red;"> * </span>  {% endif %}</label>
          <input {{ att }}  type="{{ type|default('text') }}" name="{{ name }}" value="{{ value }}" id="{{ name }}"
                 class="{{ class }} mecadoInputLine" {% if required %}required{% endif %}>
      </div>
