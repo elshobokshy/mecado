@@ -13,7 +13,7 @@ These instructions will get you a copy of the project up and running on your loc
 * MySQL/MariaDB database containing a 'mecado' database
 * Composer globaly installed
 ```
-### Installing
+### Installing and Running
 
 The only thing necessary in order to run the project is the following command
 
@@ -22,6 +22,20 @@ composer install
 ```
 
 You'll need to go over the installation and insert the database information according to whatever you're using (database credentials mostly), and don't forget to enter 'mecado' as the database name after creating it.
+
+Then, a server is running on 127.0.0.0:8080/
+
+
+### Tests
+
+For testing, a user is available for connection:
+email : John.Walter@gmail.com
+password : testest
+
+There is no list for John Walter himself becauseof the config data when creating DB.
+You must create one if you want to test it.
+
+Enjoy !
 
 ## Built With
 
