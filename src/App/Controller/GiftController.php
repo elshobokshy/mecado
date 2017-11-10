@@ -17,22 +17,23 @@ class GiftController extends Controller
         if ($request->isPost()) {
             $this->validator->request($request, [
                 'name' => [
-                    'rules' => V::length(1, 25)->alpha(),
+                    'rules' => V::notEmpty()->length(1, 25),
                     'messages' => [
-                        'alpha' => 'Name needs to contains alpha characters only.',
-                        'length' => 'Name should be 1 to 25 characters long.'
+                        'notEmpty' => 'Please write the name of the gift.'
                     ]
                 ],
                 'description' => [
-                    'rules' => V::alpha(),
+                    'rules' => V::length(0, 255),
                     'messages' => [
-                        'alpha' => 'Last name needs to contains alpha characters only.'
+                        'length' => 'The description need less than 255 characters'
                     ]
                 ],
                 'price' => [
-                    'rules' => V::positive(),
+                    'rules' => V::notEmpty()->numeric()->positive(),
                     'messages' => [
-                        'positive' => 'A price must be a positive number'
+                        'notEmpty' => 'Please give an approximate price for the gift.',
+                        'numeric' => 'You need to put a number',
+                        'positive' => 'A price must be positive '
                     ]
                 ],
             ]);
@@ -55,12 +56,13 @@ class GiftController extends Controller
                     } else {
                         $this->flash('danger', 'File is not valid. Please try again');
                     }
-
-                    $gift->save();
-                    $this->flash('success', 'The gift has been added.');
-                    return $this->redirect($response, 'list', ['token' => $token]);
                 }
+
+                $gift->save();
+                $this->flash('success', 'The gift has been added.');
+                return $this->redirect($response, 'list', ['token' => $token]);
             }
+
         }
         $data['token'] = $token;
         $data['giftlist_id'] = Giftlist::where('token', $token)->first()->id;
