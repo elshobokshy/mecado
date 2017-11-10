@@ -29,7 +29,9 @@ Then, a server is running on 127.0.0.0:8080/
 ### Tests
 
 For testing, a user is available for connection:
+
 email : John.Walter@gmail.com
+
 password : testest
 
 There is no list for John Walter himself becauseof the config data when creating DB.
