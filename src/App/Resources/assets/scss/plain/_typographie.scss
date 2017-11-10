@@ -1,0 +1,530 @@
+/* TYPOGRAPHIE CSS START */
+
+@import url('https://fonts.googleapis.com/css?family=Titillium+Web');
+@import url('https://fonts.googleapis.com/css?family=Fjalla+One');    
+
+    html, body {
+        display: block;
+        height: 100%;
+        padding: 0px;
+        font-size: 20px;
+        font-family: 'Titillium Web', BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        line-height: 1;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+        color: black;
+        font-family: inherit;
+        font-weight: bolder;
+        line-height: 26.4px;
+        margin-top: 0.67em;
+        margin-bottom: 0.67em;
+        margin-left: 0;
+        margin-right: 0;
+        display: block;
+        line-height: 1;
+        font-family: 'Fjalla+One', cursive;
+        
+
+        &.small {
+            color: grey;
+        }
+
+        > small {
+            color: grey;
+        }
+    }
+
+    h1 {
+        font-size: 36px;
+        color: #ff7b7b;
+        > small, 
+        &.small {
+            font-size: 23.4px;
+            color: #ee7171;
+        }
+    }
+
+    h2 {
+        font-size: 30px;
+        color: #fd8484;
+        > small, 
+        &.small {
+            font-size: 19.5px;
+            color: #ec7a7a;
+        }
+    }
+
+    h3 {
+        font-size: 24px;
+        color: #ff8f8f;
+        > small, 
+        &.small {
+            font-size: 15.6px;
+            color: #ed8585;
+        }
+    }
+
+    h4 {
+        font-size: 18px;
+        color: #ff9696;
+        > small, 
+        &.small {
+            font-size: 11.7px;
+            color: #f08b8b;
+        }
+    }
+
+    h5 {
+        font-size: 14px;
+        color: #ff9b9b;
+        > small, 
+        &.small {
+            font-size: 9.1px;
+            color: #f08f8f;
+        }
+    }
+
+    h6 {
+        font-size: 12px;
+        color: #ffa3a3;
+        > small, 
+        &.small {
+            font-size: 7.8px;
+            color: #f19898;
+        }
+    }
+    /* So any small tag inside an hX.small won't get smaller */
+    h1.small small, h2.small small, h3.small small, h4.small small, h5.small small, h6.small small {
+        font-size: 100%;
+    }
+
+    p {
+        margin-bottom: 1em;
+        line-height: 1;
+    }
+
+    mark {
+        background-color: #A281FF;
+        color: #720000;
+    }
+
+    del {
+        text-decoration: line-through;
+    }
+
+    ins, u {
+        text-decoration: underline;
+    }
+
+    strong {
+        font-weight: bold;
+    }
+
+    em {
+        font-style: italic;
+    }
+
+    .align-left {
+        text-align: left;
+    }
+
+    .align-right {
+        text-align: right;
+    }
+
+    .align-center {
+        text-align: center;
+    }
+
+    .align-justify{
+        text-align: justify;
+    }
+
+    .uppercase {
+        text-transform: uppercase;
+    }
+
+    .lowercase {
+        text-transform: lowercase;
+    }
+
+    ul {
+        list-style-type: disc;
+        margin-bottom: 1em;
+        margin-left: 0;
+        margin-right: 0;
+        padding-left: 40px;
+        /*
+        overflow: hidden;
+        */
+
+        &.none {
+          list-style-type: none;
+        }
+        &.square {
+            list-style-type: square;
+        }
+        
+        > li {
+
+            ul {
+                margin-left: 20px;
+            }
+
+            &.none {
+                list-style-type: none;
+            }
+            &.square {
+                list-style-type: square;
+            }
+        }
+
+        &.navbar {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            
+            padding-right: 15px;
+            padding-left: 15px;
+            margin-right: auto;
+            margin-left: auto;
+            margin-bottom: 20px;
+            list-style: none;
+            border: 1px solid transparent;
+            background-color: #f5f5f5;
+            border-color: #b3b3b3;
+            border-radius: 4px;
+            @include clearfix();
+          
+            > li {
+              position: relative;
+              display : inline-block;
+          
+              > a {
+                line-height: 35px;
+                position: relative;
+                display: block;
+                padding: $navbar-link-padding;
+                &:hover,
+                &:focus,
+                &:visited {
+                  text-decoration: none;
+                  background-color: $navbar-link-hover-bg;
+                  color: inherit;
+                }
+              }
+              
+              // Disabled state sets text to gray and nukes hover/tab effects
+              &.disabled > a {
+                color: $navbar-disabled-link-color;
+          
+                &:hover,
+                &:focus,
+                &:visited {
+                  color: $navbar-disabled-link-hover-color;
+                  text-decoration: none;
+                  background-color: transparent;
+                  cursor: not-allowed;
+                }
+              }
+
+              &.active > a {
+                &,
+                &:hover,
+                &:focus,
+                &:visited {
+                  color: $navbar-active-link-active-color;
+                  background-color: $navbar-active-link-active-bg;
+                }
+              }
+            }
+        }
+
+        &.breadcrumb {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            
+            padding: 8px 15px;
+            padding-right: 15px;
+            padding-left: 15px;
+            margin-right: auto;
+            margin-left: auto;
+            margin-bottom: 20px;
+            list-style: none;
+            border: 1px solid transparent;
+            border-color: #b3b3b3;
+            border-radius: 4px;
+            @include clearfix();
+            background-color: $breadcrumb-bgcolor;
+          
+            > li {
+              line-height: 35px;
+              display: inline-block;
+          
+              + li:before {
+                // [converter] Workaround for https://github.com/sass/libsass/issues/1115
+                $nbsp: "\00a0";
+                content: "#{$breadcrumb-separator}#{$nbsp}"; // Unicode space added since inline-block means non-collapsing white-space
+                padding: 0 5px;
+                color: $breadcrumb-color;
+              }
+            }
+          
+            > .active {
+              color: $breadcrumb-active-color;
+            }
+        }
+
+        &.pagination {
+            display: inline-block;
+            padding-left: 0;
+            margin: 20px 0;
+            border-radius: 4px;
+          
+            > li {
+              display: inline; // Remove list-style and block-level defaults
+              > a {
+                position: relative;
+                float: left; // Collapse white-space
+                padding: 6px 10px;
+                line-height: 1.42;
+                text-decoration: none;
+                color: $pagination-color;
+                background-color: $pagination-bg;
+                border: 1px solid $pagination-border;
+                margin-left: -1px;
+              }
+              &:first-child {
+                > a {
+                  margin-left: 0;
+                  border-bottom-left-radius: 4px;
+                  border-top-left-radius: 4px;
+                }
+              }
+              &:last-child {
+                > a         {
+                    border-bottom-right-radius: 4px;
+                    border-top-right-radius: 4px;
+                }
+              }
+            }
+          
+            > li > a {
+              &:hover,
+              &:focus {
+                z-index: 2;
+                background-color: $pagination-hover-bg;
+                border-color: $pagination-hover-border;
+              }
+            }
+          
+            > .active > a {
+              &,
+              &:hover,
+              &:focus {
+                z-index: 3;
+                color: $pagination-active-color;
+                background-color: $pagination-active-bg;
+                border-color: $pagination-active-border;
+                cursor: default;
+              }
+            }
+          
+            > .disabled {
+              > a,
+              > a:hover,
+              > a:focus {
+                color: $pagination-disabled-color;
+                background-color: $pagination-disabled-bg;
+                border-color: $pagination-disabled-border;
+                cursor: not-allowed;
+              }
+            }
+          }
+    }
+ 
+    li {
+        display: list-item;
+    }
+
+    ul.square-list {
+        list-style-type: square;
+    }
+
+    ul.nodecoration-list {
+        list-style-type: none;
+    }
+
+    blockquote {
+        margin-bottom: 0;
+        padding: 20px 30px;
+        margin: 0 0 20px;
+        font-size: 17.5px;
+        border: 1px solid #999;
+        font-family: "Times New Roman", Arial, sans-serif;        
+    }
+
+    .code {
+        padding: 20px 5vw;
+        display: block;
+        white-space: pre-wrap;
+        margin-bottom: 1em;
+        background-color: #ff5a5a;
+        color: white;
+    }
+
+    .demo {
+        width: 100%;
+        display: block;
+        box-sizing: border-box;
+        background-color: #ffffff;
+        border: 1px solid #ff5d5d;
+        padding: 20px 2vw;
+    }
+
+    code {
+        background-color: #F9F9F9;
+        border: 1px dashed #2F6FAB;
+        color: black;
+        line-height: 1.1em;
+        border-radius: 4px;
+        line-height: 1.42857143;
+        padding-left: 4px;
+        padding-right: 4px;
+    }
+
+    pre {
+        font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
+        overflow: auto;
+        font-size: 1em;
+        border: 1px solid #999;
+        page-break-inside: avoid;
+        display: block;
+        padding: 11px;
+        margin: 0 0 10px;
+        font-size: 13px;
+        line-height: 1.42857143;
+        color: #333;
+        background-color: #f5f5f5;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+    }
+
+    kbd {
+        -moz-border-radius:3px;
+        -moz-box-shadow:0 1px 0 rgba(0,0,0,0.2),0 0 0 2px #fff inset;
+        -webkit-border-radius:3px;
+        -webkit-box-shadow:0 1px 0 rgba(0,0,0,0.2),0 0 0 2px #fff inset;
+        background-color:#f7f7f7;
+        border:1px solid #ccc;
+        border-radius:3px;
+        box-shadow:0 1px 0 rgba(0,0,0,0.2),0 0 0 2px #fff inset;
+        color:#333;
+        display:inline-block;
+        font-family:monospace;
+        line-height:1.4;
+        margin:0 .1em;
+        padding:.1em .6em;
+        text-shadow:0 1px 0 #fff;
+    }
+
+    table {
+        text-align: left;
+        width: 100%;
+
+        &.table_bordered  {
+            tbody td, thead th {
+                border-right: 1px solid $tableBorder;
+            }
+
+            th {
+                border-top: 1px solid $tableBorder;
+            }
+
+            td:first-child, th:first-child {
+                border-left: 1px solid $tableBorder;
+            }
+        }
+
+        &.table_striped tbody tr:nth-child(even) {
+            background-color: $table-bg-hover;
+        }
+
+        table-layout: fixed;
+        thead {
+            tr {
+                border-bottom: 2px solid $tableBorder;
+                height: 2em;
+                th {
+                    padding: 5px 10px 5px 10px;
+                    border-bottom: 1px solid $tableBorder;
+                }
+
+                th:first-child {
+                    border-left: none;
+                }
+
+                th:last-child {
+                    border-right: none;
+                }
+            }
+        }
+
+        tbody {
+            tr {
+                width: 100%;
+                height: 2em;
+                background-color: $table-bg;
+
+                td {
+                    border-bottom: 1px solid $tableBorder;
+                    padding: 0 10px;
+                    vertical-align: middle;
+                }
+
+                td:first-child {
+                    border-left: none;
+                }
+
+                td:last-child {
+                    border-right: none;
+                }
+
+                &:hover, &:nth-child(even):hover {
+                    background-color: $table-bg-hover;
+                }
+            }
+        }
+
+    }
+
+    caption {
+        padding-top: $table-cell-padding;
+        padding-bottom: $table-cell-padding;
+        color: $table-strip-bg;
+        text-align: left;
+    }
+    
+    nav {
+        display: block;
+    }
+
+    .overview {
+        color: #fff;
+        text-align: center;
+        background-color: #ff5a5a;
+        height: 3em;
+    }
+
+    div {
+        display: block;
+        /*overflow: hidden;*/
+    }
+
+    img {
+        max-width:100%;
+    }
+
+/* CSS TYPOGRAPHIE END */

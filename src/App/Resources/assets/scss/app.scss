@@ -1,9 +1,261 @@
-body {
-  padding-top: 70px;
+@import 'plain/plain';
+@import 'fa/scss/font-awesome';
+
+table {
+  margin-top: 26px;
+  margin-bottom: 26px;
+
+  th {
+    font-weight: bold
+  }
 }
 
-.ui.container.flash {
+.mecado-red-button {
+  @extend .btn-red;
+}
+
+.alert-message {
+  @include alert-style(#d3d3d3, #8a8a8a, #292b2c);
+  margin: 1rem -15px;
+  padding: 1.5rem;
+}
+
+body{
+  position : relative;
+}
+
+.flash {
   position: relative;
   z-index: 1;
-  margin-bottom: 30px;
+}
+
+
+div.mecadoHomeBackground{
+  height : 100vh;
+  width : 100%;
+  background: white url("http://ngn-mag.com/image/wallpaper/christmas-gift-wallpaper-9.jpg") no-repeat fixed center center;
+  background-size: cover;
+}
+
+div.homeContainer{
+  @extend .align-center;
+  width : 100%;
+  margin-top: 50vh;
+  transform: translateY(-80%);
+}
+
+ul.mecadoNav{
+  @extend .navbar;
+  background-color : white;
+  border: none;
+  height : 100px;
+  margin-right : 0;
+  align-items: center;
+  justify-content: center;
+  border-bottom : 2px solid deeppink;
+  text-transform: uppercase;
+}
+
+ul.mecadoNav li {
+  border-left : 2px solid deeppink;
+}
+
+ul.mecadoNav li a:hover {
+  background-color : $navbar-active-link-active-bg;
+}
+
+.active {
+  @extend .active;
+  font-weight: bold;
+}
+
+ul.mecadoNav > #mecadoLogo{
+  margin-right : auto;
+  border : none;
+}
+
+
+
+#mecadoNavLogo{
+  max-height : 100px;
+}
+
+input.mecadoInput{
+  font-size : 1em;
+  border : 1px solid black;
+  border-radius : 3px;
+  height : 25px;
+  padding : 2px 20px;
+  margin : 10px 0;
+}
+
+input.mecadoInputLine{
+  font-size : 1em;
+  border : 1px solid black;
+  border-radius : 3px;
+  height : 25px;
+  padding : 2px 20px;
+  margin : 0;
+}
+
+input.file{
+  /*TODO*/
+}
+
+textarea.mecadoTextareaLine{
+  font-size : 1em;
+  border : 1px solid black;
+  border-radius : 3px;
+  padding : 2px 20px;
+}
+
+
+div.mecadoAccountPersonal, div.mecadoAccountPassword{
+  @include make-grid-columns(12,6,4);
+}
+
+div.mecadoAccountPersonal{
+  @include make-grid-offset(0,0,2);
+}
+
+div.mecadoAccountPassword{
+  @include make-grid-offset(0,0,1);
+}
+
+.mecadoBtn{
+  @extend .btn;
+  @include btn-text(deeppink);
+  @include btn-style(white,deeppink,white,white);
+  border : 1px solid deeppink;
+}
+
+div.mecadoTitle{
+  @extend .align-center;
+  width : 100%;
+}
+
+div.mecadoGrid{
+  @include make-grid-offset(12,12,12);
+  @include make-grid-columns(12,12,12);
+}
+
+div.mecadoContainer{
+  @extend .container;
+}
+h1,h2,h3,h4,h5,h6{
+  font-family : 'Titillium Web', BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  color : deeppink;
+}
+
+div.mecadoNav{
+  position : fixed;
+  bottom : 0;
+}
+
+.mecadoFooter{
+  position: absolute;
+  width: 100%; height: 50px;
+  bottom: 0; left: 0; right: 0;
+}
+
+div.mecadoList{
+  display : flex;
+  flex-direction: row;
+  align-items: center;
+  margin : 10px;
+  vertical-align : middle;
+  padding : 1.5%;
+  border : 2px solid black;
+}
+
+div.mecadoList.pink{
+  background-color : #e2e2e2;
+}
+
+div.mecadoListData{
+  flex-grow : 1 ;
+}
+
+
+
+h1.mecadoFiveDay{
+  color : red;
+}
+
+h1.mecadoFourteenDay{
+  color : orange;
+}
+
+h1.mecadoOtherDay{
+  color : green;
+}
+
+
+div#mecadoListEdit{
+  display : flex;
+  flex-direction: row;
+  flex-grow : 1;
+  justify-content: center;
+
+}
+
+div#mecadoListEdit > a, div#mecadoListEdit > form{
+  flex-grow : 1;
+}
+
+div.mecadoAddContainer{
+  @extend .align-center;
+  margin-top : 50px;
+  width : 100%;
+}
+
+input.mecadoInputDescription{
+  @extend .mecadoInput;
+  height : 100px;
+}
+
+div.mecadoAddList{
+  margin-top : 10px;
+}
+
+@media only screen and (max-width: 1100px){
+  div.mecadoList{
+    flex-direction: column;
+  }
+
+  div#mecadoListEdit{
+    width : 60%;
+  }
+}
+
+
+@media only screen and (max-width: 400px){
+  div#mecadoListEdit{
+    flex-direction: column;
+    justify-content: space-around;
+  }
+
+  div#mecadoListEdit > form > input{
+    width : 100%;
+  }
+
+  h1.mecadoFiveDay, h1.mecadoFourteenDay, h1.mecadoOtherDay{
+    text-align : center;
+  }
+}
+
+
+
+
+@media only screen and (max-width: 850px){
+
+  ul.mecadoNav li {
+    width : 100%;
+    border-left-style: none;
+    border-top : 1px solid deeppink;
+  }
+
+  ul.mecadoNav > #mecadoLogo{
+    margin-right : 0;
+  }
 }

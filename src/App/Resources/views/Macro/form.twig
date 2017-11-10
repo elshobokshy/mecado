@@ -1,18 +1,18 @@
-
 {% macro input(name, value, id, label, class, placeholder, type, required) %}
-    <div class="{% if required %}required {% endif %}field{% if has_error(name) %} error{% endif %}">
+    <div class="{% if required %}required {% endif %}field{% if has_error(name) %} alert-danger{% endif %}">
         <label for="{{ id }}">{{ label }}</label>
-        <input type="{{ type|default('text') }}" name="{{ name }}" value="{{ value }}" id="{{ id }}" class="{{ class }}" placeholder="{{ placeholder }}" {% if required %}required{% endif %}>
+        <input type="{{ type|default('text') }}" name="{{ name }}" value="{{ value }}" id="{{ id }}" class="{{ class }}"
+               placeholder="{{ placeholder }}" {% if required %}required{% endif %}>
     </div>
     {% if has_error(name) %}
-        <div class="ui error message">
+        <div class="alert-danger message">
             <p>{{ error(name) }}</p>
         </div>
     {% endif %}
 {% endmacro %}
 
 {% macro select(name, options, value_key, text_key, default_value, default_text, selected_value, id, label, class) %}
-    <div class="field{% if has_error(name) %} error{% endif %}">
+    <div class="field{% if has_error(name) %} alert-danger{% endif %}">
         {% if label %}
             <label for="{{ id }}">{{ label }}</label>
         {% endif %}
@@ -26,19 +26,47 @@
         </select>
     </div>
     {% if has_error(name) %}
-        <div class="ui error message">
+        <div class="alert-danger message">
             <p>{{ error(name) }}</p>
         </div>
     {% endif %}
 {% endmacro %}
 
 {% macro textarea(name, value, id, label, class, rows, cols) %}
-    <div class="field{% if has_error(name) %} error{% endif %}">
+    <div class="field{% if has_error(name) %} alert-danger{% endif %}">
         <label for="{{ id }}">{{ label }}</label>
-        <textarea class="{{ class }}" name="{{ name }}" id="{{ id }}" cols="{{ cols }}" rows="{{ rows }}">{{ value }}</textarea>
+        <textarea class="{{ class }}" name="{{ name }}" id="{{ id }}" cols="{{ cols }}"
+                  rows="{{ rows }}">{{ value }}</textarea>
     </div>
     {% if has_error(name) %}
-        <div class="ui error message">
+        <div class="alert-danger message">
+            <p>{{ error(name) }}</p>
+        </div>
+    {% endif %}
+{% endmacro %}
+
+
+ {% macro input_line(name, value, label, type, class_label, class, required, att) %}
+     <div class="{% if required %}required {% endif %} row {% if has_error(name) %} alert-danger{% endif %}">
+         <label class=" {{ class_label }} " for="{{ name }}">{{ label }} {% if required %}<span style="color: red;"> * </span>  {% endif %}</label>
+         <input {{ att }}  type="{{ type|default('text') }}" name="{{ name }}" value="{{ value }}" id="{{ name }}"
+                class="{{ class }} mecadoInputLine" {% if required %}required{% endif %}>
+     </div>
+     {% if has_error(name) %}
+         <div class="alert-danger message">
+             <p>{{ error(name) }}</p>
+         </div>
+     {% endif %}
+ {% endmacro %}
+
+{% macro textarea_line(name, value, label, class_label, class, rows, cols, att ) %}
+    <div class="row {% if has_error(name) %} alert-danger{% endif %}">
+        <label class="{{ class_label }}" for="{{ name }}">{{ label }}</label>
+        <textarea {{ att }} class="{{ class }} mecadoTextareaLine" name="{{ name }}" id="{{ name }}"
+                  rows="{{ rows }}">{{ value }}</textarea>
+    </div>
+    {% if has_error(name) %}
+        <div class="alert-danger message">
             <p>{{ error(name) }}</p>
         </div>
     {% endif %}

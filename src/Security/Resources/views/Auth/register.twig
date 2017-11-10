@@ -1,55 +1,42 @@
 {% extends 'layout.twig' %}
 
 {% block body %}
-
-<div class="ui middle aligned center aligned auth grid">
-    <div class="column">
-        <h2 class="ui teal header">
-            <i class="user icon"></i> Create a new account
-        </h2>
-        <form class="ui large form error" action="{{ path_for('register') }}" method="POST">
-            <div class="ui stacked segment">
-                <div class="field{% if has_error('username') %} error{% endif %}">
-                    <div class="ui left icon input">
-                        <i class="user icon"></i>
-                        <input type="text" name="username" placeholder="Username" value="{{ val('username') }}">
-                    </div>
+    <div class="mecadoHomeBackground">
+        <div class="homeContainer">
+            <h1>Log in to your account</h1>
+            <form action="{{ path_for('register') }}" method="POST">
+                <div class="field{% if has_error('first_name') %} error{% endif %}">
+                    <input class="mecadoInput" type="text" name="first_name" placeholder="First name" value="{{ val('first_name') }}">
+                </div>
+                <div class="field{% if has_error('last_name') %} error{% endif %}">
+                    <input class="mecadoInput" type="text" name="last_name" placeholder="Last name" value="{{ val('last_name') }}">
                 </div>
                 <div class="field{% if has_error('email') %} error{% endif %}">
-                    <div class="ui left icon input">
-                        <i class="mail icon"></i>
-                        <input type="email" name="email" placeholder="Email" value="{{ val('email') }}">
-                    </div>
+                    <input class="mecadoInput" type="email" name="email" placeholder="Email" value="{{ val('email') }}">
                 </div>
                 <div class="field{% if has_error('password') %} error{% endif %}">
-                    <div class="ui left icon input">
-                        <i class="lock icon"></i>
-                        <input type="password" name="password" placeholder="Password">
-                    </div>
+                    <input class="mecadoInput" type="password" name="password" placeholder="Password">
                 </div>
                 <div class="field{% if has_error('password_confirm') %} error{% endif %}">
-                    <div class="ui left icon input">
-                        <i class="lock icon"></i>
-                        <input type="password" name="password_confirm" placeholder="Confirm password">
-                    </div>
+                    <input class="mecadoInput" type="password" name="password_confirm" placeholder="Confirm password">
                 </div>
                 {{ csrf() }}
-                <input type="submit" class="ui fluid large teal button" value="Register">
-            </div>
-            {% if has_errors() %}
-                <div class="ui error message">
-                    {% for paramErrors in errors() %}
-                        {% for error in paramErrors %}
-                            <p>{{ error }}</p>
+                <input class="mecadoBtn" type="submit" value="Sign Up">
+                {% if has_errors() %}
+                    <div class="ui error message">
+                        {% for paramErrors in errors() %}
+                            {% for error in paramErrors %}
+                                <p>{{ error }}</p>
+                            {% endfor %}
                         {% endfor %}
-                    {% endfor %}
-                </div>
-            {% endif %}
-        </form>
-        <div class="ui message">
-            You already have an account? <a href="{{ path_for('login') }}">Sign in</a>
+                    </div>
+                {% endif %}
+            </form>
+            <div>
+                <p>You already have an account?</p>
+                <p><a href="{{ path_for('login') }}">Sign in</a></p>
+            </div>
         </div>
     </div>
-</div>
 
 {% endblock %}
