@@ -1,11 +1,10 @@
 {% extends 'layout.twig' %}
-
+{% import 'Macro/form.twig' as form %}
 
 {% set url = base_url() ~ path_for( 'list', {'token': list.token }) %}
 
 {% block body %}
     <div class="container">
-
         <div class="row">
             {% if has_errors() %}
                 <div class="alert alert-warning">
@@ -17,111 +16,94 @@
                 </div>
             {% endif %}
         </div>
+        <div class="listContainer">
+            <div class="listHeader">
+                <div class="mecadoTitle">
+                    <h1>List name : {{ list.name }} for {{ list.recipient }}</h1>
+                    <h3>{{ ((list.date | date('U') - current) / (3600*24)) | round }} Days remaining</h3>
+                </div>
+                <h2>Share it with your friends :</h2>
+                <p id="sharelink">{{ url }}</p>
 
-        <div class="row">
-            <h1 class="align-center">Welcome to {{ list.recipient }} gift event page.</h1>
-            <hr>
+                <hr>
 
-            <table>
-                <thead>
-                    <th>List name</th>
-                    <th>Day remaining</th>
-                    <th>For </th>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>{{ list.name }}</td>
-                        <td>{{ ((list.date | date('U') - current) / (3600*24)) | round }}</td>
-                        <td>{{ list.recipient }}</td>
-                    </tr>
-                </tbody>
-
-            </table>
-            <div>
                 <h2>Description</h2>
                 <p>{{ list.description }}</p>
-            </div>
-            
-            <p>Share with your friends : {{ url }}</p>
 
-            <hr>
-        </div>
-
-        <h1 class="align-center">Let's see the gifts...</h1>
-
-        <div class="align-right">
-            <a href="{{ path_for('newgift', {'token': list.token }) }}">
-                <button class="btn btn-blue"> + Add new gift</button>
-            </a>
-        </div>
-
-        <div class="row">
-
-            {% for gift in list.gift %}
                 <hr>
-                <img src="{{ gift.picture }}">
-                <table>
-                    <thead>
-                        <th>Name</th>
-                        <th>Description</th>
-                        <th>Indicative price</th>
-                        {% if gift.booked %}
-                            {% if cookie_name == 'notexists' %}
-                                <th>Status</th>
-                                <th>Booked by</th>
-                                <th>Message</th>
-                            {% endif %}
-                        {% endif %}
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>{{ gift.name }}</td>
-                            <td>{{ gift.description }}</td>
-                            <td>{{ gift.price }}</td>
-                            {% if gift.booked %}
-                                {% if cookie_name == 'notexists' %}
-                                    <td>Booked !</td>
-                                    {% for comment in gift.commentgift %}
-                                        <td>{{ comment.author }}</td>
-                                        <td>{{ comment.content }}</td>
-                                    {% endfor %}
-                                {% endif %}
-                            {% endif %}
-                        </tr>
-                    </tbody>
-                </table>
+            </div>
+            <h1 class="align-center">Let's see the gifts</h1>
 
-                    {% if not gift.booked %}
+            <div class="listContent">
+
+                {% for gift in list.gift %}
+                    <hr>
+                    <div class="gift">
+                        <div class="sm-offset-4 sm-4 md-offset-8 md-2 lg-offset-10 lg-1">
+                            <form action="{{ path_for('deletegift',{token:list.token,'id':gift.id}) }}" method="POST">
+                                {{ csrf() }}
+                                <input class="mecadoBtn" type="submit" value=" Update">
+                            </form>
+                        </div>
+                        <div class=" sm-4 md-2 lg-1">
+                            <form action="{{ path_for('deletegift',{token:list.token,'id':gift.id}) }}" method="POST">
+                                {{ csrf() }}
+                                <input class="mecado-red-button" type="submit" value=" Delete">
+                            </form>
+                        </div>
+                        <div class="sm-8 md-9 lg-9">
+                            <h4>Gift name :</h4>
+                            <p>{{ gift.name }}</p>
+
+                            <h4>Description :</h4>
+                            <p>{{ gift.description }}</p>
+
+                            <h4>Indicated price :</h4>
+                            <p>{{ gift.price }}€</p>
+                        </div>
+                        <div class="giftImg sm-4 md-3 lg-3" >
+                            {% if gift.picture %}
+                                <img  src="{{ asset('assets/img/gift_picture/') }}{{ gift.picture }}" >
+                            {% else %}
+                                <img  src="{{ asset('assets/img/gift_picture/no-image.png') }}" >
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    {% if gift.booked %}
                         {% if cookie_name == 'notexists' %}
+                            <h4>This gift is already booked !</h4>
+                            {% for comment in gift.commentgift %}
+                                <p>A message from {{ comment.author }} :</p>
+                                <p>{{ comment.content }}</p>
+                            {% endfor %}
+                        {% endif %}
+                    {% else %}
+                        {% if cookie_name == 'notexists' %}
+                            <h4>Want to book this gift ?</h4>
                             <form action="{{ path_for('book',{token:list.token,'id':gift.id}) }}" method="POST">
                                 <div>
-                                    <label for="author" class="sm-3">Booking name : </label>
-                                    <input class ="sm-9 mecadoInputLine" type="text" name="author" placeholder="Name">
-                                </div>
-                                <div>
-                                    <label for="content" class="sm-3">Message : </label>
-                                    <input class ="sm-9 mecadoInputLine" type="text" name="content" placeholder="Message">
+                                    {{ form.input_line('author','full name', 'Your name', 'text', 'sm-4 md-2 lg-2', 'sm-8 md-10 lg-10',1) }}
+                                    {{ form.textarea_line('content','Message', 'Your message','sm-4 md-2 lg-2', 'sm-8 md-10 lg-10', 5) }}
                                 </div>
                                 {{ csrf() }}
-                                <input class="mecadoBtn" type="submit" value="Book">
+                                <div class="align-right">
+                                    <input class="mecadoBtn" type="submit" value="Book">
+                                </div>
                             </form>
                         {% endif %}
                     {% endif %}
-
-                <div class="align-right">
-                    <form action="{{ path_for('deletegift',{token:list.token,'id':gift.id}) }}" method="POST">
-                        {{ csrf() }}
-                        <input class="mecado-red-button" type="submit" value=" Delete Gift">
-                    </form>
-                </div>
-                <button href="#">modify</button>
-            {% endfor %}
-        
-        </div>
-
-        <div class="row">
-            
+                {% endfor %}
+            </div>
             <hr>
+            <div class="align-center">
+                <a href="{{ path_for('newgift', {'token': list.token }) }}">
+                    <button class="mecadoBtn "> + Add new gift</button>
+                </a>
+            </div>
+        </div>
+        <hr>
+        <div class="row">
             <h1 class="align-center">Comments</h1>
             <hr>
 
@@ -130,34 +112,30 @@
                 {% if cookie_name == 'notexists' %}
                     {% for comment in list.commentlist %}
                         <p class="alert alert-message">
-                            Author : {{comment.author }} <br>
+                            Author : {{ comment.author }} <br>
                             Content : {{ comment.content }}
+
                         </p>
 
+
                     {% endfor %}
-                    
+
                     <form action="{{ path_for('commentList',{token:list.token}) }}" method="POST">
                         <div>
-                            <label for="author" class="sm-3">Name</label>
-                            <input class ="sm-9 mecadoInputLine" type="text" name="author" placeholder="Name">
-                        </div>
-                        <div>
-                            <label for="content" class="sm-3">Message</label>
-                            <input class ="sm-9 mecadoInputLine" type="text" name="content" placeholder="Message">
+                            {{ form.input_line('author','full name', 'Your name', 'text', 'sm-4 md-2 lg-2', 'sm-8 md-10 lg-10',1) }}
+                            {{ form.textarea_line('content','message', 'Your message','sm-4 md-2 lg-2', 'sm-8 md-10 lg-10', 5) }}
                         </div>
                         {{ csrf() }}
-                        <input class="mecadoBtn" type="submit" value="Add Comment">
+                        <div class="align-right">
+                            <input class="mecadoBtn" type="submit" value="Add Comment">
+                        </div>
                     </form>
                 {% endif %}
 
 
-                <hr>
-            
             </div>
 
         </div>
-
-
 
     </div>
 {% endblock %}
