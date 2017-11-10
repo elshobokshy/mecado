@@ -1,11 +1,9 @@
 <?php
 
 namespace App\Model;
+
 use Cartalyst\Sentinel\Sentinel;
 
-/**
- * @property Sentinel  auth
-*/
 class Giftlist extends Model
 {
     protected $table = 'giftlist';
@@ -13,10 +11,10 @@ class Giftlist extends Model
     protected $fillable = [
         'name',
         'description',
-        'recipient',
-        'date',
-        'user_id',
         'token',
+        'date',
+        'recipient',
+        'user_id',
     ];
 
     public function commentlist()
@@ -40,10 +38,10 @@ class Giftlist extends Model
     }
 
     public function delete()
-    {   
+    {
         $this->auth->giftlist->commentlist->delete();
         $this->auth->giftlist->gift->delete();
-        
+
         return parent::delete();
     }
 }
