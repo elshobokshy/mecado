@@ -1,3 +1,6 @@
+![alt text](https://github.com/elshobokshy/mecado/blob/develop/public/assets/img/Mecadov2.png)
+
+
 # mecado
 Easy way to let your friends know which gift you'd like on your birthday.
 
@@ -8,7 +11,7 @@ These instructions will get you a copy of the project up and running on your loc
 ### Prerequisites
 ```
 * Web server with URL rewriting
-* PHP 5.5 or newer
+* PHP 7.0 or newer
 * MySQL/MariaDB database containing a 'mecado' database
 * Composer globaly installed
 ```
