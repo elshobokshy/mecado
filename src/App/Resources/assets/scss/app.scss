@@ -7,7 +7,7 @@ table {
 
   th {
     font-weight: bold
-    }
+  }
 }
 
 .mecado-red-button {
@@ -123,7 +123,10 @@ div.mecadoAccountPassword{
 }
 
 .mecadoBtn{
-  @extend .btn-blue;
+  @extend .btn;
+  @include btn-text(deeppink);
+  @include btn-style(white,deeppink,white,white);
+  border : 1px solid deeppink;
 }
 
 div.mecadoTitle{
@@ -141,7 +144,7 @@ div.mecadoContainer{
 }
 h1,h2,h3,h4,h5,h6{
   font-family : 'Titillium Web', BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  color : #5bc0de;
+  color : deeppink;
 }
 
 div.mecadoNav{
@@ -154,6 +157,95 @@ div.mecadoNav{
   width: 100%; height: 50px;
   bottom: 0; left: 0; right: 0;
 }
+
+div.mecadoList{
+  display : flex;
+  flex-direction: row;
+  align-items: center;
+  margin : 10px;
+  vertical-align : middle;
+  padding : 1.5%;
+  border : 2px solid black;
+}
+
+div.mecadoList.pink{
+  background-color : #e2e2e2;
+}
+
+div.mecadoListData{
+  flex-grow : 1 ;
+}
+
+
+
+h1.mecadoFiveDay{
+  color : red;
+}
+
+h1.mecadoFourteenDay{
+  color : orange;
+}
+
+h1.mecadoOtherDay{
+  color : green;
+}
+
+
+div#mecadoListEdit{
+  display : flex;
+  flex-direction: row;
+  flex-grow : 1;
+  justify-content: center;
+
+}
+
+div#mecadoListEdit > a, div#mecadoListEdit > form{
+  flex-grow : 1;
+}
+
+div.mecadoAddContainer{
+  @extend .align-center;
+  margin-top : 50px;
+  width : 100%;
+}
+
+input.mecadoInputDescription{
+  @extend .mecadoInput;
+  height : 100px;
+}
+
+div.mecadoAddList{
+  margin-top : 10px;
+}
+
+@media only screen and (max-width: 1100px){
+  div.mecadoList{
+    flex-direction: column;
+  }
+
+  div#mecadoListEdit{
+    width : 60%;
+  }
+}
+
+
+@media only screen and (max-width: 400px){
+  div#mecadoListEdit{
+    flex-direction: column;
+    justify-content: space-around;
+  }
+
+  div#mecadoListEdit > form > input{
+    width : 100%;
+  }
+
+  h1.mecadoFiveDay, h1.mecadoFourteenDay, h1.mecadoOtherDay{
+    text-align : center;
+  }
+}
+
+
+
 
 @media only screen and (max-width: 850px){
 

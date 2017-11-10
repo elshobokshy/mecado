@@ -1,37 +1,57 @@
+{% import 'Macro/form.twig' as form %}
 {% extends 'layout.twig' %}
 
 {% block body %}
-
-    <h1>Add List</h1>
-    <form action="{{ path_for('addlist') }}" method="post">
-        <label for="name">Name : </label>
-        <input id="name" name="name" type="text" value="{{ val('name') }}">
-        <label for="description">Description : </label>
-        <input id="description" name="description" type="text" value="{{ val('description') }}">
-
-        Myself <input type="radio" name="choice" value="myself" checked>
-        Other <input type="radio" name="choice" value="other">
-
-        <div id="myself" class="recipient">
-            <input type="text" name="recipient" value="{{ user.first_name }}" disabled>
-        </div>
-        <div id="other" class="recipient" style="display: none;">
-            <input type="text" name="recipient" placeholder="Birthday boy/girl first name" value="{{ user.first_name }}">
+    <div class="mecadoContainer">
+        <div class="mecadoTitle">
+            <h1>Add List</h1>
+            <p>Add a new list to your lists</p>
         </div>
 
-        <label for="date"> Date of validity : </label>
-        <input id="date" name="date" type="text" value="{{ val('date') }}">
-        {{ csrf() }}
-        <input type="submit">
-        {% if has_errors() %}
-            <div class="alert alert-warning">
-                {% for paramErrors in errors() %}
-                    {% for error in paramErrors %}
-                        <p>{{ error }}</p>
-                    {% endfor %}
-                {% endfor %}
-            </div>
-        {% endif %}
-    </form>
+        <div class="mecadoAddContainer">
+            <form action="{{ path_for('addlist') }}" method="post">
+                <div>
+                    <label>Name</label><br>
+                    <input class="mecadoInput" id="name" name="name" type="text" value="{{ val('name') }}">
+                </div>
 
+                <div class="mecadoAddList">
+                    <label>Description</label>
+                    {{ form.textarea_line('description','', '','', '', 5) }}
+                </div>
+                <div>
+                    <label>Recipient</label>
+                    <div>
+                        <input class="mecadoInput" type="radio" name="choice" id="choice" value="myself" checked>
+                        <label for="choice">Myself</label>
+                        <input class="mecadoInput" type="radio" name="choice" id="choice2" value="other">
+                        <label for="choice2">Other</label>
+                    </div>
+                    <div id="myself" class="recipient">
+                        <input class="mecadoInput" type="text" name="recipient" value="{{  user.first_name ~ ' ' ~ user.last_name  }}" disabled>
+                    </div>
+                </div>
+                <div id="other" class="mecadoAddList recipient" style="display: none;">
+                    <input class="mecadoInput" type="text" name="recipient" value="{{ user.first_name ~ ' ' ~ user.last_name }}">
+                </div>
+                <div class="mecadoAddList">
+                    <label> Date of validity (yyyy-MM-dd): </label>
+                    <div>
+                        <input  class="mecadoInput" id="date" name="date" type="text" value="{{ val('date') }}">
+                    </div>
+                </div>
+                {{ csrf() }}
+                <input class="mecadoBtn" type="submit">
+                {% if has_errors() %}
+                    <div class="alert alert-warning">
+                        {% for paramErrors in errors() %}
+                            {% for error in paramErrors %}
+                                <p>{{ error }}</p>
+                            {% endfor %}
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </form>
+        </div>
+    </div>
 {% endblock %}
