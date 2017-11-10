@@ -19,8 +19,23 @@
         <div class="listContainer">
             <div class="listHeader">
                 <div class="mecadoTitle">
-                    <h1>List name : {{ list.name }} for {{ list.recipient }}</h1>
-                    <h3>{{ ((list.date | date('U') - current) / (3600*24)) | round }} Days remaining</h3>
+                    <h1>List {{ list.name }} for {{ list.recipient }}</h1>
+                    <div class="mecadoListData">
+                        {% if  (((list.date | date('U')- current)/(3600*24))|round <= 7) %}
+                        <h3 class="mecadoFiveDay">
+                            {% elseif (((list.date | date('U')- current)/(3600*24))|round > 7) and(((list.date | date('U')- current)/(3600*24))|round <= 14) %}
+                            <h3 class="mecadoFourteenDay">
+                                {% else %}
+                                <h3 class="mecadoOtherDay">
+                                    {% endif %}
+                                    {% if ((list.date | date('U')- current)/(3600*24))|round <= 0 %}
+                                        0
+                                    {% else %}
+                                        {{ ((list.date | date('U')- current)/(3600*24))|round }}
+                                    {% endif %}
+                                    days remaining
+                                </h3>
+                    </div>
                 </div>
                 <h2>Share it with your friends :</h2>
                 <p id="sharelink">{{ url }}</p>
@@ -33,18 +48,17 @@
                 <hr>
             </div>
             <h1 class="align-center">Let's see the gifts</h1>
-
+            <div class="align-center">
+                <a href="{{ path_for('newgift', {'token': list.token }) }}">
+                    <button class="mecadoBtn "> + Add new gift</button>
+                </a>
+            </div>
             <div class="listContent">
 
                 {% for gift in list.gift %}
-                    <hr>
+
                     <div class="gift">
-                        <div class="sm-offset-4 sm-4 md-offset-8 md-2 lg-offset-10 lg-1">
-                            <form action="{{ path_for('deletegift',{token:list.token,'id':gift.id}) }}" method="POST">
-                                {{ csrf() }}
-                                <input class="mecadoBtn" type="submit" value=" Update">
-                            </form>
-                        </div>
+                        <div class="sm-offset-4 sm-4 md-offset-8 md-2 lg-offset-10 lg-1"></div>
                         <div class=" sm-4 md-2 lg-1">
                             <form action="{{ path_for('deletegift',{token:list.token,'id':gift.id}) }}" method="POST">
                                 {{ csrf() }}
@@ -59,7 +73,7 @@
                             <p>{{ gift.description }}</p>
 
                             <h4>Indicated price :</h4>
-                            <p>{{ gift.price }}€</p>
+                            <p>{{ gift.price }}$</p>
                         </div>
                         <div class="giftImg sm-4 md-3 lg-3" >
                             {% if gift.picture %}
@@ -68,39 +82,36 @@
                                 <img  src="{{ asset('assets/img/gift_picture/no-image.png') }}" >
                             {% endif %}
                         </div>
+                        <div class="sm-12">
+                            {% if gift.booked %}
+                                {% if cookie_name == 'notexists' %}
+                                    <h4>This gift is already booked !</h4>
+                                    {% for comment in gift.commentgift %}
+                                        <p>A message from {{ comment.author }} :</p>
+                                        <p>{{ comment.content }}</p>
+                                    {% endfor %}
+                                {% endif %}
+                            {% else %}
+                                {% if cookie_name == 'notexists' %}
+                                    <h4>Want to book this gift ?</h4>
+                                    <form action="{{ path_for('book',{token:list.token,'id':gift.id}) }}" method="POST">
+                                        <div>
+                                            {{ form.input_line('author','full name', 'Your name', 'text', 'sm-4 md-2 lg-2', 'sm-8 md-10 lg-10',1) }}
+                                            {{ form.textarea_line('content','Message', 'Your message','sm-4 md-2 lg-2', 'sm-8 md-10 lg-10', 5) }}
+                                        </div>
+                                        {{ csrf() }}
+                                        <div class="align-right">
+                                            <input class="mecadoBtn" type="submit" value="Book">
+                                        </div>
+                                    </form>
+                                {% endif %}
+                            {% endif %}
+                        </div>
                     </div>
-
-                    {% if gift.booked %}
-                        {% if cookie_name == 'notexists' %}
-                            <h4>This gift is already booked !</h4>
-                            {% for comment in gift.commentgift %}
-                                <p>A message from {{ comment.author }} :</p>
-                                <p>{{ comment.content }}</p>
-                            {% endfor %}
-                        {% endif %}
-                    {% else %}
-                        {% if cookie_name == 'notexists' %}
-                            <h4>Want to book this gift ?</h4>
-                            <form action="{{ path_for('book',{token:list.token,'id':gift.id}) }}" method="POST">
-                                <div>
-                                    {{ form.input_line('author','full name', 'Your name', 'text', 'sm-4 md-2 lg-2', 'sm-8 md-10 lg-10',1) }}
-                                    {{ form.textarea_line('content','Message', 'Your message','sm-4 md-2 lg-2', 'sm-8 md-10 lg-10', 5) }}
-                                </div>
-                                {{ csrf() }}
-                                <div class="align-right">
-                                    <input class="mecadoBtn" type="submit" value="Book">
-                                </div>
-                            </form>
-                        {% endif %}
-                    {% endif %}
                 {% endfor %}
             </div>
             <hr>
-            <div class="align-center">
-                <a href="{{ path_for('newgift', {'token': list.token }) }}">
-                    <button class="mecadoBtn "> + Add new gift</button>
-                </a>
-            </div>
+
         </div>
         <hr>
         <div class="row">

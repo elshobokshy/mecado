@@ -155,9 +155,8 @@
         margin-left: 0;
         margin-right: 0;
         padding-left: 40px;
-        /*
         overflow: hidden;
-        */
+
 
         &.none {
           list-style-type: none;
@@ -520,7 +519,7 @@
 
     div {
         display: block;
-        /*overflow: hidden;*/
+        overflow: hidden;
     }
 
     img {
