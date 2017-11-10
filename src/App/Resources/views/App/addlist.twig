@@ -28,11 +28,11 @@
                         <label for="choice2">Other</label>
                     </div>
                     <div id="myself" class="recipient">
-                        <input class="mecadoInput" type="text" name="recipient" value="{{  user.first_name ~ ' ' ~ user.last_name  }}" disabled>
+                        <input class="mecadoInput" type="text" name="recipient" value="{{ user.first_name }}" disabled>
                     </div>
                 </div>
                 <div id="other" class="mecadoAddList recipient" style="display: none;">
-                    <input class="mecadoInput" type="text" name="recipient" value="{{ user.first_name ~ ' ' ~ user.last_name }}">
+                    <input class="mecadoInput" type="text" name="recipient" value="{{ user.first_name }}">
                 </div>
                 <div class="mecadoAddList">
                     <label> Date of validity (yyyy-MM-dd): </label>
