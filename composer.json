@@ -50,13 +50,9 @@
         "sort-packages": true
     },
     "scripts": {
-        "start": "php -S 0.0.0.0:8080 -t public",
         "post-install-cmd": [
             "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
-            "php bin/console db",
-            "npm install",
-            "npm install -g gulp-cli",
-            "gulp build"
+            "bash installer.sh"
         ],
         "post-update-cmd": [
             "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters"
