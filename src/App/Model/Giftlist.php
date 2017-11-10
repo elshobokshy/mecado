@@ -39,11 +39,4 @@ class Giftlist extends Model
         return $this->belongsTo('\Security\Model\User');
     }
 
-    public function delete()
-    {   
-        $this->auth->giftlist->commentlist->delete();
-        $this->auth->giftlist->gift->delete();
-        
-        return parent::delete();
-    }
 }

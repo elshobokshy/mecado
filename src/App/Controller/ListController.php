@@ -15,6 +15,7 @@ use Dflydev\FigCookies\SetCookie;
 use App\Model\Giftlist;
 use App\Model\Gift;
 use App\Model\Commentlist;
+use App\Model\Commentgift;
 use Security\Middleware\AuthMiddleware;
 use Slim\Http\Request;
 use Slim\Http\Response;
@@ -168,7 +169,14 @@ class ListController extends Controller
             'current' => $currentDate,
             'cookie_name' => $cookie->getValue() === null ? 'notexists' : 'exists'
         ];
-        return $this->view->render($response, 'App/list.twig', $data);
+
+        $time = strtotime($list->date) - $currentDate;
+
+        if($time <= 0)
+            return $this->view->render($response, 'App/listover.twig', $data);
+        else
+            return $this->view->render($response, 'App/list.twig', $data);
+
     }
 
     public function commentList(Request $request, Response $response, $token)
