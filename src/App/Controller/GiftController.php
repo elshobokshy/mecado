@@ -38,7 +38,6 @@ class GiftController extends Controller
                 ],
             ]);
 
-
             if ($this->validator->isValid()) {
                 $gift = new Gift($request->getParams());
 
@@ -57,12 +56,10 @@ class GiftController extends Controller
                         $this->flash('danger', 'File is not valid. Please try again');
                     }
                 }
-
                 $gift->save();
                 $this->flash('success', 'The gift has been added.');
                 return $this->redirect($response, 'list', ['token' => $token]);
             }
-
         }
         $data['token'] = $token;
         $data['giftlist_id'] = Giftlist::where('token', $token)->first()->id;
