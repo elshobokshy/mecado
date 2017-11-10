@@ -72,7 +72,9 @@ Gift::insert([
         'url' => 'https://www.google.fr/',
         'description' => 'ceci est un cadeau qui me plairait bien',
         'price' => 125,
-        'booked' => 0
+        'booked' => 0,
+        'kitty' => 0,
+        'contributions' => 0
     ], [
         'id' => 2,
         'giftlist_id' => 1,
@@ -80,7 +82,9 @@ Gift::insert([
         'url' => 'https://www.google.fr/',
         'description' => 'ceci est un AUTRE cadeau qui me plairait bien',
         'price' => 256,
-        'booked' => 0
+        'booked' => 0,
+        'kitty' => 0,
+        'contributions' => 0
     ], [
         'id' => 3,
         'giftlist_id' => 1,
@@ -88,7 +92,9 @@ Gift::insert([
         'url' => null,
         'description' => null,
         'price' => 5.50,
-        'booked' => 1
+        'booked' => 1,
+        'kitty' => 0,
+        'contributions' => 0
     ], [
         'id' => 4,
         'giftlist_id' => 2,
@@ -96,7 +102,9 @@ Gift::insert([
         'url' => null,
         'description' => null,
         'price' => 12,
-        'booked' => 0
+        'booked' => 0,
+        'kitty' => 0,
+        'contributions' => 0
     ], [
         'id' => 5,
         'giftlist_id' => 2,
@@ -104,7 +112,9 @@ Gift::insert([
         'description' => null,
         'price' => 87,
         'name' => 'a gift',
-        'booked' => 0
+        'booked' => 0,
+        'kitty' => 0,
+        'contributions' => 0
     ], [
         'id' => 6,
         'giftlist_id' => 2,
@@ -112,7 +122,9 @@ Gift::insert([
         'description' => null,
         'price' => 99.99,
         'name' => 'a gift',
-        'booked' => 0
+        'booked' => 0,
+        'kitty' => 0,
+        'contributions' => 0
     ]
 ]);
 

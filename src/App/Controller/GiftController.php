@@ -41,6 +41,12 @@ class GiftController extends Controller
             if ($this->validator->isValid()) {
                 $gift = new Gift($request->getParams());
 
+                if($gift->kitty){
+                    $gift->contributions = 0;
+
+                }else{
+                    $gift->contributions = $gift->price;
+                }
                 if ($_FILES['picture']['error'] === UPLOAD_ERR_OK) {
                     if ($_FILES['picture']['error'] > 0) {
                         $this->flash('danger', 'Erreur lors du transfert');
@@ -64,7 +70,7 @@ class GiftController extends Controller
         }
         $data['token'] = $token;
         $data['giftlist_id'] = Giftlist::where('token', $token)->first()->id;
-        return $this->view->render($response, 'Gift/newgift.twig', $data);
+        return $this->view->render($response, 'App/newgift.twig', $data);
     }
 
     public function newComment($gift, $author, $content)
@@ -86,6 +92,22 @@ class GiftController extends Controller
         $gift->save();
         return $this->redirect($response, 'list', ['token' => $token]);
     }
+
+    public function participate(Request $request, Response $response, $token, $id)
+    {
+        $author = $request->getParam('author');
+        $content = $request->getParam('content');
+        $contribution = $request->getParam('kitty');
+        $gift = Gift::find($id);
+        $this->newComment($id, $author, $content);
+        $gift->contributions += $contribution;
+        if($gift->contributions >= $gift->price)
+            $gift->booked = 1;
+        $gift->save();
+        return $this->redirect($response, 'list', ['token' => $token]);
+    }
+
+
 
     public function delete(Request $request, Response $response, $token, $id)
     {

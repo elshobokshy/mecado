@@ -75,6 +75,7 @@
 
                             <h4>Description :</h4>
                             <p>{{ gift.description }}</p>
+                            <p>{{ gift.url }}</p>
 
                             <h4>Indicated price :</h4>
                             <p>{{ gift.price }}$</p>
@@ -97,17 +98,35 @@
                                 {% endif %}
                             {% else %}
                                 {% if cookie_name == 'notexists' %}
-                                    <h4>Want to book this gift ?</h4>
-                                    <form action="{{ path_for('book',{token:list.token,'id':gift.id}) }}" method="POST">
-                                        <div>
-                                            {{ form.input_line('author','full name', 'Your name', 'text', 'sm-4 md-2 lg-2', 'sm-8 md-10 lg-10',1) }}
-                                            {{ form.textarea_line('content','Message', 'Your message','sm-4 md-2 lg-2', 'sm-8 md-10 lg-10', 5) }}
-                                        </div>
-                                        {{ csrf() }}
-                                        <div class="align-right">
-                                            <input class="mecadoBtn" type="submit" value="Book">
-                                        </div>
-                                    </form>
+                                    {% if gift.kitty %}
+                                        <h4>This gift has a kitty mode. Want to participate ?</h4>
+                                        <p>{{ gift.contributions ~ '$ / ' ~ gift.price ~ '$'  }}</p>
+                                        <form action="{{ path_for('participate',{token:list.token,'id':gift.id}) }}" method="POST">
+                                            <div>
+                                                {{ form.input_line('author','full name', 'Your name', 'text', 'sm-4 md-2 lg-2', 'sm-8 md-10 lg-10',1) }}
+                                                {{ form.textarea_line('content','Message', 'Your message','sm-4 md-2 lg-2', 'sm-8 md-10 lg-10', 5) }}
+                                                {{ form.input_line('kitty','', 'Your contribution','number','sm-4 md-2 lg-2', 'sm-8 md-10 lg-10', 1) }}
+                                            </div>
+                                            {{ csrf() }}
+                                            <div class="align-right">
+                                                <input class="mecadoBtn" type="submit" value="Participate">
+                                            </div>
+                                        </form>
+                                    {% else %}
+                                        <h4>Want to book this gift ?</h4>
+                                        <form action="{{ path_for('book',{token:list.token,'id':gift.id}) }}" method="POST">
+                                            <div>
+                                                {{ form.input_line('author','full name', 'Your name', 'text', 'sm-4 md-2 lg-2', 'sm-8 md-10 lg-10',1) }}
+                                                {{ form.textarea_line('content','Message', 'Your message','sm-4 md-2 lg-2', 'sm-8 md-10 lg-10', 5) }}
+                                            </div>
+                                            {{ csrf() }}
+                                            <div class="align-right">
+                                                <input class="mecadoBtn" type="submit" value="Book">
+                                            </div>
+                                        </form>
+
+
+                                    {% endif %}
                                 {% endif %}
                             {% endif %}
                         </div>
