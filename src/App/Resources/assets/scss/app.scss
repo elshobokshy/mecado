@@ -172,6 +172,10 @@ div.listContent{
 }
 
 div.gift{
+  margin-top : 10px;
+  margin-bottom : 10px;
+  padding-top : 10px;
+  word-wrap: break-word;
   border:1px solid black;
 }
 
@@ -204,15 +208,15 @@ div.mecadoListData{
 
 
 
-h1.mecadoFiveDay{
+h1.mecadoFiveDay, h3.mecadoFiveDay{
   color : red;
 }
 
-h1.mecadoFourteenDay{
+h1.mecadoFourteenDay, h3.mecadoFourteenDay{
   color : orange;
 }
 
-h1.mecadoOtherDay{
+h1.mecadoOtherDay, h3.mecadoOtherDay{
   color : green;
 }
 
