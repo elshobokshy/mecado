@@ -35,12 +35,13 @@
                     <input class="mecadoInput" type="text" name="recipient" value="{{ user.first_name ~ ' ' ~ user.last_name }}">
                 </div>
                 <div class="mecadoAddList">
-                    <label> Date of validity : </label>
-                    <div><input  class="mecadoInput" id="date" name="date" type="text" value="{{ val('date') }}">
+                    <label> Date of validity (yyyy-MM-dd): </label>
+                    <div>
+                        <input  class="mecadoInput" id="date" name="date" type="text" value="{{ val('date') }}">
                     </div>
                 </div>
                 {{ csrf() }}
-                <input class="mecadoInput" type="submit">
+                <input class="mecadoBtn" type="submit">
                 {% if has_errors() %}
                     <div class="alert alert-warning">
                         {% for paramErrors in errors() %}
