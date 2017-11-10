@@ -203,6 +203,20 @@ div#mecadoListEdit > a, div#mecadoListEdit > form{
   flex-grow : 1;
 }
 
+div.mecadoAddContainer{
+  @extend .align-center;
+  margin-top : 50px;
+  width : 100%;
+}
+
+input.mecadoInputDescription{
+  @extend .mecadoInput;
+  height : 100px;
+}
+
+div.mecadoAddList{
+  margin-top : 10px;
+}
 
 @media only screen and (max-width: 1100px){
   div.mecadoList{
