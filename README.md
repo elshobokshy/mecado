@@ -23,7 +23,7 @@ composer install
 
 You'll need to go over the installation and insert the database information according to whatever you're using (database credentials mostly), and don't forget to enter 'mecado' as the database name after creating it.
 
-Then, a server is running on 127.0.0.0:8080/
+Then, a server is running on 127.0.0.1:8081/
 
 
 ### Tests
