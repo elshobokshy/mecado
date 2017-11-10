@@ -1,9 +1,29 @@
 {% extends 'layout.twig' %}
 
 {% block body %}
-
-<div class="ui container">
-    <h1 class="ui center aligned header">Hello World!</h1>
+<div class="mecadoHomeBackground">
+    <div class="homeContainer">
+        <h1>Log in to your account</h1>
+        <form action="{{ path_for('login') }}" method="POST">
+            <div>
+                <input class ="mecadoInput" type="text" name="email" placeholder="Email">
+            </div>
+            <div>
+                <input class ="mecadoInput" type="password" name="password" placeholder="Password">
+            </div>
+                {{ csrf() }}
+            <input class="mecadoBtn" type="submit" value="Login">
+            {% if has_errors() %}
+                <div class="ui error message">
+                    {% for error in errors('auth') %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </form>
+        <div class="ui message">
+            New to us? <a href="{{ path_for('register') }}">Sign up</a>
+        </div>
+    </div>
 </div>
-
 {% endblock %}

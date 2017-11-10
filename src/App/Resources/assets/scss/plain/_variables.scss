@@ -1,0 +1,118 @@
+$default-button-color: #fff !default;
+$default-button-borderColor: #000000 !default;
+$default-button-active-bgcolor: #9B9B9B !default;
+$default-button-hover-bgcolor: #B3B3B3 !default;
+$default-button-bgcolor: #BDC3C7 !default;
+$default-button-size: 14px !default;
+$default-button-border-radius: 2px !default;
+
+$blue-button-color: #fff !default;
+$blue-button-borderColor: #46b8da !default;
+$blue-button-active-bgcolor: #11A8D1 !default;
+$blue-button-hover-bgcolor: #29A6C9 !default;
+$blue-button-bgcolor: #5bc0de !default;
+$blue-button-size: 14px !default;
+$blue-button-border-radius: 2px !default;
+
+$green-button-color: #fff !default;
+$green-button-borderColor: #4cae4c !default;
+$green-button-active-bgcolor: #23A023 !default;
+$green-button-hover-bgcolor: #207C20 !default;
+$green-button-bgcolor: #5cb85c !default;
+$green-button-size: 14px !default;
+$green-button-border-radius: 2px !default;
+
+$red-button-color: #fff !default;
+$red-button-borderColor: #d43f3a !default;
+$red-button-active-bgcolor: #CC2020 !default;
+$red-button-hover-bgcolor: #BD3735 !default;
+$red-button-bgcolor: #d9534f !default;
+$red-button-size: 14px !default;
+$red-button-border-radius: 2px !default;
+
+$padding-vertical: 6px !default;
+$padding-horizontal: 12px !default;
+
+$fancy-active-button-transform: translateY(2px) !default;
+
+$fancy-default-button-boxShadow: 0 3px #767676 !default;
+$fancy-default-active-button-boxShadow: 0 2px #505050 !default;
+
+$fancy-blue-button-boxShadow: 0 3px #3E7A88 !default;
+$fancy-blue-active-button-boxShadow: 0 2px #235763 !default;
+
+$fancy-green-button-boxShadow: 0 3px #296129 !default;
+$fancy-green-active-button-boxShadow: 0 2px #398439 !default;
+
+$fancy-red-button-boxShadow: 0 3px #821C1A !default;
+$fancy-red-active-button-boxShadow: 0 2px #ac2925 !default;
+
+$button-large-padding-vertical: 8px !default;
+$button-large-padding-horizontal: 16px !default;
+$button-large-size: 17px !default;
+
+$button-small-padding-vertical: 4px !default;
+$button-small-padding-horizontal: 12px !default;
+$button-small-size: 11px !default;
+
+$alert-padding: 15px !default;
+$alert-margin-bottom: 20px !default;
+$alert-border: 1px solid transparent !default;
+$alert-border-radius: 4px !default;
+
+$alert-success-color: #dff0d8 !default;
+$alert-success-bgcolor: #5cb85c !default;
+$alert-success-borderColor: #d6e9c6 !default;
+
+$alert-info-color: #dff0d8 !default;
+$alert-info-bgcolor: #31b0d5 !default;
+$alert-info-borderColor: #d6e9c6 !default;
+
+$alert-warning-color: #dff0d8 !default;
+$alert-warning-bgcolor: #ec971f !default;
+$alert-warning-borderColor: #d6e9c6 !default;
+
+$alert-danger-color: #dff0d8 !default;
+$alert-danger-bgcolor: #c9302c !default;
+$alert-danger-borderColor: #d6e9c6 !default;
+
+$navbar-link-padding: 10px 15px !default;
+$navbar-link-hover-bg: lighten(#000, 93.5%) !default;
+$navbar-disabled-link-color: lighten(#000, 46.7%) !default;
+$navbar-disabled-link-hover-color: lighten(#000, 46.7%) !default;
+$navbar-active-link-active-color: #555 !default;
+$navbar-active-link-active-bg: #e7e7e7 !default;
+
+$breadcrumb-color: #ccc !default;
+$breadcrumb-bgcolor: #f5f5f5 !default;
+$breadcrumb-active-color: lighten(#000, 46.7%) !default;
+$breadcrumb-separator: "/" !default;
+
+$pagination-color: darken(#428bca, 6.5%) !default;
+$pagination-bg: #fff !default;
+$pagination-border: #ddd !default;
+$pagination-hover-color: #fff !default;
+$pagination-hover-bg: lighten(#000, 93.5%) !default;
+$pagination-hover-border: #ddd !default;
+$pagination-active-color: #fff !default;
+$pagination-active-bg: darken(#428bca, 6.5%) !default;
+$pagination-active-border: darken(#428bca, 6.5%) !default;
+$pagination-disabled-color: lighten(#000, 46.7%) !default;
+$pagination-disabled-bg: #fff !default;
+$pagination-disabled-border: #ddd !default;
+
+$grid-width: 30px !default;
+$grid-columns: 12 !default;
+
+$media-sm: 550px + $grid-width !default;
+$media-md: 720px + $grid-width !default;
+$media-lg: 1024px + $grid-width !default;
+
+$table-bg: transparent !default;
+$table-cell-padding: 8px !default;
+$table-strip-bg: #ececec !default;
+$table-bg-hover: #f0f0f0 !default;
+$tableBorder: rgba(200,200,200,0.5) !default;
+
+$small-menu-color: #fff !default;
+$small-menu-bgcolor: #777 !default;

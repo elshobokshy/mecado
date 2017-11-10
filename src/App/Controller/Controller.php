@@ -165,4 +165,9 @@ abstract class Controller
     {
         return $this->container->get($property);
     }
+
+    public function getUriForActive(Request $request){
+        return $request->getUri();
+    }
+
 }

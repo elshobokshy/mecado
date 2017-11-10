@@ -1,0 +1,57 @@
+{% import 'Macro/form.twig' as form %}
+{% extends 'layout.twig' %}
+
+{% block body %}
+    <div class="mecadoContainer">
+        <div class="mecadoTitle">
+            <h1>Add List</h1>
+            <p>Add a new list to your lists</p>
+        </div>
+
+        <div class="mecadoAddContainer">
+            <form action="{{ path_for('addlist') }}" method="post">
+                <div>
+                    <label>Name</label><br>
+                    <input class="mecadoInput" id="name" name="name" type="text" value="{{ val('name') }}">
+                </div>
+
+                <div class="mecadoAddList">
+                    <label>Description</label>
+                    {{ form.textarea_line('description','', '','', '', 5) }}
+                </div>
+                <div>
+                    <label>Recipient</label>
+                    <div>
+                        <input class="mecadoInput" type="radio" name="choice" id="choice" value="myself" checked>
+                        <label for="choice">Myself</label>
+                        <input class="mecadoInput" type="radio" name="choice" id="choice2" value="other">
+                        <label for="choice2">Other</label>
+                    </div>
+                    <div id="myself" class="recipient">
+                        <input class="mecadoInput" type="text" name="recipient" value="{{ user.first_name }}" disabled>
+                    </div>
+                </div>
+                <div id="other" class="mecadoAddList recipient" style="display: none;">
+                    <input class="mecadoInput" type="text" name="recipient" value="{{ user.first_name }}">
+                </div>
+                <div class="mecadoAddList">
+                    <label> Date of validity (yyyy-MM-dd): </label>
+                    <div>
+                        <input  class="mecadoInput" id="date" name="date" type="text" value="{{ val('date') }}">
+                    </div>
+                </div>
+                {{ csrf() }}
+                <input class="mecadoBtn" type="submit">
+                {% if has_errors() %}
+                    <div class="alert alert-warning">
+                        {% for paramErrors in errors() %}
+                            {% for error in paramErrors %}
+                                <p>{{ error }}</p>
+                            {% endfor %}
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </form>
+        </div>
+    </div>
+{% endblock %}

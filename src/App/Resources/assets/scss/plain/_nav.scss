@@ -1,0 +1,49 @@
+.show-menu {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    text-decoration: none;
+    color: $small-menu-color;
+    background: $small-menu-bgcolor;
+    text-align: center;
+    padding: 10px 0;
+    display: none;
+    float: left;
+    width: 50px;
+}
+    
+input[type=checkbox]{
+    display: none;
+}
+    
+@media only screen and (max-width: 850px) {
+    .show-menu {
+        display:block;
+    }
+
+    ul.navbar {
+        display: block;
+        height: 0;
+        list-style-type: none;
+        opacity: 0;
+        text-align: center;
+        transition: all 0.5s ease;
+        width: 100%;
+        visibility: hidden;
+        display: flex;
+        flex-direction: column; 
+
+        &.li {
+            border-bottom: 2px solid transparent;
+            display: block;
+            font-size: 1.5em;
+            padding: 2em 0;
+        }
+    }
+
+    #navbar-menu:checked ~ ul.navbar {
+        opacity: 1;
+        height: auto;
+        width: auto;
+        visibility: visible; 
+    }
+
+}
