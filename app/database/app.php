@@ -19,7 +19,8 @@ Manager::schema()->create('gift', function (Blueprint $table) {
     $table->increments('id');
     $table->unsignedInteger('giftlist_id');
     $table->string('name');
-    $table->string('kitty');
+    $table->boolean('kitty');
+    $table->float('contributions');
     $table->string('url')->nullable();
     $table->string('description')->nullable();
     $table->float('price');

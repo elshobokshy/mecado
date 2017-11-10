@@ -25,6 +25,10 @@ $app->map(['GET', 'POST'], '/list/{token}/newgift', 'gift.controller:newgift')
 
 
 $app->post('/book/{token}/{id}', 'gift.controller:book')->setName('book');
+$app->post('/participate/{token}/{id}', 'gift.controller:participate')->setName('participate');
+
+
+
 
 $app->post('/list/{token}/addcomment', 'list.controller:commentList')->setName('commentList');
 
