@@ -13,3 +13,4 @@ public/assets/js/*
 !public/assets/js/.gitkeep
 package-lock.json
 composer.lock
+.sass-cache/
