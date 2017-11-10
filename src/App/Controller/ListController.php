@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use Respect\Validation\Rules\Date;
 use Respect\Validation\Validator as V;
 use Dflydev\FigCookies\FigResponseCookies;
 use Dflydev\FigCookies\FigRequestCookies;
@@ -55,9 +56,10 @@ class ListController extends Controller
                     ]
                 ],
                 'date' => [
-                    'rules' => V::date('Y-m-d'),
+                    'rules' => V::date('Y-m-d')->between(new Date(), '2222-22-22'),
                     'messages' => [
-                        'Date' => 'Date : Please use the Y-m-d format. Ex: 2000-01-31'
+                        'Date' => 'Date : Please use the Y-m-d format. Ex: 2000-01-31',
+                        'between' => 'Date : The date have to be in the futur'
                     ]
                 ],
             ]);
@@ -113,9 +115,10 @@ class ListController extends Controller
                     ]
                 ],
                 'date' => [
-                    'rules' => V::date('Y-m-d'),
+                    'rules' => V::date('Y-m-d')->between(new Date(), '2222-22-22'),
                     'messages' => [
-                        'Date' => 'Date : Please use the Y-m-d format. Ex: 2000-01-31'
+                        'Date' => 'Date : Please use the Y-m-d format. Ex: 2000-01-31',
+                        'between' => 'Date : The date have to be in the futur'
                     ]
                 ],
             ]);
@@ -153,7 +156,7 @@ class ListController extends Controller
 
         $time = strtotime($list->date) - $currentDate;
 
-        if($time <= 0)
+        if ($time <= 0)
             return $this->view->render($response, 'App/listover.twig', $data);
         else
             return $this->view->render($response, 'App/list.twig', $data);
@@ -190,7 +193,6 @@ class ListController extends Controller
         ];
 
         if ($this->validator->isValid()) {
-
             $this->newComment($listId, $author, $content);
 
             $this->flash('success', 'Your comment has been created.');
