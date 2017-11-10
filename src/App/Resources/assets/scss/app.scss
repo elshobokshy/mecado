@@ -63,6 +63,9 @@ ul.mecadoNav li {
 ul.mecadoNav li a:hover {
   background-color : $navbar-active-link-active-bg;
 }
+ul.mecadoNav li a{
+  color: black;
+}
 
 .active {
   @extend .active;
