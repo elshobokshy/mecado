@@ -15,7 +15,7 @@ These instructions will get you a copy of the project up and running on your loc
 ```
 ### Installing and Running
 
-The only thing necessary in order to run the project is the following command
+The only thing necessary in order to run the project is the following command with super user permissions
 
 ```
 composer install
