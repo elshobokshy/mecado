@@ -1,0 +1,69 @@
+{% extends 'layout.twig' %}
+{% import 'Macro/form.twig' as form %}
+
+{% set url = base_url() ~ path_for( 'list', {'token': list.token }) %}
+
+{% block body %}
+    <div class="container">
+        <div class="row">
+            {% if has_errors() %}
+                <div class="alert alert-warning">
+                    {% for paramErrors in errors() %}
+                        {% for error in paramErrors %}
+                            <p>{{ error }}</p>
+                        {% endfor %}
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+        <div class="listContainer">
+            <div class="listHeader">
+                <div class="mecadoTitle">
+                    <h1>List {{ list.name }} for {{ list.recipient }}</h1>
+                </div>
+                <hr>
+
+                <h2>Description</h2>
+                <p>{{ list.description }}</p>
+
+                <hr>
+            </div>
+            <h1 class="align-center">Let's see the gifts</h1>
+            <div class="listContent">
+
+                {% for gift in list.gift %}
+                    {% if gift.booked %}
+                        <div class="gift">
+                            <div class="sm-8 md-9 lg-9">
+                                <h4>Gift name :</h4>
+                                <p>{{ gift.name }}</p>
+
+                                <h4>Description :</h4>
+                                <p>{{ gift.description }}</p>
+                            </div>
+                            <div class="giftImg sm-4 md-3 lg-3" >
+                                {% if gift.picture %}
+                                    <img  src="{{ asset('assets/img/gift_picture/') }}{{ gift.picture }}" >
+                                {% else %}
+                                    <img  src="{{ asset('assets/img/gift_picture/no-image.png') }}" >
+                                {% endif %}
+                            </div>
+                            <div class="sm-12">
+
+                                {% if cookie_name == 'notexists' %}
+                                    <h4>This gift is offered by :</h4>
+                                    {% for comment in gift.commentgift %}
+                                        <p>{{ comment.author }} : <i>"{{ comment.content }}"</i></p>
+                                    {% endfor %}
+                                {% endif %}
+
+                            </div>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+
+        </div>
+
+    </div>
+{% endblock %}
