@@ -46,10 +46,10 @@
 {% endmacro %}
 
 
- {% macro input_line(name, value, label, type, class_label, class, required) %}
+ {% macro input_line(name, value, label, type, class_label, class, required, att) %}
      <div class="{% if required %}required {% endif %} row {% if has_error(name) %} alert-danger{% endif %}">
          <label class=" {{ class_label }} " for="{{ name }}">{{ label }}</label>
-         <input type="{{ type|default('text') }}" name="{{ name }}" value="{{ value }}" id="{{ name }}"
+         <input {{ att }}  type="{{ type|default('text') }}" name="{{ name }}" value="{{ value }}" id="{{ name }}"
                 class="{{ class }} mecadoInputLine" {% if required %}required{% endif %}>
      </div>
      {% if has_error(name) %}
@@ -59,10 +59,10 @@
      {% endif %}
  {% endmacro %}
 
-{% macro textarea_line(name, value, label, class_label, class, rows, cols) %}
+{% macro textarea_line(name, value, label, class_label, class, rows, cols, att ) %}
     <div class="row {% if has_error(name) %} alert-danger{% endif %}">
         <label class="{{ class_label }}" for="{{ name }}">{{ label }}</label>
-        <textarea class="{{ class }} mecadoTextareaLine" name="{{ name }}" id="{{ name }}"
+        <textarea {{ att }} class="{{ class }} mecadoTextareaLine" name="{{ name }}" id="{{ name }}"
                   rows="{{ rows }}">{{ value }}</textarea>
     </div>
     {% if has_error(name) %}

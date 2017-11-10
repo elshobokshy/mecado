@@ -24,40 +24,42 @@ class GiftController extends Controller
                     ]
                 ],
                 'description' => [
-                    'rules' => V::length(1, 25)->alpha(),
+                    'rules' => V::alpha(),
                     'messages' => [
-                        'alpha' => 'Last name needs to contains alpha characters only.',
-                        'length' => 'Last name should be 1 to 25 characters long.'
+                        'alpha' => 'Last name needs to contains alpha characters only.'
                     ]
                 ],
-                'description' => [
-                    'rules' => V::length(1, 25)->alpha(),
+                'price' => [
+                    'rules' => V::positive(),
                     'messages' => [
-                        'alpha' => 'Last name needs to contains alpha characters only.',
-                        'length' => 'Last name should be 1 to 25 characters long.'
+                        'positive' => 'A price must be a positive number'
                     ]
                 ],
             ]);
 
-            if ($_FILES['picture']['error'] > 0) {
-                $this->flash('danger', 'Erreur lors du transfert');
-            }
 
             if ($this->validator->isValid()) {
                 $gift = new Gift($request->getParams());
-                $extension = strtolower(substr(strrchr($_FILES['picture']['name'], '.'), 1));
-                if (in_array($extension, ['jpg', 'jpeg', 'png', 'gif'])) {
-                    $nname = bin2hex(random_bytes(8)) . '.' . $extension;
-                    $name = "../assets/img/gift_picture/$nname"; //TODO URL in public
-                    move_uploaded_file($_FILES['picture']['tmp_name'], $name);
-                    $gift->picture = $nname;
-                } else {
-                    $this->flash('File is not valid. Please try again');
-                }
 
-                $gift->save();
-                $this->flash('success', 'The gift has been added.');
-                return $this->redirect($response, 'list', ['token' => $token]);
+                if ($_FILES['picture']['error'] === UPLOAD_ERR_OK) {
+                    if ($_FILES['picture']['error'] > 0) {
+                        $this->flash('danger', 'Erreur lors du transfert');
+                    }
+                    $extension = strtolower(substr(strrchr($_FILES['picture']['name'], '.'), 1));
+                    if (in_array($extension, ['jpg', 'jpeg', 'png', 'gif'])) {
+                        $nname = bin2hex(random_bytes(8)) . '.' . $extension;
+                        $name = "../assets/img/gift_picture/$nname"; //TODO URL in public
+                        move_uploaded_file($_FILES['picture']['tmp_name'], $name);
+                        $gift->picture = $nname;
+                        $_FILES['picture'] = null;
+                    } else {
+                        $this->flash('danger', 'File is not valid. Please try again');
+                    }
+
+                    $gift->save();
+                    $this->flash('success', 'The gift has been added.');
+                    return $this->redirect($response, 'list', ['token' => $token]);
+                }
             }
         }
         $data['token'] = $token;
