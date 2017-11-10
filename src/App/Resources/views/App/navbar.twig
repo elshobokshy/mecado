@@ -5,7 +5,7 @@
         <input type="checkbox" id="navbar-menu" role="button">
         <ul class="mecadoNav">
             <li id="mecadoLogo">
-                <img id="mecadoNavLogo" src="{{ asset('assets/img/Mecado.png') }}">
+                <img id="mecadoNavLogo" src="{{ asset('assets/img/Mecadov2.png') }}">
             </li>
             <li class="{% if (uri == base_url() ~ '/mylists') or (uri == base_url() ~ '/addlist') %}active{% endif %}"><a href="{{ path_for('mylists') }}">My Lists</a></li>
             <li class="{% if uri == base_url() ~ '/myaccount' %}active{% endif %}"><a href="{{ path_for('myaccount') }}">{{ auth.user.first_name ~ " " ~ auth.user.last_name}}</a></li>

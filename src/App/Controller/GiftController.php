@@ -36,6 +36,12 @@ class GiftController extends Controller
                         'positive' => 'A price must be positive '
                     ]
                 ],
+                'url' => [
+                    'rules' => V::length(0, 191),
+                    'messages' => [
+                        'length' => 'Sorry, your url is to long'
+                    ]
+                ],
             ]);
 
             if ($this->validator->isValid()) {

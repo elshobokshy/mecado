@@ -1,13 +1,8 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: quentin
- * Date: 11/7/17
- * Time: 8:44 AM
- */
 
 namespace App\Controller;
 
+use Respect\Validation\Rules\Date;
 use Respect\Validation\Validator as V;
 use Dflydev\FigCookies\FigResponseCookies;
 use Dflydev\FigCookies\FigRequestCookies;
@@ -32,73 +27,57 @@ class ListController extends Controller
             'current' => $currentDate,
             'uri' => $URI
         ];
-
         return $this->view->render($response, 'App/mylists.twig', $data);
     }
 
     public function addList(Request $request, Response $response)
     {
         if ($request->isPost()) {
-            $name = $request->getParam('name');
-            $description = $request->getParam('description');
-            $recipient = $request->getParam('recipient');
-            $date = $request->getParam('date');
-
-            $user_id = $this->auth->getUser()->id;
-            $token = bin2hex(random_bytes(32));
-
-            $expiry_date = new \DateTime($date);
-            $expiry = $expiry_date->modify('+2 day');
-
-            if ($recipient == $this->auth->getUser()->first_name) {
-                $response = FigResponseCookies::set($response, SetCookie::create($token)->withValue($recipient)->withExpires($expiry)->withPath('/'));
-            }
-
             $this->validator->request($request, [
                 'name' => [
-                    'rules' => V::notEmpty()->alnum('\' : !')->length(3, 25),
+                    'rules' => V::notEmpty()->length(3, 25),
                     'messages' => [
                         'notEmpty' => 'Name shouldn\'t be empty.',
-                        'alnum' => 'Name must not contain any special characters..',
                         'length' => 'Name should be 3 to 25 characters long.'
                     ]
                 ],
                 'description' => [
-                    'rules' => V::notEmpty()->alnum('\' : !')->length(5, 1000),
+                    'rules' => V::notEmpty()->length(5, 1000),
                     'messages' => [
                         'notEmpty' => 'Description shouldn\'t be empty.',
-                        'alnum' => 'Description must not contain any special characters.',
                         'length' => 'Description should be 5 to 1000 characters long.'
                     ]
                 ],
                 'recipient' => [
-                    'rules' => V::length(1, 25)->alpha()->notEmpty(),
+                    'rules' => V::length(1, 25)->notEmpty(),
                     'messages' => [
                         'notEmpty' => 'Recipient shouldn\'t be empty.',
-                        'alpha' => 'Recipient needs to contains alpha characters only.',
                         'length' => 'Recipient should be 1 to 25 characters long.'
                     ]
                 ],
                 'date' => [
-                    'rules' => V::Date('Y-m-d'),
+                    'rules' => V::date('Y-m-d')->between(new Date(), '2222-22-22'),
                     'messages' => [
-                        'Date' => 'Date : Please use the Y-m-d format. Ex: 2000-01-31'
+                        'Date' => 'Date : Please use the Y-m-d format. Ex: 2000-01-31',
+                        'between' => 'Date : The date have to be in the futur'
                     ]
                 ],
             ]);
 
             if ($this->validator->isValid()) {
-                $giftlist = new Giftlist();
+                $token = bin2hex(random_bytes(32));
+                $recipient = $request->getParam('recipient');
 
-                $giftlist->name = $name;
-                $giftlist->description = $description;
-                $giftlist->recipient = $recipient;
-                $giftlist->date = $date;
+                $expiry_date = new \DateTime($request->getParam('date'));
+
+                if ($recipient == $this->auth->getUser()->first_name) {
+                    $response = FigResponseCookies::set($response, SetCookie::create($token)->withValue($recipient)->withExpires($expiry_date->modify('+2 day'))->withPath('/'));
+                }
+
+                $giftlist = new Giftlist($request->getParams());
                 $giftlist->token = $token;
-                $giftlist->user_id = $user_id;
-                $giftlist->save();
-
-                $this->flash('success', 'Your list has been created successfully.');
+                $giftlist->user_id = $this->auth->getUser()->id;
+                $giftlist->save() ? $this->flash('success', 'Your list has been created successfully.') : '';
 
                 return $this->redirect($response, 'addlist');
             }
@@ -122,19 +101,24 @@ class ListController extends Controller
 
             $this->validator->request($request, [
                 'name' => [
-                    'rules' => V::notEmpty()->alnum('\' : !')->length(3, 25),
+                    'rules' => V::notEmpty()->length(3, 25),
                     'messages' => [
                         'notEmpty' => 'Name shouldn\'t be empty.',
-                        'alnum' => 'Name must not contain any special characters..',
                         'length' => 'Name should be 3 to 25 characters long.'
                     ]
                 ],
                 'description' => [
-                    'rules' => V::notEmpty()->alnum('\' : !')->length(5, 1000),
+                    'rules' => V::notEmpty()->length(5, 1000),
                     'messages' => [
                         'notEmpty' => 'Description shouldn\'t be empty.',
-                        'alnum' => 'Description must not contain any special characters.',
                         'length' => 'Description should be 5 to 1000 characters long.'
+                    ]
+                ],
+                'date' => [
+                    'rules' => V::date('Y-m-d')->between(new Date(), '2222-22-22'),
+                    'messages' => [
+                        'Date' => 'Date : Please use the Y-m-d format. Ex: 2000-01-31',
+                        'between' => 'Date : The date have to be in the futur'
                     ]
                 ],
             ]);
@@ -172,7 +156,7 @@ class ListController extends Controller
 
         $time = strtotime($list->date) - $currentDate;
 
-        if($time <= 0)
+        if ($time <= 0)
             return $this->view->render($response, 'App/listover.twig', $data);
         else
             return $this->view->render($response, 'App/list.twig', $data);
@@ -209,11 +193,10 @@ class ListController extends Controller
         ];
 
         if ($this->validator->isValid()) {
-
             $this->newComment($listId, $author, $content);
 
             $this->flash('success', 'Your comment has been created.');
-            return $this->redirect($response,'list',$data);
+            return $this->redirect($response, 'list', $data);
         }
 
 
