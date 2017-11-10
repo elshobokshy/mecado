@@ -18,6 +18,7 @@ class Gift extends Model
         'description',
         'price',
         'picture',
+        'kitty',
         'booked'
     ];
 
