@@ -158,6 +158,34 @@ div.mecadoNav{
   bottom: 0; left: 0; right: 0;
 }
 
+div.listContainer{
+
+  width : 90%;
+  margin: auto;
+}
+
+div.listHeader {
+
+}
+
+div.listContent{
+  width: 90%;
+  margin: auto  ;
+}
+
+div.gift{
+  border:1px solid black;
+}
+
+div.giftImg{
+  border: 1px solid black;
+  margin-top: 2%;
+}
+
+#sharelink{
+  word-wrap: break-word;
+}
+
 div.mecadoList{
   display : flex;
   flex-direction: row;
@@ -246,7 +274,6 @@ div.mecadoAddList{
 
 
 
-
 @media only screen and (max-width: 850px){
 
   ul.mecadoNav li {
@@ -257,5 +284,18 @@ div.mecadoAddList{
 
   ul.mecadoNav > #mecadoLogo{
     margin-right : 0;
+  }
+
+}
+
+@media only screen and (max-width: $media-sm){
+  div.giftImg {
+    margin-top: 20%;
+  }
+}
+
+@media only screen and (min-width: $media-md){
+  div.giftImg {
+    margin-top: 5%;
   }
 }
