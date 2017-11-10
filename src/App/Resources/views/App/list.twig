@@ -52,6 +52,10 @@
 
         <div class="row">
 
+            {% if list.gift == '[]' %}
+                No gifts created yet! Please <a href="{{ path_for('newgift', {'token': list.token }) }}">add new gift</a>.
+            {% endif %}
+
             {% for gift in list.gift %}
                 <hr>
                 <img src="{{ gift.picture }}">
@@ -105,8 +109,8 @@
 
                 <button href="#">delete</button>
                 <button href="#">modify</button>
+                <hr>
             {% endfor %}
-            <hr>
 
         </div>
 
